@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { fetchFixtures, PLACEHOLDER_PNG, type FixtureInfo, type ScanInput } from '../api'
 import { useT } from '../ctx'
 import { analyzeFrame, type FrameQuality } from '../quality'
+import { downscale, JPEG_QUALITY, MAX_SIDE } from '../image'
 import { Sheet } from './Sheet'
 
 interface Shot { blob: Blob; url: string }
@@ -46,11 +47,11 @@ export function Scan({ onAnalyze, busy }: { onAnalyze: (i: Omit<ScanInput, 'lang
   const capture = useCallback(() => {
     const v = video.current
     if (!v || !v.videoWidth) return
-    const scale = Math.min(1, 1600 / Math.max(v.videoWidth, v.videoHeight))
+    const scale = Math.min(1, MAX_SIDE / Math.max(v.videoWidth, v.videoHeight))
     const c = document.createElement('canvas')
     c.width = Math.round(v.videoWidth * scale); c.height = Math.round(v.videoHeight * scale)
     c.getContext('2d')?.drawImage(v, 0, 0, c.width, c.height)
-    c.toBlob((b) => { if (b) { addBlob(b); navigator.vibrate?.(30) } }, 'image/jpeg', 0.85)
+    c.toBlob((b) => { if (b) { addBlob(b); navigator.vibrate?.(30) } }, 'image/jpeg', JPEG_QUALITY)
   }, [addBlob])
 
   // camera lifecycle
@@ -160,7 +161,7 @@ export function Scan({ onAnalyze, busy }: { onAnalyze: (i: Omit<ScanInput, 'lang
         <label className="btn secondary file-btn">
           {t('scan.upload')}
           <input type="file" accept="image/*" capture="environment" multiple className="visually-hidden"
-            onChange={(e) => { Array.from(e.target.files ?? []).forEach((f) => addBlob(f)); e.target.value = '' }} />
+            onChange={(e) => { Array.from(e.target.files ?? []).forEach((f) => { void downscale(f).then(addBlob) }); e.target.value = '' }} />
         </label>
         <button type="button" className="btn secondary" onClick={openDemo}>{t('scan.demo')}</button>
       </div>

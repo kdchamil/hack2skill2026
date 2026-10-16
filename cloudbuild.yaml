@@ -50,7 +50,10 @@ steps:
       - '--set-env-vars=GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=global,FIVESEC_MOCK=0'
       - '--memory=1Gi'
       - '--cpu=1'
-      - '--min-instances=0'
+      # Warm instance: removes cold-start from the first scan. COST: ~always-on 1 vCPU/1 GiB (a few USD/month at idle
+      # with CPU throttling; revert to 0 after the demo).
+      - '--min-instances=1'
+      - '--cpu-boost'
       - '--max-instances=5'
       - '--concurrency=20'
       - '--timeout=60'

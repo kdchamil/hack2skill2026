@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import Any
 
 from app.ai import client
 from app.config import get_settings
 from app.models import Extraction
 
+FAST_TIMEOUT_S = 15.0
 DEFAULT_FIXTURE = "kokis_sesame_si_en"
 
 SYSTEM_PROMPT = """You are a label-reading component. You receive 1-4 photos of one product pack.
@@ -68,7 +70,16 @@ async def extract_label(
 
     parts: list[Any] = [types.Part.from_bytes(data=b, mime_type=ct) for ct, b in images]
     parts.append(types.Part.from_text(text="Extract the label as JSON."))
-    text = await client.call_model(
-        model=s.flash_model, system=SYSTEM_PROMPT, parts=parts, schema=Extraction.model_json_schema()
-    )
-    return parse_extraction(text, barcode), 1
+    async def read(model: str) -> Extraction:
+        text = await client.call_model(
+            model=model, system=SYSTEM_PROMPT, parts=parts, schema=Extraction.model_json_schema(),
+            media=True, max_output_tokens=6000,
+        )
+        return parse_extraction(text, barcode)
+
+    try:  # fast model first; a slow or failing call falls back to the larger Flash model
+        return await asyncio.wait_for(read(s.flash_model), FAST_TIMEOUT_S), 1
+    except Exception:  # noqa: BLE001
+        if s.fallback_model == s.flash_model:
+            raise
+        return await read(s.fallback_model), 2

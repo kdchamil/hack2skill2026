@@ -1,5 +1,9 @@
 """Environment settings. Read at call time so tests can monkeypatch env.
 
+Latency (2026-10-17, global endpoint; asia-southeast1 has no Gemini 3.x): gemini-3.5-flash-lite with thinking_budget=0
+gave ~3.3 s extract / ~2.4 s commentary with identical findings; gemini-3.8-flash took 10-150 s on the same call, so it is
+only the fallback model.
+
 Model IDs verified 2026-10-17 against Google Cloud docs:
 - Vertex "Model versions" page: gemini-3.8-flash (rel. 2026-09-02) and gemini-3.5-flash are in the
   >=12-month availability table; gemini-2.5-pro retires 2026-10-20 so it is NOT used as default.
@@ -22,6 +26,8 @@ class Settings:
     project: str | None
     location: str
     flash_model: str
+    commentary_model: str
+    fallback_model: str
     pro_model: str
     tts_model: str
     mock: bool
@@ -38,7 +44,9 @@ def get_settings() -> Settings:
     return Settings(
         project=project,
         location=os.getenv("GOOGLE_CLOUD_LOCATION", "global"),
-        flash_model=os.getenv("GEMINI_FLASH_MODEL", "gemini-3.8-flash"),
+        flash_model=os.getenv("GEMINI_FLASH_MODEL", "gemini-3.5-flash-lite"),
+        commentary_model=os.getenv("GEMINI_COMMENTARY_MODEL") or os.getenv("GEMINI_FLASH_MODEL", "gemini-3.5-flash-lite"),
+        fallback_model=os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash"),
         pro_model=os.getenv("GEMINI_PRO_MODEL", "gemini-3.1-pro"),
         tts_model=os.getenv("TTS_MODEL", "gemini-2.5-flash-tts"),
         mock=mock,

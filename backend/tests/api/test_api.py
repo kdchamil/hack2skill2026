@@ -206,7 +206,7 @@ def test_fixture_in_live_mode_skips_extract(client, monkeypatch):
     monkeypatch.setenv("FIVESEC_MOCK", "0")
     systems = []
 
-    async def fake_call(*, model, system, parts, schema):
+    async def fake_call(*, model, system, parts, schema, **_kw):
         systems.append(system)
         return '{"summary":"A short summary.","cards":[],"resolved":[]}'
 
