@@ -1,0 +1,52 @@
+# Build the Five Seconds image, push it to Artifact Registry, deploy to Cloud Run.
+# Submitted by scripts/deploy.sh (which passes _SHORT_SHA and _REGION).
+#
+# Note: SHORT_SHA is only auto-populated for trigger builds, so we use the
+# user substitution _SHORT_SHA instead (default "manual" for manual submits).
+
+substitutions:
+  _REGION: asia-southeast1
+  _SHORT_SHA: manual
+  _SERVICE: fiveseconds
+  _REPO: fiveseconds
+  _RUN_SA_NAME: fiveseconds-run
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+images:
+  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/app:${_SHORT_SHA}'
+  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/app:latest'
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/app:${_SHORT_SHA}'
+      - -t
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/app:latest'
+      - .
+
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - '${_SERVICE}'
+      - '--image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/app:${_SHORT_SHA}'
+      - '--project=${PROJECT_ID}'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+      - '--service-account=${_RUN_SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--allow-unauthenticated'
+      - '--set-env-vars=GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=global,FIVESEC_MOCK=0'
+      - '--memory=1Gi'
+      - '--cpu=1'
+      - '--min-instances=0'
+      - '--max-instances=5'
+      - '--concurrency=20'
+      - '--timeout=60'
+      - '--port=8080'

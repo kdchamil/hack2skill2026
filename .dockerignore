@@ -1,0 +1,45 @@
+# VCS and editor noise
+.git
+.gitignore
+.DS_Store
+**/.DS_Store
+
+# Docs and specs are not needed at runtime
+docs
+Requirement
+README.md
+**/README.md
+**/*.md
+# backend/pyproject.toml references this file (uv builds metadata from it)
+!backend/README.md
+
+# Dependencies and virtualenvs (rebuilt inside the image)
+**/node_modules
+**/.venv
+**/venv
+
+# Python caches and test artifacts
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.coverage
+**/htmlcov
+**/.mypy_cache
+**/.ruff_cache
+backend/tests
+
+# Web build output and test reports (built fresh in stage 1)
+web/dist
+web/test-results
+web/playwright-report
+
+# Local secrets and env files
+.env
+.env.*
+!.env.example
+
+# Deploy tooling is not needed in the image
+cloudbuild.yaml
+scripts
+Dockerfile
+.dockerignore
