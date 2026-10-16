@@ -1,0 +1,115 @@
+{
+ "_note": "Prototype registry of certification bodies; not a live check.",
+ "registry": {
+  "halal": [
+   {
+    "name": "HAC Sri Lanka",
+    "aliases": [
+     "HAC",
+     "Halal Accreditation Council",
+     "Halal Accreditation Council of Sri Lanka",
+     "HAC (Sri Lanka)"
+    ],
+    "country": "LK"
+   },
+   {
+    "name": "JAKIM",
+    "aliases": [
+     "Jabatan Kemajuan Islam Malaysia",
+     "JAKIM Malaysia"
+    ],
+    "country": "MY"
+   },
+   {
+    "name": "MUIS",
+    "aliases": [
+     "Majlis Ugama Islam Singapura",
+     "MUIS Singapore"
+    ],
+    "country": "SG"
+   },
+   {
+    "name": "BPJPH",
+    "aliases": [
+     "MUI",
+     "BPJPH Indonesia",
+     "Majelis Ulama Indonesia",
+     "LPPOM MUI"
+    ],
+    "country": "ID"
+   },
+   {
+    "name": "IFANCA",
+    "aliases": [
+     "Islamic Food and Nutrition Council of America"
+    ],
+    "country": "US"
+   },
+   {
+    "name": "HFA",
+    "aliases": [
+     "Halal Food Authority",
+     "HFA UK"
+    ],
+    "country": "GB"
+   },
+   {
+    "name": "MUI Halal",
+    "aliases": [],
+    "country": "ID"
+   },
+   {
+    "name": "JAKIM/MUIS mutual recognition",
+    "aliases": [],
+    "country": "MY"
+   }
+  ],
+  "kosher": [
+   {
+    "name": "OU",
+    "aliases": [
+     "Orthodox Union",
+     "OU Kosher"
+    ],
+    "country": "US"
+   },
+   {
+    "name": "OK",
+    "aliases": [
+     "OK Kosher",
+     "OK Kosher Certification"
+    ],
+    "country": "US"
+   },
+   {
+    "name": "Star-K",
+    "aliases": [
+     "Star K",
+     "StarK"
+    ],
+    "country": "US"
+   },
+   {
+    "name": "KLBD",
+    "aliases": [
+     "London Beth Din",
+     "Kosher London Beth Din"
+    ],
+    "country": "GB"
+   },
+   {
+    "name": "Kosher Australia",
+    "aliases": [],
+    "country": "AU"
+   },
+   {
+    "name": "Badatz",
+    "aliases": [
+     "Badatz Eida Haredit",
+     "Eidah HaChareidis"
+    ],
+    "country": "IL"
+   }
+  ]
+ }
+}

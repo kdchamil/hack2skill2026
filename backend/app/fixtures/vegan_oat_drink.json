@@ -1,0 +1,125 @@
+{
+ "_title": "Vegan oat drink (vegan + no added sugar claims)",
+ "name": {
+  "value": "Oat Drink Original",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Oatly Bay",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "beverage",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": "Water, Oats (10%), Sunflower Oil, Calcium Carbonate (E170), Acidity Regulator (E340), Salt, Vitamins (D2, B12)",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "Water",
+   "Oats (10%)",
+   "Sunflower Oil",
+   "Calcium Carbonate (E170)",
+   "Acidity Regulator (E340)",
+   "Salt",
+   "Vitamins (D2, B12)"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 46,
+    "per_serving": null,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 3.5,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 0.2,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 40,
+    "per_serving": null,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 1,
+    "per_serving": null,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 250.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [
+   "Vegan",
+   "No added sugar"
+  ],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "BEST BEFORE END 08/2027",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": "Oatly Bay AB",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Sweden",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [
+   "vegan:V-Label"
+  ],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "C/PAP 81"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [],
+ "retake_tip": null
+}

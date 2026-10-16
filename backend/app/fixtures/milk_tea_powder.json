@@ -1,0 +1,120 @@
+{
+ "_title": "Instant milk tea powder (milk, E471, E330, high sugar)",
+ "name": {
+  "value": "Instant Milk Tea 3-in-1",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Ceylon Cup",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": "Sugar, Skimmed Milk Powder, Tea Extract, Non-dairy Creamer, Emulsifier (E471), Acidity Regulator (E330), Natural Flavour",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "Sugar",
+   "Skimmed Milk Powder",
+   "Tea Extract",
+   "Non-dairy Creamer",
+   "Emulsifier (E471)",
+   "Acidity Regulator (E330)",
+   "Natural Flavour"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "Contains: Milk",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 430,
+    "per_serving": 108,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 40,
+    "per_serving": 10,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 6,
+    "per_serving": 1.5,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 260,
+    "per_serving": 65,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 4,
+    "per_serving": 1,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 25.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "BB 2027-05-30",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": "Ceylon Cup Beverages, Kandy",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Sri Lanka",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "PET 1"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [],
+ "retake_tip": null
+}

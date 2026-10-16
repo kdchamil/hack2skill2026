@@ -1,0 +1,129 @@
+{
+ "_title": "Sugar-free biscuit (claim vs ingredients)",
+ "name": {
+  "value": "Digestive Biscuits Sugar Free",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Wellbite",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": "Wheat Flour, Maltitol (E965), Palm Oil, Dextrose, Emulsifier (Soy Lecithin), Raising Agents (E500, E503), Sweetener (Sucralose E955), Salt",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "Wheat Flour",
+   "Maltitol (E965)",
+   "Palm Oil",
+   "Dextrose",
+   "Emulsifier (Soy Lecithin)",
+   "Raising Agents (E500, E503)",
+   "Sweetener (Sucralose E955)",
+   "Salt"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "Contains: Wheat, Soy",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 430,
+    "per_serving": null,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 1.8,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 6.5,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 380,
+    "per_serving": null,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 7,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fibre",
+    "per_100g": 5,
+    "per_serving": null,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 25.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [
+   "Sugar free"
+  ],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "BEST BEFORE 01/2027",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": "Wellbite Foods, Singapore",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Singapore",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "PAP 22"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [],
+ "retake_tip": null
+}

@@ -1,0 +1,1082 @@
+{
+ "_note": "Short additive reference for the prototype; not exhaustive.",
+ "additives": {
+  "E100": {
+   "name": "Curcumin",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Yellow colour from turmeric.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "curcumin",
+    "turmeric extract colour"
+   ]
+  },
+  "E101": {
+   "name": "Riboflavin",
+   "function": "colour / vitamin B2",
+   "status": "permitted in Codex GSFA",
+   "context": "Vitamin B2, also used as a yellow colour.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "riboflavin"
+   ]
+  },
+  "E102": {
+   "name": "Tartrazine",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic yellow azo dye; debated online for possible behavioural effects in some children, regulators permit it within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "tartrazine"
+   ]
+  },
+  "E104": {
+   "name": "Quinoline yellow",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic yellow dye; debated online, permitted within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "quinoline yellow"
+   ]
+  },
+  "E110": {
+   "name": "Sunset yellow FCF",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic orange azo dye; debated online for possible behavioural effects in some children.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sunset yellow",
+    "sunset yellow fcf"
+   ]
+  },
+  "E120": {
+   "name": "Carmine (cochineal)",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Red colour made from insects, so not vegan or vegetarian.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "carmine",
+    "cochineal",
+    "carminic acid"
+   ]
+  },
+  "E122": {
+   "name": "Azorubine",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic red azo dye; debated online.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "azorubine",
+    "carmoisine"
+   ]
+  },
+  "E124": {
+   "name": "Ponceau 4R",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic red azo dye; debated online.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "ponceau 4r"
+   ]
+  },
+  "E129": {
+   "name": "Allura red AC",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; some regions require a warning label",
+   "context": "Synthetic red azo dye; debated online for possible behavioural effects in some children.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "allura red",
+    "allura red ac"
+   ]
+  },
+  "E133": {
+   "name": "Brilliant blue FCF",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Synthetic blue colour.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "brilliant blue",
+    "brilliant blue fcf"
+   ]
+  },
+  "E141": {
+   "name": "Chlorophyllin copper complex",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Green colour derived from chlorophyll.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "chlorophyllin"
+   ]
+  },
+  "E150a": {
+   "name": "Plain caramel",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Brown colour made by heating sugars.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "plain caramel",
+    "caramel colour",
+    "caramel color",
+    "caramel"
+   ]
+  },
+  "E150c": {
+   "name": "Ammonia caramel",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Brown colour made with ammonia processing.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "ammonia caramel"
+   ]
+  },
+  "E150d": {
+   "name": "Sulphite ammonia caramel",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Brown colour used in colas and sauces.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sulphite ammonia caramel"
+   ]
+  },
+  "E160a": {
+   "name": "Beta-carotene",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Orange colour, also a vitamin A precursor.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "beta-carotene",
+    "beta carotene"
+   ]
+  },
+  "E160b": {
+   "name": "Annatto",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Orange-yellow colour from annatto seeds.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "annatto",
+    "bixin"
+   ]
+  },
+  "E162": {
+   "name": "Beetroot red",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Red colour from beetroot.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "beetroot red",
+    "betanin"
+   ]
+  },
+  "E163": {
+   "name": "Anthocyanins",
+   "function": "colour",
+   "status": "permitted in Codex GSFA",
+   "context": "Red-purple colours from fruit and vegetables.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "anthocyanin",
+    "anthocyanins"
+   ]
+  },
+  "E170": {
+   "name": "Calcium carbonate",
+   "function": "colour / mineral",
+   "status": "permitted in Codex GSFA",
+   "context": "Chalk-like mineral used as a colour or calcium source.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "calcium carbonate"
+   ]
+  },
+  "E171": {
+   "name": "Titanium dioxide",
+   "function": "colour",
+   "status": "permitted in Codex GSFA; not authorised in the EU since 2022",
+   "context": "White colour; no longer authorised as a food additive in the EU.",
+   "risk": "restricted",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "titanium dioxide"
+   ]
+  },
+  "E200": {
+   "name": "Sorbic acid",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Preservative against moulds and yeasts.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sorbic acid"
+   ]
+  },
+  "E202": {
+   "name": "Potassium sorbate",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Preservative against moulds and yeasts.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "potassium sorbate"
+   ]
+  },
+  "E211": {
+   "name": "Sodium benzoate",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Preservative; debated online when combined with vitamin C in drinks, permitted within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sodium benzoate"
+   ]
+  },
+  "E220": {
+   "name": "Sulphur dioxide",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Preservative; sulphites may affect some people with asthma or sulphite sensitivity.",
+   "risk": "allergen",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sulphur dioxide",
+    "sulfur dioxide"
+   ]
+  },
+  "E223": {
+   "name": "Sodium metabisulphite",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Sulphite preservative; may affect some people with sulphite sensitivity.",
+   "risk": "allergen",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sodium metabisulphite",
+    "sodium metabisulfite"
+   ]
+  },
+  "E250": {
+   "name": "Sodium nitrite",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Curing agent in processed meats; debated online, permitted within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sodium nitrite"
+   ]
+  },
+  "E260": {
+   "name": "Acetic acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "The acid in vinegar.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "acetic acid"
+   ]
+  },
+  "E270": {
+   "name": "Lactic acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Acid made by fermentation; not necessarily from milk.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "lactic acid"
+   ]
+  },
+  "E282": {
+   "name": "Calcium propionate",
+   "function": "preservative",
+   "status": "permitted in Codex GSFA",
+   "context": "Preservative common in bread.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "calcium propionate"
+   ]
+  },
+  "E296": {
+   "name": "Malic acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Fruit acid giving a sour taste.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "malic acid"
+   ]
+  },
+  "E300": {
+   "name": "Ascorbic acid",
+   "function": "antioxidant",
+   "status": "permitted in Codex GSFA",
+   "context": "Vitamin C.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "ascorbic acid",
+    "vitamin c"
+   ]
+  },
+  "E306": {
+   "name": "Tocopherols",
+   "function": "antioxidant",
+   "status": "permitted in Codex GSFA",
+   "context": "Vitamin E forms used to slow fat spoilage.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "tocopherol",
+    "tocopherols",
+    "vitamin e"
+   ]
+  },
+  "E320": {
+   "name": "Butylated hydroxyanisole (BHA)",
+   "function": "antioxidant",
+   "status": "permitted in Codex GSFA",
+   "context": "Synthetic antioxidant in fats; debated online, permitted within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "bha",
+    "butylated hydroxyanisole"
+   ]
+  },
+  "E321": {
+   "name": "Butylated hydroxytoluene (BHT)",
+   "function": "antioxidant",
+   "status": "permitted in Codex GSFA",
+   "context": "Synthetic antioxidant in fats; debated online, permitted within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "bht",
+    "butylated hydroxytoluene"
+   ]
+  },
+  "E322": {
+   "name": "Lecithins",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Emulsifier usually from soy or sunflower; check the source if you avoid soy.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "lecithin",
+    "lecithins",
+    "soy lecithin",
+    "soya lecithin",
+    "sunflower lecithin"
+   ]
+  },
+  "E330": {
+   "name": "Citric acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Fruit acid giving a sour taste.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "citric acid"
+   ]
+  },
+  "E331": {
+   "name": "Sodium citrates",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Citrate salts used to control acidity.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "sodium citrate",
+    "sodium citrates"
+   ]
+  },
+  "E334": {
+   "name": "Tartaric acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Fruit acid found in grapes.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "tartaric acid"
+   ]
+  },
+  "E338": {
+   "name": "Phosphoric acid",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Acid used in colas.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "phosphoric acid"
+   ]
+  },
+  "E339": {
+   "name": "Sodium phosphates",
+   "function": "acidity regulator / raising agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Phosphate salts; people on phosphate-restricted diets may want to check with a professional.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sodium phosphate",
+    "sodium phosphates"
+   ]
+  },
+  "E340": {
+   "name": "Potassium phosphates",
+   "function": "acidity regulator",
+   "status": "permitted in Codex GSFA",
+   "context": "Phosphate salts used to control acidity.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "potassium phosphate",
+    "potassium phosphates"
+   ]
+  },
+  "E406": {
+   "name": "Agar",
+   "function": "gelling agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Seaweed-based gelling agent.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "agar",
+    "agar-agar"
+   ]
+  },
+  "E407": {
+   "name": "Carrageenan",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Seaweed-based thickener; debated online, permitted within limits.",
+   "risk": "debated",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "carrageenan"
+   ]
+  },
+  "E410": {
+   "name": "Locust bean gum",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Thickener from carob seeds.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "locust bean gum",
+    "carob gum"
+   ]
+  },
+  "E412": {
+   "name": "Guar gum",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Thickener from guar beans.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "guar gum"
+   ]
+  },
+  "E414": {
+   "name": "Gum arabic",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Tree resin used as a thickener.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "gum arabic",
+    "acacia gum"
+   ]
+  },
+  "E415": {
+   "name": "Xanthan gum",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Fermentation-derived thickener.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "xanthan gum",
+    "xanthan"
+   ]
+  },
+  "E418": {
+   "name": "Gellan gum",
+   "function": "gelling agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Fermentation-derived gelling agent.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "gellan gum",
+    "gellan"
+   ]
+  },
+  "E420": {
+   "name": "Sorbitol",
+   "function": "sweetener (polyol)",
+   "status": "permitted in Codex GSFA",
+   "context": "Sugar alcohol; a sweetener, not a sugar; large amounts may have a laxative effect.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sorbitol"
+   ]
+  },
+  "E421": {
+   "name": "Mannitol",
+   "function": "sweetener (polyol)",
+   "status": "permitted in Codex GSFA",
+   "context": "Sugar alcohol; large amounts may have a laxative effect.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "mannitol"
+   ]
+  },
+  "E422": {
+   "name": "Glycerol",
+   "function": "humectant",
+   "status": "permitted in Codex GSFA",
+   "context": "Moisture-retaining agent.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "glycerol",
+    "glycerine",
+    "glycerin"
+   ]
+  },
+  "E433": {
+   "name": "Polysorbate 80",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Synthetic emulsifier.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "polysorbate 80"
+   ]
+  },
+  "E440": {
+   "name": "Pectin",
+   "function": "gelling agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Fruit-derived gelling agent used in jams.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "pectin"
+   ]
+  },
+  "E450": {
+   "name": "Diphosphates",
+   "function": "raising agent / emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Phosphate salts used in baking powders.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "diphosphate",
+    "diphosphates"
+   ]
+  },
+  "E460": {
+   "name": "Cellulose",
+   "function": "bulking agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Plant fibre used as a bulking agent.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "microcrystalline cellulose",
+    "powdered cellulose",
+    "cellulose"
+   ]
+  },
+  "E466": {
+   "name": "Carboxymethylcellulose",
+   "function": "thickener",
+   "status": "permitted in Codex GSFA",
+   "context": "Modified cellulose thickener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "carboxymethylcellulose",
+    "cellulose gum",
+    "cmc"
+   ]
+  },
+  "E471": {
+   "name": "Mono- and diglycerides of fatty acids",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Emulsifier that may come from plant or animal fats; source not stated on the label.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "mono and diglycerides",
+    "mono- and diglycerides",
+    "monoglycerides",
+    "mono-diglycerides"
+   ]
+  },
+  "E472e": {
+   "name": "DATEM",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Emulsifier used in bread dough.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "datem"
+   ]
+  },
+  "E481": {
+   "name": "Sodium stearoyl-2-lactylate",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Emulsifier used in baked goods.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sodium stearoyl lactylate"
+   ]
+  },
+  "E491": {
+   "name": "Sorbitan monostearate",
+   "function": "emulsifier",
+   "status": "permitted in Codex GSFA",
+   "context": "Synthetic emulsifier.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sorbitan monostearate"
+   ]
+  },
+  "E500": {
+   "name": "Sodium carbonates",
+   "function": "raising agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Includes baking soda.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": false,
+   "names": [
+    "sodium bicarbonate",
+    "baking soda",
+    "sodium carbonate",
+    "bicarbonate of soda"
+   ]
+  },
+  "E501": {
+   "name": "Potassium carbonates",
+   "function": "raising agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Acidity regulator and raising agent.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": false,
+   "names": [
+    "potassium carbonate"
+   ]
+  },
+  "E503": {
+   "name": "Ammonium carbonates",
+   "function": "raising agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Raising agent for biscuits.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": false,
+   "names": [
+    "ammonium carbonate",
+    "ammonium bicarbonate"
+   ]
+  },
+  "E551": {
+   "name": "Silicon dioxide",
+   "function": "anticaking agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Keeps powders free-flowing.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "silicon dioxide",
+    "silica"
+   ]
+  },
+  "E621": {
+   "name": "Monosodium glutamate (MSG)",
+   "function": "flavour enhancer",
+   "status": "permitted in Codex GSFA",
+   "context": "Flavour enhancer; debated online, regulators permit it within limits.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "monosodium glutamate",
+    "msg",
+    "sodium glutamate"
+   ]
+  },
+  "E627": {
+   "name": "Disodium guanylate",
+   "function": "flavour enhancer",
+   "status": "permitted in Codex GSFA",
+   "context": "Flavour enhancer usually used with MSG.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "disodium guanylate"
+   ]
+  },
+  "E631": {
+   "name": "Disodium inosinate",
+   "function": "flavour enhancer",
+   "status": "permitted in Codex GSFA",
+   "context": "Flavour enhancer that may come from meat or fish; source not stated on the label.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "disodium inosinate"
+   ]
+  },
+  "E635": {
+   "name": "Disodium 5'-ribonucleotides",
+   "function": "flavour enhancer",
+   "status": "permitted in Codex GSFA",
+   "context": "Flavour enhancer usually used with MSG.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "disodium ribonucleotides"
+   ]
+  },
+  "E901": {
+   "name": "Beeswax",
+   "function": "glazing agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Bee product, so not vegan.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "beeswax"
+   ]
+  },
+  "E903": {
+   "name": "Carnauba wax",
+   "function": "glazing agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Palm-leaf wax used as a glaze.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": false,
+   "names": [
+    "carnauba wax"
+   ]
+  },
+  "E904": {
+   "name": "Shellac",
+   "function": "glazing agent",
+   "status": "permitted in Codex GSFA",
+   "context": "Insect-derived glaze, so not vegan.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "shellac",
+    "confectioner's glaze"
+   ]
+  },
+  "E950": {
+   "name": "Acesulfame potassium",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA",
+   "context": "Intense artificial sweetener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "acesulfame k",
+    "acesulfame potassium",
+    "acesulfame"
+   ]
+  },
+  "E951": {
+   "name": "Aspartame",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA; contains a source of phenylalanine",
+   "context": "Artificial sweetener; debated online, regulators permit it within limits. People with phenylketonuria need to avoid it.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "aspartame"
+   ]
+  },
+  "E952": {
+   "name": "Cyclamates",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA; not permitted in some countries",
+   "context": "Artificial sweetener not permitted in some countries.",
+   "risk": "debated",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "cyclamate",
+    "cyclamates"
+   ]
+  },
+  "E954": {
+   "name": "Saccharin",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA",
+   "context": "Intense artificial sweetener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "saccharin"
+   ]
+  },
+  "E955": {
+   "name": "Sucralose",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA",
+   "context": "Intense artificial sweetener made from sugar.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "sucralose"
+   ]
+  },
+  "E960": {
+   "name": "Steviol glycosides",
+   "function": "sweetener",
+   "status": "permitted in Codex GSFA",
+   "context": "Sweetener extracted from stevia leaves.",
+   "risk": "no_known_concern",
+   "synthetic": false,
+   "marker": true,
+   "names": [
+    "steviol glycosides",
+    "stevia"
+   ]
+  },
+  "E965": {
+   "name": "Maltitol",
+   "function": "sweetener (polyol)",
+   "status": "permitted in Codex GSFA",
+   "context": "Sugar alcohol; a sweetener, not a sugar; large amounts may have a laxative effect.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "maltitol",
+    "maltitol syrup"
+   ]
+  },
+  "E967": {
+   "name": "Xylitol",
+   "function": "sweetener (polyol)",
+   "status": "permitted in Codex GSFA",
+   "context": "Sugar alcohol; large amounts may have a laxative effect; toxic to dogs.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "xylitol"
+   ]
+  },
+  "E968": {
+   "name": "Erythritol",
+   "function": "sweetener (polyol)",
+   "status": "permitted in Codex GSFA",
+   "context": "Sugar alcohol with very little energy.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "erythritol"
+   ]
+  },
+  "E1404": {
+   "name": "Oxidised starch",
+   "function": "modified starch",
+   "status": "permitted in Codex GSFA",
+   "context": "Chemically modified starch used as a thickener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "oxidised starch",
+    "oxidized starch"
+   ]
+  },
+  "E1422": {
+   "name": "Acetylated distarch adipate",
+   "function": "modified starch",
+   "status": "permitted in Codex GSFA",
+   "context": "Chemically modified starch used as a thickener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "acetylated distarch adipate"
+   ]
+  },
+  "E1442": {
+   "name": "Hydroxypropyl distarch phosphate",
+   "function": "modified starch",
+   "status": "permitted in Codex GSFA",
+   "context": "Chemically modified starch used as a thickener.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "hydroxypropyl distarch phosphate"
+   ]
+  },
+  "E1450": {
+   "name": "Starch sodium octenyl succinate",
+   "function": "modified starch",
+   "status": "permitted in Codex GSFA",
+   "context": "Chemically modified starch used as an emulsifier.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "starch sodium octenyl succinate"
+   ]
+  },
+  "E1520": {
+   "name": "Propylene glycol",
+   "function": "humectant / solvent",
+   "status": "permitted in Codex GSFA",
+   "context": "Solvent and humectant in flavourings.",
+   "risk": "no_known_concern",
+   "synthetic": true,
+   "marker": true,
+   "names": [
+    "propylene glycol"
+   ]
+  }
+ }
+}

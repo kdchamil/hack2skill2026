@@ -1,0 +1,123 @@
+{
+ "_title": "Instant soup (claims no added MSG but lists E621)",
+ "name": {
+  "value": "Hot Pot Chicken Soup",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Souper",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": "Salt, Maltodextrin, Flavour Enhancer (E621), Sugar, Wheat Flour, Palm Oil, Dehydrated Vegetables (Onion, Carrot), Hydrolysed Soy Protein",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "Salt",
+   "Maltodextrin",
+   "Flavour Enhancer (E621)",
+   "Sugar",
+   "Wheat Flour",
+   "Palm Oil",
+   "Dehydrated Vegetables (Onion, Carrot)",
+   "Hydrolysed Soy Protein"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "Contains: Wheat, Soy",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 330,
+    "per_serving": 66,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 9,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 4,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 3200,
+    "per_serving": 640,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 8,
+    "per_serving": null,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 20.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [
+   "No added MSG"
+  ],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "BB 15/08/2027",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": "Souper Foods",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Singapore",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "PET 1"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [],
+ "retake_tip": null
+}

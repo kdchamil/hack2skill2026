@@ -1,0 +1,75 @@
+{
+ "_title": "Blurred label (illegible ingredients, retake)",
+ "name": {
+  "value": "Snack pack",
+  "confidence": 0.5
+ },
+ "brand": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.7
+ },
+ "label_languages": [
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": null,
+  "confidence": 0.3
+ },
+ "ingredients": {
+  "value": null,
+  "confidence": 0.3
+ },
+ "allergen_contains_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "claims": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "origin": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "certification_marks": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [
+  "ingredients"
+ ],
+ "retake_tip": "The ingredient list is blurred. Hold the phone steady, avoid glare, and photograph the ingredient side flat and close up."
+}

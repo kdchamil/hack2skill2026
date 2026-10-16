@@ -1,0 +1,139 @@
+{
+ "_title": "Kokis (Sri Lankan snack, Sinhala + English label)",
+ "name": {
+  "value": "Crunchy Kokis",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Lanka Treats",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "si",
+  "en"
+ ],
+ "ingredients_verbatim": {
+  "value": "සහල් පිටි (Rice Flour), පොල් කිරි (Coconut Milk), සීනි (Sugar), බිත්තර (Egg), තල (Sesame), පාම් තෙල් (Palm Oil), ලුණු (Salt)",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "සහල් පිටි (Rice Flour)",
+   "පොල් කිරි (Coconut Milk)",
+   "සීනි (Sugar)",
+   "බිත්තර (Egg)",
+   "තල (Sesame)",
+   "පාම් තෙල් (Palm Oil)",
+   "ලුණු (Salt)"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "Contains: Egg, Sesame (තල)",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "May contain traces of peanuts",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 510,
+    "per_serving": 153,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 12,
+    "per_serving": 3.6,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 9,
+    "per_serving": 2.7,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 820,
+    "per_serving": 246,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 7,
+    "per_serving": 2.1,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fibre",
+    "per_100g": 2,
+    "per_serving": 0.6,
+    "unit": "g"
+   },
+   {
+    "nutrient": "carbohydrate",
+    "per_100g": 62,
+    "per_serving": 18.6,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_total",
+    "per_100g": 28,
+    "per_serving": 8.4,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 30.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "BB 12 JUN 2027",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": "L2610A",
+  "confidence": 0.92
+ },
+ "manufacturer": {
+  "value": "Lanka Treats (Pvt) Ltd, Colombo",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Sri Lanka",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "PP 5"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": "4791234567890",
+ "missing_sides": [],
+ "retake_tip": null
+}

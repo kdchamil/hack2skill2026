@@ -1,0 +1,125 @@
+{
+ "_title": "Halal-certified instant noodles",
+ "name": {
+  "value": "Quick Noodles Chicken Flavour",
+  "confidence": 0.92
+ },
+ "brand": {
+  "value": "Noodle Express",
+  "confidence": 0.92
+ },
+ "category": {
+  "value": "food",
+  "confidence": 0.92
+ },
+ "label_languages": [
+  "en",
+  "si"
+ ],
+ "ingredients_verbatim": {
+  "value": "Wheat Flour, Palm Oil, Salt, Sugar, Thickener (E412), Acidity Regulator (E501), Garlic, Onion, Spices",
+  "confidence": 0.92
+ },
+ "ingredients": {
+  "value": [
+   "Wheat Flour",
+   "Palm Oil",
+   "Salt",
+   "Sugar",
+   "Thickener (E412)",
+   "Acidity Regulator (E501)",
+   "Garlic",
+   "Onion",
+   "Spices"
+  ],
+  "confidence": 0.92
+ },
+ "allergen_contains_statement": {
+  "value": "Contains: Wheat",
+  "confidence": 0.92
+ },
+ "allergen_may_contain_statement": {
+  "value": "May contain Egg and Soy",
+  "confidence": 0.92
+ },
+ "nutrition": {
+  "value": [
+   {
+    "nutrient": "energy_kcal",
+    "per_100g": 450,
+    "per_serving": null,
+    "unit": "kcal"
+   },
+   {
+    "nutrient": "sugars_total",
+    "per_100g": 3,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "fat_saturated",
+    "per_100g": 8,
+    "per_serving": null,
+    "unit": "g"
+   },
+   {
+    "nutrient": "sodium_mg",
+    "per_100g": 1450,
+    "per_serving": null,
+    "unit": "mg"
+   },
+   {
+    "nutrient": "protein",
+    "per_100g": 9,
+    "per_serving": null,
+    "unit": "g"
+   }
+  ],
+  "confidence": 0.92
+ },
+ "serving_size_g": {
+  "value": 75.0,
+  "confidence": 0.92
+ },
+ "claims": {
+  "value": [],
+  "confidence": 0.92
+ },
+ "dates": {
+  "value": [
+   {
+    "kind": "best_before",
+    "raw": "EXP 03.2027",
+    "iso": null
+   }
+  ],
+  "confidence": 0.92
+ },
+ "batch_lot": {
+  "value": null,
+  "confidence": 0.0
+ },
+ "manufacturer": {
+  "value": "Noodle Express Lanka (Pvt) Ltd",
+  "confidence": 0.92
+ },
+ "origin": {
+  "value": "Sri Lanka",
+  "confidence": 0.92
+ },
+ "certification_marks": {
+  "value": [
+   "halal:HAC Sri Lanka"
+  ],
+  "confidence": 0.92
+ },
+ "packaging_codes": {
+  "value": [
+   "PP 5"
+  ],
+  "confidence": 0.92
+ },
+ "barcode": null,
+ "missing_sides": [],
+ "retake_tip": null
+}
