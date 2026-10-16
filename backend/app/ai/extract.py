@@ -59,7 +59,7 @@ async def extract_label(
 ) -> tuple[Extraction, int]:
     """Returns (Extraction, model_calls). images = [(content_type, bytes)]."""
     s = get_settings()
-    if s.mock:
+    if s.mock or fixture:  # demo fixtures skip the Gemini read in live mode too (judge fallback)
         ex = mock_extract(fixture, barcode)
         if barcode and not ex.barcode:
             ex = ex.model_copy(update={"barcode": barcode})

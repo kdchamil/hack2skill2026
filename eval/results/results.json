@@ -1,6 +1,6 @@
 {
   "mode": "offline",
-  "generated_at": "2026-10-16T19:50:31+00:00",
+  "generated_at": "2026-10-16T19:57:54+00:00",
   "caveats": [
     "OFFLINE RUN. Both sides use fixture text, not photographs. Baseline text is rendered from the fixture (ingredients, statements, claims, dates, nutrition) so OCR errors are absent. This is NOT the final golden-set result.",
     "Both sides read the same printed text offline, so allergen parity here is expected. It does not measure the uplift from Gemini on photos. The baseline's field misses are regex limits (for example, month-name dates).",
@@ -26,8 +26,8 @@
       "contains_vs_may_separation_acc": 1.0,
       "field_accuracy": 0.90625,
       "field_checks": 32,
-      "latency_p50_ms": 0.9437080007046461,
-      "latency_p75_ms": 1.1008330038748682,
+      "latency_p50_ms": 1.0051249992102385,
+      "latency_p75_ms": 1.1055829818360507,
       "model_calls_per_scan": 0.0,
       "ocr_calls_per_scan": 1.0,
       "cost_per_scan_usd": 0.0015,
@@ -53,8 +53,8 @@
       "contains_vs_may_separation_acc": 1.0,
       "field_accuracy": 1.0,
       "field_checks": 32,
-      "latency_p50_ms": 1.9121669756714255,
-      "latency_p75_ms": 2.4108330253511667,
+      "latency_p50_ms": 2.072917006444186,
+      "latency_p75_ms": 2.4737500061746687,
       "model_calls_per_scan": 1.0,
       "ocr_calls_per_scan": 0.0,
       "cost_per_scan_usd": 0.0005,
@@ -116,7 +116,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 273.67341599892825,
+        "ms": 322.2976659890264,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -146,7 +146,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 2.602207998279482,
+        "ms": 3.6983329919166863,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -194,7 +194,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 1.0500000207684934,
+        "ms": 1.0766669875010848,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -224,7 +224,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 2.4108330253511667,
+        "ms": 2.4737500061746687,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -262,7 +262,7 @@
           "field_n": 1,
           "allergen_entries": 1
         },
-        "ms": 0.006999995093792677,
+        "ms": 0.007124996045604348,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -287,7 +287,7 @@
           "field_n": 1,
           "allergen_entries": 1
         },
-        "ms": 0.10962499072775245,
+        "ms": 0.11875000200234354,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -335,7 +335,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 0.9272499883081764,
+        "ms": 0.9478749998379499,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -365,7 +365,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 1.9121669756714255,
+        "ms": 2.072917006444186,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -407,7 +407,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 1.3003750063944608,
+        "ms": 1.3361249875742942,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -434,7 +434,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 2.726959006395191,
+        "ms": 2.803374984068796,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -476,7 +476,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 0.9872079826891422,
+        "ms": 1.0051249992102385,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -503,7 +503,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 2.0293749985285103,
+        "ms": 2.0731250115204602,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -545,7 +545,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 0.6698330107610673,
+        "ms": 0.7053750159684569,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -572,7 +572,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 0.8863339899107814,
+        "ms": 0.9262080129701644,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -594,9 +594,7 @@
       },
       "baseline": {
         "pred": {
-          "contains": [
-            "wheat_gluten"
-          ],
+          "contains": [],
           "may": [],
           "sodium_mg": 40.0,
           "sugars_g": 3.5,
@@ -618,15 +616,13 @@
           "field_n": 3,
           "allergen_entries": 0
         },
-        "ms": 0.9437080007046461,
+        "ms": 1.0311660007573664,
         "model_calls": 0,
         "ocr_calls": 1
       },
       "pipeline": {
         "pred": {
-          "contains": [
-            "wheat_gluten"
-          ],
+          "contains": [],
           "may": [],
           "sodium_mg": 40.0,
           "sugars_g": 3.5,
@@ -648,7 +644,7 @@
           "field_n": 3,
           "allergen_entries": 0
         },
-        "ms": 1.7764999938663095,
+        "ms": 1.8164159846492112,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -696,7 +692,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 1.1008330038748682,
+        "ms": 1.1055829818360507,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -726,7 +722,7 @@
           "field_n": 4,
           "allergen_entries": 1
         },
-        "ms": 2.2858339943923056,
+        "ms": 2.3238750000018626,
         "model_calls": 1,
         "ocr_calls": 0
       }
@@ -772,7 +768,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 0.8819579961709678,
+        "ms": 0.9191670105792582,
         "model_calls": 0,
         "ocr_calls": 1
       },
@@ -802,7 +798,7 @@
           "field_n": 3,
           "allergen_entries": 1
         },
-        "ms": 1.7237499996554106,
+        "ms": 1.7684170161373913,
         "model_calls": 1,
         "ocr_calls": 0
       }

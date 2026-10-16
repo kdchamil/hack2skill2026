@@ -42,4 +42,4 @@ COPY --from=web-build /src/web/dist /app/web/dist
 USER app
 EXPOSE 8080
 
-CMD ["sh", "-c", "uv run --no-sync uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
+CMD ["sh", "-c", "/app/backend/.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]

@@ -128,6 +128,8 @@ def evaluate(ext: Extraction, info: IngredientInfo, al: AllergenResult) -> dict[
         res["gluten_free"] = DietResult("unknown", "unknown", "Ingredients could not be read.")
     elif "wheat_gluten" in al.may_contain:
         res["gluten_free"] = DietResult("unknown", "label_stated", "The pack says it may contain gluten-containing cereals.")
+    elif "gluten_free" not in marks and info.tag_hits("oats"):
+        res["gluten_free"] = DietResult("unknown", "inferred", "Oats may contain gluten unless certified gluten-free")
     elif unresolved:
         res["gluten_free"] = DietResult("unknown", "inferred", "Some ingredient terms were not recognised.")
     elif "gluten_free" in marks:

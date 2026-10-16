@@ -805,6 +805,29 @@
     "zinc oxide",
     "titanium dioxide"
    ]
+  },
+  "oats": {
+   "industrial": false,
+   "tags": [
+    "oats"
+   ],
+   "terms": [
+    "oats",
+    "oat",
+    "oatmeal",
+    "rolled oats",
+    "oat flour",
+    "oat flakes",
+    "oat fibre",
+    "oat fiber",
+    "oat bran",
+    "oat base",
+    "ඕට්ස්",
+    "ஓட்ஸ்",
+    "燕麦",
+    "オーツ",
+    "जई"
+   ]
   }
  }
 }

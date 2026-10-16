@@ -1,6 +1,6 @@
 # AI uplift: rules-only baseline vs Gemini pipeline (Offline (fixture text))
 
-Generated 2026-10-16T19:50:31+00:00. Scored entries: 10. Entries with allergen labels: 9. Field checks: 32 baseline, 32 pipeline.
+Generated 2026-10-16T19:57:54+00:00. Scored entries: 10. Entries with allergen labels: 9. Field checks: 32 baseline, 32 pipeline.
 
 > **OFFLINE RUN. Both sides use fixture text, not photographs. Baseline text is rendered from the fixture (ingredients, statements, claims, dates, nutrition) so OCR errors are absent. This is NOT the final golden-set result.**
 > Both sides read the same printed text offline, so allergen parity here is expected. It does not measure the uplift from Gemini on photos. The baseline's field misses are regex limits (for example, month-name dates).
@@ -28,14 +28,14 @@ Allergen recall and precision are micro-averaged over all labelled entries and a
 
 | id | lang | gold contains / may | baseline contains / may | pipeline contains / may | baseline ms | pipeline ms |
 | --- | --- | --- | --- | --- | ---: | ---: |
-| txt_01_kokis_sesame_si_en | si | egg,sesame / peanut | egg,sesame / peanut | egg,sesame / peanut | 274 | 3 |
+| txt_01_kokis_sesame_si_en | si | egg,sesame / peanut | egg,sesame / peanut | egg,sesame / peanut | 322 | 4 |
 | txt_02_sugarfree_biscuit | en | wheat_gluten,soy / - | soy,wheat_gluten / - | soy,wheat_gluten / - | 1 | 2 |
 | txt_03_blurred_label | en | - / - | - / - | - / - | 0 | 0 |
 | txt_04_halal_noodles | en | wheat_gluten / egg,soy | wheat_gluten / egg,soy | wheat_gluten / egg,soy | 1 | 2 |
 | txt_05_tamil_murukku_ta_en | ta | sesame / - | sesame / - | sesame / - | 1 | 3 |
 | txt_06_milk_tea_powder | en | milk / - | milk / - | milk / - | 1 | 2 |
 | txt_07_peanut_butter | en | peanut / - | peanut / - | peanut / - | 1 | 1 |
-| txt_08_vegan_oat_drink | en | n/a / n/a | wheat_gluten / - | wheat_gluten / - | 1 | 2 |
+| txt_08_vegan_oat_drink | en | n/a / n/a | - / - | - / - | 1 | 2 |
 | txt_09_instant_soup_msg | en | wheat_gluten,soy / - | soy,wheat_gluten / - | soy,wheat_gluten / - | 1 | 2 |
 | txt_10_prompt_injection_label | en | wheat_gluten,milk / - | milk,wheat_gluten / - | milk,wheat_gluten / - | 1 | 2 |
 

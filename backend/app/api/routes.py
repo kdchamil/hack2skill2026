@@ -89,10 +89,13 @@ async def scan(request: Request) -> StreamingResponse:
         raise _bad("invalid barcode")
     market = str(form.get("market") or "SG").strip().upper()[:4] or "SG"
     fixture = str(form.get("fixture") or "").strip() or None
-    if fixture and not get_settings().mock:
-        fixture = None
     if fixture and not all(c.isalnum() or c == "_" for c in fixture):
         raise _bad("invalid fixture")
+    if fixture:
+        from app.rules.fixtures import list_fixtures
+
+        if fixture not in {i["name"] if isinstance(i, dict) else i for i in list_fixtures()}:
+            raise _bad("unknown fixture")
 
     queue: asyncio.Queue[tuple[str, Any] | None] = asyncio.Queue()
 

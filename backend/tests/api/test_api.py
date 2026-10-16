@@ -196,3 +196,30 @@ async def test_commentary_model_failure_falls_back(monkeypatch):
     monkeypatch.setattr(ai_client, "call_model", boom)
     com, _, calls = await cm.write_commentary(_analysis(), "en", "s2")
     assert com.source == "template" and calls == 1
+
+
+def test_fixture_in_live_mode_skips_extract(client, monkeypatch):
+    """Judge fallback: demo fixture works without Gemini extraction; commentary is still live."""
+    from app.ai import client as ai_client
+
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "test-project")
+    monkeypatch.setenv("FIVESEC_MOCK", "0")
+    systems = []
+
+    async def fake_call(*, model, system, parts, schema):
+        systems.append(system)
+        return '{"summary":"A short summary.","cards":[],"resolved":[]}'
+
+    monkeypatch.setattr(ai_client, "call_model", fake_call)
+    evs = parse_sse(scan(client, **FIX).text)
+    assert [e for e, _ in evs] == ["analysis", "commentary", "done"]
+    done = evs[-1][1]
+    assert len(systems) == 1 and "label-reading component" not in systems[0]
+    assert done["model_calls"] == 1
+    ex = next(t for t in done["trace"] if t["tool"] == "extract_label")
+    assert ex["model_calls"] == 0
+    assert scan(client, extra={"allergies": "peanut"}, **FIX).status_code == 400
+
+
+def test_unknown_fixture_400(client):
+    assert scan(client, fixture="nope_nope").status_code == 400

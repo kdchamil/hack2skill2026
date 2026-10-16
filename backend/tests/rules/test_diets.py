@@ -93,3 +93,16 @@ def test_registry_helpers():
     assert registry_match("halal", "nope") is None
     assert parse_marks(mk(["a"], marks=["halal:JAKIM", "vegan:V-Label", "halal"])) == {
         "halal": ["JAKIM", ""], "vegan": ["V-Label"]}
+
+
+def test_oats_not_allergen_but_gluten_free_unknown():
+    a = analyze(mk(["Water", "Oats"]), today=TODAY)
+    assert "wheat_gluten" not in a.facts.allergens_contains
+    f = finding(a, "diet.gluten_free")
+    assert f.data["value"] == "unknown" and f.tier == "inferred"
+    assert "Oats may contain gluten unless certified gluten-free" in f.reason
+    assert a.facts.diets["gluten_free"] == "unknown"
+    b = analyze(mk(["Water", "Oats"], marks=["gluten_free:GF"]), today=TODAY)
+    assert b.facts.diets["gluten_free"] == "yes"
+    c = analyze(mk(["Water", "Wheat flour", "Oats"]), today=TODAY)
+    assert c.facts.diets["gluten_free"] == "no"
