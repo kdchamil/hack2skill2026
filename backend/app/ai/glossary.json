@@ -1,0 +1,60 @@
+{
+  "allergens": {
+    "peanut": {"en": "peanut", "si": "රටකජු", "ta": "நிலக்கடலை"},
+    "tree_nut": {"en": "tree nut", "si": "ගස් ඇට වර්ග", "ta": "மரக்கொட்டைகள்"},
+    "milk": {"en": "milk", "si": "කිරි", "ta": "பால்"},
+    "egg": {"en": "egg", "si": "බිත්තර", "ta": "முட்டை"},
+    "fish": {"en": "fish", "si": "මාළු", "ta": "மீன்"},
+    "crustacean": {"en": "crustacean", "si": "කබොල සහිත මුහුදු ආහාර", "ta": "ஓடுடைய கடல் உணவு"},
+    "soy": {"en": "soy", "si": "සෝයා", "ta": "சோயா"},
+    "wheat_gluten": {"en": "wheat", "si": "තිරිඟු", "ta": "கோதுமை"},
+    "sesame": {"en": "sesame", "si": "තල", "ta": "எள்"},
+    "mustard": {"en": "mustard", "si": "අබ", "ta": "கடுகு"},
+    "buckwheat": {"en": "buckwheat", "si": "බක්වීට්", "ta": "பக்வீட்"},
+    "celery": {"en": "celery", "si": "සැල්රි", "ta": "செலரி"},
+    "lupin": {"en": "lupin", "si": "ලුපින්", "ta": "லூபின்"},
+    "mollusc": {"en": "mollusc", "si": "මොලුස්කා", "ta": "மெல்லுடலிகள்"},
+    "sulphite": {"en": "sulphite", "si": "සල්ෆයිට්", "ta": "சல்பைட்"}
+  },
+  "cards": {
+    "allergens": {"en": "Allergens", "si": "ආහාර අසාත්මිකතා", "ta": "ஒவ்வாமைகள்"},
+    "nutrition": {"en": "Nutrition", "si": "පෝෂණය", "ta": "ஊட்டச்சத்து"},
+    "diet": {"en": "Diet", "si": "ආහාර රටාව", "ta": "உணவுமுறை"},
+    "ingredients": {"en": "Ingredients", "si": "අමුද්‍රව්‍ය", "ta": "பொருட்கள்"},
+    "claims": {"en": "Claims", "si": "ප්‍රකාශ", "ta": "கூற்றுகள்"},
+    "packaging": {"en": "Packaging", "si": "ඇසුරුම්", "ta": "பேக்கேஜிங்"}
+  },
+  "status": {
+    "avoid": {"en": "may need care", "si": "සැලකිලිමත් වන්න", "ta": "கவனம் தேவை"},
+    "check": {"en": "consider checking", "si": "පරීක්ෂා කර බලන්න", "ta": "சரிபார்க்கவும்"},
+    "info": {"en": "for your information", "si": "තොරතුරු", "ta": "தகவல்"},
+    "good": {"en": "nothing found in what we could read", "si": "කියවිය හැකි දේවල කිසිවක් හමු නොවීය", "ta": "படிக்க முடிந்தவற்றில் எதுவும் இல்லை"}
+  },
+  "templates": {
+    "allergen_headline": {
+      "en": "May contain {names}",
+      "si": "{names} අඩංගු විය හැක",
+      "ta": "{names} இருக்கலாம்"
+    },
+    "card_reason": {
+      "en": "Open this card for details.",
+      "si": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න.",
+      "ta": "விவரங்களுக்கு இந்த அட்டையைத் திறக்கவும்."
+    },
+    "summary_avoid": {
+      "en": "This pack may not suit some household members; consider checking the cards marked for care.",
+      "si": "මෙම ඇසුරුම සමහර පවුලේ සාමාජිකයන්ට නොගැළපෙන්නට පුළුවන්; සලකුණු කළ කාඩ්පත් පරීක්ෂා කර බලන්න.",
+      "ta": "இந்த பொதி சில குடும்ப உறுப்பினர்களுக்குப் பொருந்தாமல் போகலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."
+    },
+    "summary_check": {
+      "en": "Some details may need a closer look; consider checking the highlighted cards.",
+      "si": "සමහර විස්තර සමීපව බැලිය යුතු විය හැක; උද්දීපනය කළ කාඩ්පත් පරීක්ෂා කර බලන්න.",
+      "ta": "சில விவரங்களை நெருக்கமாகப் பார்க்க வேண்டியிருக்கலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."
+    },
+    "summary_good": {
+      "en": "We found nothing of concern in what we could read.",
+      "si": "කියවිය හැකි දේවල සැලකිය යුතු කිසිවක් අපට හමු නොවීය.",
+      "ta": "படிக்க முடிந்தவற்றில் கவலைக்குரியது எதுவும் கண்டறியப்படவில்லை."
+    }
+  }
+}
