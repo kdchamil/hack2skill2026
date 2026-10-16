@@ -2,13 +2,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchCommentary, scan, type ScanInput } from './api'
 import { stopListen } from './audio'
 import { Household } from './components/Household'
+import { Privacy } from './components/Privacy'
 import { Scan } from './components/Scan'
 import { Summary, type ScanView } from './components/Summary'
 import { Ctx, makeCtx } from './ctx'
 import type { Lang } from './types'
 import { useVault } from './useVault'
 
-type Tab = 'scan' | 'summary' | 'household'
+type Tab = 'scan' | 'summary' | 'household' | 'privacy'
 const EMPTY: ScanView = { analysis: null, commentary: null, scanId: null, elapsedMs: null, phase: 'loading', error: null }
 
 function initialLang(): Lang {
@@ -62,6 +63,15 @@ export default function App() {
     })
   }, [lang, vault])
 
+  // after delete-all: drop the in-memory scan, stop audio and requests, back to first-run language
+  const onDeleted = useCallback(() => {
+    abort.current?.abort()
+    stopListen()
+    setView({ ...EMPTY })
+    setLangState('en')
+    setTab((x) => (x === 'summary' ? 'scan' : x))
+  }, [])
+
   const go = (x: Tab) => { stopListen(); setTab(x) }
   const showSummaryTab = view.analysis !== null || tab === 'summary'
 
@@ -86,7 +96,8 @@ export default function App() {
           <Summary view={view} members={vault.members} vault={vault.status} lang={lang} setLang={setLang}
             onNew={() => go('scan')} onGoHousehold={() => go('household')} />
         )}
-        {tab === 'household' && <Household vault={vault} />}
+        {tab === 'household' && <Household vault={vault} onDeleted={onDeleted} />}
+        {tab === 'privacy' && <Privacy vault={vault} onDeleted={onDeleted} />}
       </main>
       <nav aria-label={t('nav.main')} className="tabbar">
         <button type="button" aria-current={tab === 'scan' ? 'page' : undefined} onClick={() => go('scan')}><span aria-hidden="true">📷</span>{t('nav.scan')}</button>
@@ -94,6 +105,7 @@ export default function App() {
           <button type="button" aria-current={tab === 'summary' ? 'page' : undefined} onClick={() => go('summary')}><span aria-hidden="true">📋</span>{t('sum.title')}</button>
         ) : null}
         <button type="button" aria-current={tab === 'household' ? 'page' : undefined} onClick={() => go('household')}><span aria-hidden="true">👪</span>{t('nav.household')}</button>
+        <button type="button" aria-current={tab === 'privacy' ? 'page' : undefined} onClick={() => go('privacy')}><span aria-hidden="true">🔒</span>{t('nav.privacy')}</button>
       </nav>
       <footer className="foot">{t('pwa.https')}</footer>
     </Ctx.Provider>

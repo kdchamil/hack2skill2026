@@ -71,7 +71,7 @@ def test_commentary_language_switch(client):
 
 def test_report_and_health_and_fixtures(client):
     assert client.post("/api/report", json={"scan_id": "x", "note": "wrong"}).status_code == 202
-    assert client.post("/api/report", json={"scan_id": "x", "allergies": "a"}).status_code == 422
+    assert client.post("/api/report", json={"scan_id": "x", "allergies": "a"}).status_code == 400
     assert client.get("/api/health").json()["status"] == "ok"
     names = [f["name"] for f in client.get("/api/fixtures").json()]
     assert "kokis_sesame_si_en" in names
@@ -223,3 +223,62 @@ def test_fixture_in_live_mode_skips_extract(client, monkeypatch):
 
 def test_unknown_fixture_400(client):
     assert scan(client, fixture="nope_nope").status_code == 400
+
+
+# ---- /api/report (correction queue) ----
+
+def _log_lines(capsys):
+    out = capsys.readouterr().out
+    return [json.loads(line) for line in out.splitlines() if line.startswith("{") and "correction_report" in line]
+
+
+def test_report_rejects_unknown_fields(client):
+    for extra in ({"allergies": "a"}, {"profile": {"alias": "Amaya"}}, {"images": "x"}):
+        assert client.post("/api/report", json={"scan_id": "x", **extra}).status_code == 400
+    assert client.post("/api/report", json={"note": "no scan"}).status_code == 400
+    assert client.post("/api/report", content=b"not json").status_code == 400
+    assert client.post("/api/report", json=["scan_id"]).status_code == 400
+
+
+def test_report_note_length_and_control_chars(client, capsys):
+    assert client.post("/api/report", json={"scan_id": "x", "note": "a" * 501}).status_code == 400
+    assert client.post("/api/report", json={"scan_id": "x", "note": "a" * 500}).status_code == 202
+    capsys.readouterr()
+    r = client.post("/api/report", json={"scan_id": "x", "note": "bad\x00\x07 line\nbreak\x1b[31m"})
+    assert r.status_code == 202
+    (line,) = _log_lines(capsys)
+    assert not any(ord(c) < 32 or 127 <= ord(c) < 160 for c in line["note"])
+    assert "bad" in line["note"] and "break" in line["note"]
+
+
+def test_report_emits_structured_log_for_cached_scan(client, capsys):
+    evs = parse_sse(scan(client, **FIX).text)
+    done = evs[-1][1]
+    scan_id = done["scan_id"]
+    fid = evs[0][1]["findings"][0]["id"]
+    capsys.readouterr()
+    r = client.post("/api/report", json={"scan_id": scan_id, "finding_id": fid, "note": "label differs"})
+    assert r.status_code == 202
+    (line,) = _log_lines(capsys)
+    assert set(line) == {"severity", "type", "report_id", "scan_id", "finding_id", "product_name", "rule_pack_version", "note"}
+    assert line["severity"] == "NOTICE" and line["type"] == "correction_report"
+    assert line["scan_id"] == scan_id and line["finding_id"] == fid and line["note"] == "label differs"
+    assert line["product_name"] and line["rule_pack_version"]
+    assert line["report_id"] == r.json()["report_id"]
+    # a finding that is not in the cached scan is refused
+    assert client.post("/api/report", json={"scan_id": scan_id, "finding_id": "nope"}).status_code == 400
+
+
+def test_report_unknown_scan_id_accepted_with_null_product(client, capsys):
+    capsys.readouterr()
+    assert client.post("/api/report", json={"scan_id": "never-seen", "finding_id": "anything"}).status_code == 202
+    (line,) = _log_lines(capsys)
+    assert line["product_name"] is None and line["rule_pack_version"] is None and line["note"] is None
+
+
+def test_report_rate_limit_per_scan(client):
+    from app.api import routes
+    routes._REPORT_COUNTS.clear()
+    codes = [client.post("/api/report", json={"scan_id": "spam"}).status_code for _ in range(22)]
+    assert codes[:20] == [202] * 20 and codes[20:] == [429, 429]
+    assert client.post("/api/report", json={"scan_id": "other"}).status_code == 202

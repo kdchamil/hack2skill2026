@@ -146,7 +146,7 @@ Canonical allergen IDs (Codex 8 + regional): `peanut, tree_nut, milk, egg, fish,
   Response: `text/event-stream` with events in order: `analysis` (Analysis JSON, the summary — must be first), `commentary` (Commentary JSON), `done` (ScanResponse JSON), or `error` (`{"code","message"}`).
 - `POST /api/commentary` JSON `{scan_id, lang}` → Commentary (language switch without rescanning; served from cache).
 - `POST /api/tts` JSON `{text, lang}` → `audio/mpeg` (Gemini-TTS via Cloud Text-to-Speech, cached by sha256(lang+text)); 503 on failure so the client shows text.
-- `POST /api/report` JSON `{scan_id, finding_id?, note?}` → 202 (in-memory correction queue; no profile data).
+- `POST /api/report` JSON `{scan_id, finding_id?, note?}` (note <= 500 chars, control chars stripped; any other field -> 400; finding_id must exist if the scan is cached; 20 per scan_id then 429) → 202 `{status, report_id}`. Kept in an in-memory queue and logged to stdout as one JSON line `{"severity":"NOTICE","type":"correction_report",report_id,scan_id,finding_id,product_name,rule_pack_version,note}` (durable queue in Cloud Logging). No profile data, no images.
 - `GET /api/fixtures` → list of demo fixture names + titles. `GET /api/health`.
 - Everything else serves the built PWA (`web/dist`) with SPA fallback.
 

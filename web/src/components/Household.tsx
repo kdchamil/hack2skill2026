@@ -5,6 +5,7 @@ import type { Vault } from '../useVault'
 import {
   ALLERGENS, DIETS, demoMembers, GOALS, LIFE_STAGES, MAX_ALIAS, MAX_MEMBERS, type AllergenId, type DietId, type GoalId, type LifeStage, type Member,
 } from '../verdict'
+import { DeleteAll } from './DeleteAll'
 import { Sheet } from './Sheet'
 
 function toggle<T>(list: T[], v: T): T[] { return list.includes(v) ? list.filter((x) => x !== v) : [...list, v] }
@@ -141,10 +142,9 @@ function MemberForm({ initial, onSave, onCancel }: { initial: Member; onSave: (m
   )
 }
 
-export function Household({ vault }: { vault: Vault }) {
+export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () => void }) {
   const { t } = useT()
   const [editing, setEditing] = useState<Member | null>(null)
-  const [confirm, setConfirm] = useState(false)
   const [msg, setMsg] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
   const { members, status } = vault
@@ -220,18 +220,9 @@ export function Household({ vault }: { vault: Vault }) {
       {msg && <p role="alert" className="error">{msg}</p>}
 
       <hr />
-      <button type="button" className="btn danger" onClick={() => setConfirm(true)}>{t('hh.deleteAll')}</button>
+      <DeleteAll vault={vault} onDeleted={onDeleted} />
 
       {editing && <MemberForm initial={editing} onSave={save} onCancel={() => setEditing(null)} />}
-      {confirm && (
-        <Sheet title={t('hh.deleteAll')} labelId="del-h" tall={false} onClose={() => setConfirm(false)}>
-          <p>{t('hh.confirmDelete')}</p>
-          <div className="actions">
-            <button type="button" className="btn danger" onClick={async () => { await vault.wipe(); setConfirm(false) }}>{t('hh.confirmYes')}</button>
-            <button type="button" className="btn secondary" onClick={() => setConfirm(false)}>{t('hh.cancel')}</button>
-          </div>
-        </Sheet>
-      )}
     </section>
   )
 }

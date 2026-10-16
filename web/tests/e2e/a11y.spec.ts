@@ -28,5 +28,17 @@ for (const scheme of ['light', 'dark'] as const) {
     await page.locator('[data-card="allergens"] .card-main').click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await axe(page)
+
+    await page.getByRole('dialog').getByRole('button', { name: 'Report wrong info', exact: true }).click()
+    await expect(page.getByRole('dialog', { name: 'Report wrong info' })).toBeVisible()
+    await axe(page)
+    await page.keyboard.press('Escape')
+    await page.keyboard.press('Escape')
+
+    await page.getByRole('button', { name: 'Privacy' }).click()
+    await expect(page.getByRole('heading', { name: 'Privacy', level: 1 })).toBeVisible()
+    await axe(page)
+    await page.getByRole('button', { name: 'Delete all my data' }).click()
+    await axe(page)
   })
 }

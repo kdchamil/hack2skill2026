@@ -40,9 +40,14 @@ test('seed household, unlock, demo pack, chips, detail, listen fallback', async 
   const dlg = page.getByRole('dialog')
   await expect(dlg).toContainText('Contains sesame')
   await expect(dlg).toContainText('Label-stated')
-  await expect(dlg.getByRole('button', { name: 'Report wrong info' })).toBeVisible()
-  await dlg.getByRole('button', { name: 'Report wrong info' }).click()
-  await expect(dlg).toContainText('Thanks, reported.')
+  await dlg.getByRole('button', { name: 'Report wrong info', exact: true }).click()
+  const rep = page.getByRole('dialog', { name: 'Report wrong info' })
+  await expect(rep).toContainText("Don't include names or health details")
+  await rep.getByLabel(/What is wrong/).fill('x'.repeat(600))
+  await expect(rep.getByLabel(/What is wrong/)).toHaveValue('x'.repeat(500))
+  await rep.getByRole('button', { name: 'Send report' }).click()
+  await expect(rep).toContainText('Thanks — sent for review')
+  await rep.getByRole('button', { name: 'Close' }).first().click()
 
   // listen falls back to text on 503
   await dlg.getByRole('button', { name: /Listen/ }).click()
@@ -55,7 +60,25 @@ test('delete all wipes the household', async ({ page }) => {
   await setupHousehold(page)
   await page.getByRole('button', { name: 'Delete all my data' }).click()
   await page.getByRole('button', { name: 'Yes, delete everything' }).click()
+  await expect(page.getByTestId('deleted-msg')).toHaveText('All data on this phone was deleted.')
   await expect(page.getByRole('heading', { name: 'Protect your household' })).toBeVisible()
   const dbs = await page.evaluate(async () => (await indexedDB.databases()).length ? await new Promise((r) => { const q = indexedDB.open('fivesec'); q.onsuccess = () => { const t = q.result.transaction('kv'); const c = t.objectStore('kv').count(); c.onsuccess = () => r(c.result) } }) : 0)
   expect(dbs).toBe(0)
+})
+
+test('report: offline shows a retry message, then succeeds', async ({ page }) => {
+  await mockApi(page)
+  let fail = true
+  await page.route('**/api/report', (r) => (fail ? r.abort('failed') : r.fulfill({ status: 202, json: { status: 'queued' } })))
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Try a demo pack' }).click()
+  await page.getByRole('button', { name: 'Kokis (Sinhala + English)' }).click()
+  await page.locator('[data-card="allergens"] .card-main').click()
+  await page.getByRole('dialog').locator('[data-finding]').first().getByRole('button', { name: /Report wrong info/ }).click()
+  const rep = page.getByRole('dialog', { name: 'Report wrong info' })
+  await rep.getByRole('button', { name: 'Send report' }).click()
+  await expect(rep.getByRole('alert')).toContainText('Could not send')
+  fail = false
+  await rep.getByRole('button', { name: 'Try again' }).click()
+  await expect(rep).toContainText('Thanks — sent for review')
 })

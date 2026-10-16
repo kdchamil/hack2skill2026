@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   createVault, enablePasskey, passkeySupported, resetPinWithRecovery, unlockWithPasskey, unlockWithPin, unlockWithRecovery, type VaultMeta,
 } from './crypto'
+import { deleteAll } from './privacy'
 import * as store from './store'
 import type { Analysis } from './types'
 import type { Member } from './verdict'
@@ -95,7 +96,8 @@ export function useVault() {
     async wipe() {
       keyRef.current = null
       setMembers([]); setMeta(null); setRecoveryCode(null)
-      await store.wipeAll()
+      window.clearTimeout(timer.current)
+      await deleteAll()
       setStatus('none')
     },
     async importBackup(text: string): Promise<boolean> {

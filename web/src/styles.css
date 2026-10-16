@@ -129,3 +129,4 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, .55); }
 .sheet-head h2 { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+textarea { font: inherit; padding: 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--fg); resize: vertical; }

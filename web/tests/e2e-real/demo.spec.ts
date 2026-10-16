@@ -107,3 +107,92 @@ test('3-minute judge demo against the real backend, with no household data on th
     if (names.length) expect(new Set(names)).toEqual(new Set(['images', 'lang', 'market', 'fixture']))
   }
 })
+
+async function idbState(page: Page) {
+  return page.evaluate(async () => {
+    const names = (await indexedDB.databases()).map((d) => d.name)
+    if (!names.includes('fivesec')) return { dbs: names.length, keys: [] as string[] }
+    const keys = await new Promise<string[]>((res) => {
+      const q = indexedDB.open('fivesec')
+      q.onsuccess = () => {
+        const db = q.result
+        if (!db.objectStoreNames.contains('kv')) { db.close(); return res([]) }
+        const k = db.transaction('kv').objectStore('kv').getAllKeys()
+        k.onsuccess = () => { db.close(); res(k.result.map(String)) }
+      }
+    })
+    return { dbs: names.length, keys }
+  })
+}
+
+test('delete-all returns the app to first run: IndexedDB empty, no members, old PIN useless', async ({ page }) => {
+  await noVoices(page)
+  await setupHousehold(page)
+  await expect(page.getByText('Amaya').first()).toBeVisible()
+  await openDemo(page, 'Crunchy Kokis')
+  await expect(page.locator('.vchip')).toHaveCount(3)
+  await page.evaluate(() => { sessionStorage.setItem('fivesec.tmp', '1') })
+  expect((await idbState(page)).keys.sort()).toEqual(['history', 'meta', 'profiles'])
+
+  // reachable from the Privacy tab as well as Household; use Privacy here
+  await page.getByRole('button', { name: 'Privacy' }).click()
+  await page.getByRole('button', { name: 'Delete all my data' }).click()
+  await page.getByRole('button', { name: 'Yes, delete everything' }).click()
+  await expect(page.getByTestId('deleted-msg')).toHaveText('All data on this phone was deleted.')
+
+  expect((await idbState(page)).keys).toEqual([])
+  expect(await page.evaluate(() => [Object.keys(localStorage), Object.keys(sessionStorage)].flat().filter((k) => k.startsWith('fivesec')))).toEqual([])
+  // the scan result is gone too
+  await expect(page.getByRole('button', { name: 'Kokis' })).toHaveCount(0)
+
+  await page.getByRole('button', { name: 'Household' }).click()
+  await expect(page.getByRole('heading', { name: 'Protect your household' })).toBeVisible()
+  await expect(page.getByText('Amaya')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Unlock', exact: true })).toHaveCount(0)
+
+  // a reload is still first run: nothing to unlock with the old PIN
+  await page.reload()
+  await page.getByRole('button', { name: 'Household' }).click()
+  await expect(page.getByRole('heading', { name: 'Protect your household' })).toBeVisible()
+  await expect(page.getByLabel('PIN (6 or more digits)')).toBeVisible()
+  await expect(page.getByText('Amaya')).toHaveCount(0)
+  expect((await idbState(page)).keys).toEqual([])
+})
+
+test('report wrong information sends only scan_id, finding_id and note', async ({ page }) => {
+  await noVoices(page)
+  await setupHousehold(page)
+  await openDemo(page, 'Crunchy Kokis')
+  await expect(page.locator('.vchip')).toHaveCount(3)
+
+  const posts: string[] = []
+  await page.route('**/api/report', (route) => { posts.push(route.request().postData() ?? ''); return route.continue() })
+
+  await page.locator('[data-card="allergens"] .card-main').click()
+  await page.getByRole('dialog').getByRole('button', { name: 'Report wrong info', exact: true }).click()
+  const rep = page.getByRole('dialog', { name: 'Report wrong info' })
+  await expect(rep).toContainText("Don't include names or health details")
+  await rep.getByLabel(/What is wrong/).fill('The sesame is not on my pack')
+  await Promise.all([page.waitForResponse((r) => r.url().endsWith('/api/report') && r.status() === 202), rep.getByRole('button', { name: 'Send report' }).click()])
+  await expect(rep).toContainText('Thanks — sent for review')
+  await rep.getByRole('button', { name: 'Close' }).first().click()
+
+  // one-tap from a finding row, no note
+  const row = page.getByRole('dialog').locator('[data-finding]').first()
+  const fid = await row.getAttribute('data-finding')
+  await row.getByRole('button', { name: /Report wrong info/ }).click()
+  await Promise.all([page.waitForResponse((r) => r.url().endsWith('/api/report') && r.status() === 202), page.getByRole('dialog', { name: 'Report wrong info' }).getByRole('button', { name: 'Send report' }).click()])
+  await expect(page.getByTestId('report-ok')).toBeVisible()
+
+  expect(posts).toHaveLength(2)
+  const [drawer, finding] = posts.map((p) => JSON.parse(p) as Record<string, unknown>)
+  for (const body of [drawer, finding]) {
+    expect(Object.keys(body).every((k) => ['scan_id', 'finding_id', 'note'].includes(k))).toBe(true)
+    expect(typeof body.scan_id).toBe('string')
+    const raw = JSON.stringify(body).toLowerCase()
+    for (const f of ['amaya', 'dad', 'ravi', 'alias', 'life_stage', 'low_sodium', 'household', 'profile', 'image']) expect(raw).not.toContain(f)
+  }
+  expect(drawer.note).toBe('The sesame is not on my pack')
+  expect(finding.finding_id).toBe(fid)
+  expect(finding.note).toBeUndefined()
+})

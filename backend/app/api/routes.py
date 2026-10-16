@@ -5,6 +5,8 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
+import uuid
 from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException, Request
@@ -160,15 +162,57 @@ async def tts(req: TTSReq) -> Response:
     return Response(audio, media_type="audio/mpeg", headers={"Cache-Control": "no-store"})
 
 
-class ReportReq(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    scan_id: str = Field(max_length=64)
-    finding_id: str | None = Field(default=None, max_length=128)
-    note: str | None = Field(default=None, max_length=500)
+REPORT_FIELDS = {"scan_id", "finding_id", "note"}
+MAX_NOTE = 500
+MAX_REPORTS_PER_SCAN = 20
+_CTRL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f-\x9f\u2028\u2029]")
+_REPORT_COUNTS: dict[str, int] = {}
+
+
+def _clean(s: str) -> str:
+    return _CTRL.sub(" ", s.replace("\r", " ").replace("\n", " ")).strip()
 
 
 @router.post("/report", status_code=202)
-async def report(req: ReportReq) -> dict[str, str]:
-    REPORTS.append(req.model_dump())
+async def report(request: Request) -> dict[str, str]:
+    """Correction queue. Accepts only {scan_id, finding_id?, note?}; no profile data, no images.
+    Besides the in-memory queue, one JSON line goes to stdout so Cloud Logging keeps a durable queue."""
+    try:
+        body = await request.json()
+    except Exception:  # noqa: BLE001
+        raise _bad("invalid JSON") from None
+    if not isinstance(body, dict):
+        raise _bad("expected a JSON object")
+    extra = set(body) - REPORT_FIELDS
+    if extra:
+        raise _bad(f"unexpected field(s): {', '.join(sorted(map(str, extra)))}")
+    scan_id, finding_id, note = body.get("scan_id"), body.get("finding_id"), body.get("note")
+    if not isinstance(scan_id, str) or not 0 < len(scan_id) <= 64:
+        raise _bad("scan_id required (max 64 chars)")
+    if finding_id is not None and (not isinstance(finding_id, str) or not 0 < len(finding_id) <= 128):
+        raise _bad("finding_id must be a string of at most 128 chars")
+    if note is not None:
+        if not isinstance(note, str) or len(note) > MAX_NOTE:
+            raise _bad(f"note must be a string of at most {MAX_NOTE} chars")
+        note = _clean(note) or None
+    product_name = rule_pack = None
+    cached = pipeline.SCANS.get(scan_id)
+    if cached is not None:
+        if finding_id is not None and finding_id not in {f.id for f in cached.analysis.findings}:
+            raise _bad("unknown finding_id for this scan")
+        product_name = cached.analysis.product.name.value
+        rule_pack = cached.analysis.rule_pack_version
+    if _REPORT_COUNTS.get(scan_id, 0) >= MAX_REPORTS_PER_SCAN:
+        raise HTTPException(429, "too many reports for this scan")
+    _REPORT_COUNTS[scan_id] = _REPORT_COUNTS.get(scan_id, 0) + 1
+    if len(_REPORT_COUNTS) > 5000:
+        _REPORT_COUNTS.pop(next(iter(_REPORT_COUNTS)))
+    report_id = uuid.uuid4().hex
+    rec = {
+        "severity": "NOTICE", "type": "correction_report", "report_id": report_id, "scan_id": scan_id,
+        "finding_id": finding_id, "product_name": product_name, "rule_pack_version": rule_pack, "note": note,
+    }
+    REPORTS.append(rec)
     del REPORTS[:-1000]
-    return {"status": "queued"}
+    print(json.dumps(rec, ensure_ascii=False), flush=True)
+    return {"status": "queued", "report_id": report_id}

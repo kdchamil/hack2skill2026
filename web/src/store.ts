@@ -65,6 +65,17 @@ export async function wipeAll(): Promise<void> {
   try { localStorage.removeItem('fivesec.lang') } catch { /* ignore */ }
 }
 
+/** Clears every record, then deletes the whole database. Used by delete-all. */
+export async function destroyDb(): Promise<void> {
+  try { await tx('readwrite', (s) => s.clear()) } catch { /* nothing to clear */ }
+  await new Promise<void>((res) => {
+    const r = indexedDB.deleteDatabase(DB)
+    r.onsuccess = () => res()
+    r.onerror = () => res()
+    r.onblocked = () => res()
+  })
+}
+
 /** Encrypted backup: the wrapped keys and the ciphertext records. Restorable with PIN or recovery code. */
 export async function exportBackup(): Promise<string> {
   return JSON.stringify({

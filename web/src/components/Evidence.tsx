@@ -1,18 +1,13 @@
 import { useState } from 'react'
-import { reportFinding } from '../api'
 import { useT } from '../ctx'
 import type { Finding } from '../types'
 import { SevBadge, TierBadge } from './Badges'
+import { ReportSheet } from './ReportSheet'
 import { Sheet } from './Sheet'
 
 function FindingItem({ f, scanId }: { f: Finding; scanId: string | null }) {
   const { t } = useT()
-  const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
-  const report = async () => {
-    if (!scanId) return
-    setState('sending')
-    try { await reportFinding(scanId, f.id); setState('done') } catch { setState('error') }
-  }
+  const [open, setOpen] = useState(false)
   return (
     <li className="finding" data-finding={f.id}>
       <div className="row wrap"><SevBadge sev={f.severity} /><TierBadge tier={f.tier} /></div>
@@ -26,10 +21,10 @@ function FindingItem({ f, scanId }: { f: Finding; scanId: string | null }) {
           ))}
         </p>
       )}
-      <button type="button" className="btn ghost small" disabled={!scanId || state === 'sending' || state === 'done'} onClick={report}>
+      <button type="button" className="btn ghost small" disabled={!scanId} aria-label={`${t('d.report')}: ${f.title}`} onClick={() => setOpen(true)}>
         {t('d.report')}
       </button>
-      <span role="status" className="muted"> {state === 'done' ? t('d.reported') : state === 'error' ? t('common.offline') : ''}</span>
+      {open && scanId && <ReportSheet scanId={scanId} findingId={f.id} onClose={() => setOpen(false)} />}
     </li>
   )
 }
@@ -38,9 +33,14 @@ export function EvidenceSheet({ title, findings, scanId, onClose, extra }: {
   title: string; findings: Finding[]; scanId: string | null; onClose: () => void; extra?: React.ReactNode
 }) {
   const { t } = useT()
+  const [reporting, setReporting] = useState(false)
   return (
     <Sheet title={title} labelId="ev-h" onClose={onClose}>
       {extra}
+      <div>
+        <button type="button" className="btn secondary" disabled={!scanId} onClick={() => setReporting(true)}>{t('d.report')}</button>
+      </div>
+      {reporting && scanId && <ReportSheet scanId={scanId} onClose={() => setReporting(false)} />}
       {findings.length === 0 ? <p>{t('d.none')}</p> : (
         <ul className="list findings">{findings.map((f) => <FindingItem key={f.id} f={f} scanId={scanId} />)}</ul>
       )}

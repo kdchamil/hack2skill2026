@@ -13,7 +13,10 @@ test('no outgoing request carries household data', async ({ page }) => {
   await page.getByRole('button', { name: 'Kokis (Sinhala + English)' }).click()
   await expect(page.locator('.vchip')).toHaveCount(3)
   await page.locator('[data-card="allergens"] .card-main').click()
-  await page.getByRole('button', { name: 'Report wrong info' }).click()
+  await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
+  await page.getByRole('button', { name: 'Send report' }).click()
+  await page.getByText('Thanks — sent for review').waitFor()
+  await page.getByRole('dialog', { name: 'Report wrong info' }).getByRole('button', { name: 'Close' }).first().click()
   await page.getByRole('dialog').getByRole('button', { name: /Listen/ }).click()
   await page.getByText('Audio unavailable — reading on screen').waitFor()
 
