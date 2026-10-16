@@ -27,7 +27,9 @@ fi
 
 RUN_SA_EMAIL="${RUN_SA}@${PROJECT_ID}.iam.gserviceaccount.com"
 PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')"
-CB_SA="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+# Newer projects run builds as the Compute default SA, not the legacy Cloud Build SA.
+CB_SA="$(gcloud builds get-default-service-account --project "$PROJECT_ID" 2>/dev/null | sed 's|.*/||')"
+CB_SA="${CB_SA:-${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com}"
 
 echo "==> Project: $PROJECT_ID (number $PROJECT_NUMBER), region: $REGION"
 
@@ -69,6 +71,14 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:${CB_SA}" \
   --role="roles/run.admin" \
   --condition=None >/dev/null
+
+# Build logs and reading the uploaded source tarball.
+for ROLE in roles/logging.logWriter roles/storage.objectViewer; do
+  gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member="serviceAccount:${CB_SA}" \
+    --role="$ROLE" \
+    --condition=None >/dev/null
+done
 
 gcloud iam service-accounts add-iam-policy-binding "$RUN_SA_EMAIL" \
   --member="serviceAccount:${CB_SA}" \
