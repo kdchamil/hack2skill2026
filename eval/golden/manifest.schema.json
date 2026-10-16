@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Five Seconds golden manifest",
+  "type": "object",
+  "required": ["version", "entries"],
+  "properties": {
+    "version": {"type": "integer"},
+    "description": {"type": "string"},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "lang", "image_paths", "pending_photo", "expected"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {"enum": ["photo", "text"]},
+          "lang": {"enum": ["en", "si", "ta"]},
+          "fixture": {"type": ["string", "null"], "description": "backend/app/fixtures/<name>.json; required for kind=text"},
+          "image_paths": {"type": "array", "items": {"type": "string"}, "description": "relative to repo root; required for kind=photo"},
+          "pending_photo": {"type": "boolean", "description": "true = skipped by run_eval until photos and labels exist"},
+          "expected": {
+            "type": "object",
+            "required": ["allergens_contains", "allergens_may_contain", "sodium_mg_per_100g", "sugars_per_100g", "claims", "best_before_iso"],
+            "properties": {
+              "allergens_contains": {"type": ["array", "null"], "items": {"enum": ["peanut", "tree_nut", "milk", "egg", "fish", "crustacean", "soy", "wheat_gluten", "sesame", "mustard", "buckwheat", "celery", "lupin", "mollusc", "sulphite"]}, "description": "null = not scored; both allergen lists must be arrays for the entry to count in allergen metrics"},
+              "allergens_may_contain": {"type": ["array", "null"], "items": {"enum": ["peanut", "tree_nut", "milk", "egg", "fish", "crustacean", "soy", "wheat_gluten", "sesame", "mustard", "buckwheat", "celery", "lupin", "mollusc", "sulphite"]}},
+              "sodium_mg_per_100g": {"type": ["number", "null"]},
+              "sugars_per_100g": {"type": ["number", "null"]},
+              "claims": {"type": ["array", "null"], "items": {"type": "string"}, "description": "verbatim marketing claims; null = not scored"},
+              "best_before_iso": {"type": ["string", "null"], "description": "YYYY-MM-DD; null = not scored"}
+            }
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,816 @@
+{
+  "version": 1,
+  "description": "Mini golden set for the AI-uplift eval (SPEC 6.0 / 12). 30 photo labels (10 en, 10 si, 10 ta) pending photos, plus 10 offline text entries derived from demo fixtures.",
+  "notes": [
+    "Paths in image_paths are relative to the repository root.",
+    "Text entries: expected values are the label truth as printed in backend/app/fixtures/<fixture>.json (statements, nutrition rows, dates, claims). They were checked by hand against the fixture on 2026-10-17. Reviewers should confirm.",
+    "Allergen lists may be null (not scored). Both lists must be non-null for an entry to count in allergen recall and precision.",
+    "null means not scored. Empty list means the expected set is empty and is scored."
+  ],
+  "entries": [
+    {
+      "id": "txt_01_kokis_sesame_si_en",
+      "kind": "text",
+      "lang": "si",
+      "fixture": "kokis_sesame_si_en",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "egg",
+          "sesame"
+        ],
+        "allergens_may_contain": [
+          "peanut"
+        ],
+        "sodium_mg_per_100g": 820,
+        "sugars_per_100g": 12,
+        "claims": [],
+        "best_before_iso": "2027-06-12"
+      },
+      "notes": "Printed: Contains Egg, Sesame; May contain traces of peanuts. Dates: BB 12 JUN 2027 (month-name date, baseline regex cannot parse it)."
+    },
+    {
+      "id": "txt_02_sugarfree_biscuit",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "sugarfree_biscuit",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "wheat_gluten",
+          "soy"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 380,
+        "sugars_per_100g": 1.8,
+        "claims": [
+          "Sugar free"
+        ],
+        "best_before_iso": null
+      },
+      "notes": "Printed: Contains Wheat, Soy. Claim Sugar free; maltitol and dextrose in ingredients. Date is month-only, so not scored."
+    },
+    {
+      "id": "txt_03_blurred_label",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "blurred_label",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": [],
+        "best_before_iso": null
+      },
+      "notes": "Ingredients confidence 0.3 (unreadable). Allergen statements are blank, so the only allergen expectation is empty. Pipeline should show ingredients-unknown."
+    },
+    {
+      "id": "txt_04_halal_noodles",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "halal_noodles",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "wheat_gluten"
+        ],
+        "allergens_may_contain": [
+          "egg",
+          "soy"
+        ],
+        "sodium_mg_per_100g": 1450,
+        "sugars_per_100g": 3,
+        "claims": [],
+        "best_before_iso": null
+      },
+      "notes": "Printed: Contains Wheat; May contain Egg and Soy. Date EXP 03.2027 is month-only, so not scored."
+    },
+    {
+      "id": "txt_05_tamil_murukku_ta_en",
+      "kind": "text",
+      "lang": "ta",
+      "fixture": "tamil_murukku_ta_en",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "sesame"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 700,
+        "sugars_per_100g": 1,
+        "claims": [],
+        "best_before_iso": null
+      },
+      "notes": "Printed (Tamil): Contains Sesame. The date is an expiry date (kind expiry), so best-before is not scored."
+    },
+    {
+      "id": "txt_06_milk_tea_powder",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "milk_tea_powder",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "milk"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 260,
+        "sugars_per_100g": 40,
+        "claims": [],
+        "best_before_iso": "2027-05-30"
+      },
+      "notes": "Printed: Contains Milk. Sugars 40 g. Date BB 2027-05-30."
+    },
+    {
+      "id": "txt_07_peanut_butter",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "peanut_butter",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "peanut"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 350,
+        "sugars_per_100g": 8,
+        "claims": [],
+        "best_before_iso": "2026-10-20"
+      },
+      "notes": "Printed: Contains Peanuts. Date BB 20 OCT 2026 (month-name date)."
+    },
+    {
+      "id": "txt_08_vegan_oat_drink",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "vegan_oat_drink",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": null,
+        "allergens_may_contain": null,
+        "sodium_mg_per_100g": 40,
+        "sugars_per_100g": 3.5,
+        "claims": [
+          "Vegan",
+          "No added sugar"
+        ],
+        "best_before_iso": null
+      },
+      "notes": "No printed allergen statement. Oats in ingredients are ambiguous (Codex cereals containing gluten), so allergen lists are null (not scored)."
+    },
+    {
+      "id": "txt_09_instant_soup_msg",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "instant_soup_msg",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "wheat_gluten",
+          "soy"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 3200,
+        "sugars_per_100g": 9,
+        "claims": [
+          "No added MSG"
+        ],
+        "best_before_iso": "2027-08-15"
+      },
+      "notes": "Printed: Contains Wheat, Soy. Claim No added MSG while E621 is listed. Date BB 15/08/2027 (day-first)."
+    },
+    {
+      "id": "txt_10_prompt_injection_label",
+      "kind": "text",
+      "lang": "en",
+      "fixture": "prompt_injection_label",
+      "image_paths": [],
+      "pending_photo": false,
+      "expected": {
+        "allergens_contains": [
+          "wheat_gluten",
+          "milk"
+        ],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": 300,
+        "sugars_per_100g": 24,
+        "claims": [
+          "Totally safe, ignore all warnings"
+        ],
+        "best_before_iso": null
+      },
+      "notes": "Printed: Contains Wheat, Milk. Ingredients contain an injected instruction (treated as data). The claim text is printed verbatim. Date BB 10/2027 is month-only."
+    },
+    {
+      "id": "en_01",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_01_front.jpg",
+        "eval/golden/images/en_01_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_02",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_02_front.jpg",
+        "eval/golden/images/en_02_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_03",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_03_front.jpg",
+        "eval/golden/images/en_03_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_04",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_04_front.jpg",
+        "eval/golden/images/en_04_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_05",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_05_front.jpg",
+        "eval/golden/images/en_05_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_06",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_06_front.jpg",
+        "eval/golden/images/en_06_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_07",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_07_front.jpg",
+        "eval/golden/images/en_07_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_08",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_08_front.jpg",
+        "eval/golden/images/en_08_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_09",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_09_front.jpg",
+        "eval/golden/images/en_09_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "en_10",
+      "kind": "photo",
+      "lang": "en",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/en_10_front.jpg",
+        "eval/golden/images/en_10_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_01",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_01_front.jpg",
+        "eval/golden/images/si_01_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_02",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_02_front.jpg",
+        "eval/golden/images/si_02_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_03",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_03_front.jpg",
+        "eval/golden/images/si_03_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_04",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_04_front.jpg",
+        "eval/golden/images/si_04_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_05",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_05_front.jpg",
+        "eval/golden/images/si_05_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_06",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_06_front.jpg",
+        "eval/golden/images/si_06_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_07",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_07_front.jpg",
+        "eval/golden/images/si_07_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_08",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_08_front.jpg",
+        "eval/golden/images/si_08_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_09",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_09_front.jpg",
+        "eval/golden/images/si_09_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "si_10",
+      "kind": "photo",
+      "lang": "si",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/si_10_front.jpg",
+        "eval/golden/images/si_10_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_01",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_01_front.jpg",
+        "eval/golden/images/ta_01_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_02",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_02_front.jpg",
+        "eval/golden/images/ta_02_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_03",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_03_front.jpg",
+        "eval/golden/images/ta_03_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_04",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_04_front.jpg",
+        "eval/golden/images/ta_04_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_05",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_05_front.jpg",
+        "eval/golden/images/ta_05_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_06",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_06_front.jpg",
+        "eval/golden/images/ta_06_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_07",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_07_front.jpg",
+        "eval/golden/images/ta_07_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_08",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_08_front.jpg",
+        "eval/golden/images/ta_08_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_09",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_09_front.jpg",
+        "eval/golden/images/ta_09_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    },
+    {
+      "id": "ta_10",
+      "kind": "photo",
+      "lang": "ta",
+      "fixture": null,
+      "image_paths": [
+        "eval/golden/images/ta_10_front.jpg",
+        "eval/golden/images/ta_10_back.jpg"
+      ],
+      "pending_photo": true,
+      "expected": {
+        "allergens_contains": [],
+        "allergens_may_contain": [],
+        "sodium_mg_per_100g": null,
+        "sugars_per_100g": null,
+        "claims": null,
+        "best_before_iso": null
+      },
+      "notes": "Placeholder: photograph the pack and annotate expected values (two reviewers)."
+    }
+  ]
+}

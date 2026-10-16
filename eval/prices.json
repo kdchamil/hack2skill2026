@@ -1,0 +1,7 @@
+{
+  "_note": "PLACEHOLDER PRICES. Not verified. Check the Google Cloud Vision and Vertex AI Gemini price pages before quoting any cost. Costs are per call, estimated.",
+  "as_of": "2026-10-17 (unverified)",
+  "cloud_vision_document_text_usd_per_image": 0.0015,
+  "gemini_flash_usd_per_call_est": 0.0005,
+  "gemini_pro_usd_per_call_est": 0.005
+}
