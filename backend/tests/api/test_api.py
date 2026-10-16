@@ -131,12 +131,10 @@ def test_apply_guards_ok_and_rejections():
     bad = [cm.CardOut(card="allergens", headline="May contain sesame 99 times", reason="x"),
            *[cm.CardOut(card=c, headline="Fine", reason="ok") for c in cm.CARD_IDS if c != "allergens"]]
     com = cm.apply_guards(_out(cards=bad, summary="It is safe"), a, "en")
-    assert com.cards["allergens"]["headline"] == a.cards[0].headline  # template fallback
+    assert com.cards["allergens"] == cm.template_allergens_card(a, "en")  # always template
     assert "safe" not in com.summary
     long = [cm.CardOut(card="allergens", headline=" ".join(["sesame"] * 13), reason="r")]
-    assert cm.apply_guards(_out(cards=long), a, "en").cards["allergens"]["headline"] == a.cards[0].headline
-    nogloss = [cm.CardOut(card="allergens", headline="Contains it", reason="r")]
-    assert cm.apply_guards(_out(cards=nogloss), a, "en").cards["allergens"]["headline"] == a.cards[0].headline
+    assert cm.apply_guards(_out(cards=long), a, "en").cards["allergens"] == cm.template_allergens_card(a, "en")
 
 
 def test_template_si_ta():
@@ -282,3 +280,46 @@ def test_report_rate_limit_per_scan(client):
     codes = [client.post("/api/report", json={"scan_id": "spam"}).status_code for _ in range(22)]
     assert codes[:20] == [202] * 20 and codes[20:] == [429, 429]
     assert client.post("/api/report", json={"scan_id": "other"}).status_code == 202
+
+
+# ----- allergen wording: Contains / May contain never merged (code-built) -----
+def _split_analysis():
+    a = _analysis()
+    f = a.facts.model_copy(update={"allergens_contains": ["soy", "wheat_gluten", "sesame"],
+                                   "allergens_may_contain": ["peanut"], "ingredients_known": True})
+    return a.model_copy(update={"facts": f})
+
+
+@pytest.mark.parametrize("lang", ["en", "si", "ta"])
+def test_merged_gemini_summary_is_separated(lang):
+    a = _split_analysis()
+    g, t = cm.GLOSSARY["allergens"], cm.GLOSSARY["templates"]
+    merged = ", ".join(g[x][lang] for x in ("soy", "wheat_gluten", "sesame", "peanut"))
+    out = _out(summary=f"{merged} may be present. Check the pack.")
+    com = cm.apply_guards(out, a, lang)
+    c = t["allergen_contains"][lang].format(list=", ".join(g[x][lang] for x in ("soy", "wheat_gluten", "sesame")))
+    m = t["allergen_may"][lang].format(list=g["peanut"][lang])
+    assert com.summary.startswith(f"{c} {m}")
+    assert com.summary.count(g["peanut"][lang]) == 1  # appears only in the may-contain sentence
+    assert "Check the pack." in com.summary if lang == "en" else True
+    assert com.cards["allergens"] == {"headline": c, "reason": m}
+
+
+def test_remainder_with_allergen_term_dropped():
+    a = _split_analysis()
+    out = _out(summary="තල අඩංගු විය හැක. සෝඩියම් ප්‍රමාණය සැලකිලිමත් වන්න.")
+    com = cm.apply_guards(out, a, "si")
+    assert "තල" not in com.summary.split(cm.allergen_sentence(a, "si"), 1)[1]
+    assert com.summary.endswith("සෝඩියම් ප්‍රමාණය සැලකිලිමත් වන්න.")
+    com = cm.apply_guards(_out(summary="Sesame is present."), a, "en")  # whole remainder dropped -> template
+    assert com.summary == cm.full_summary(a, "en", cm.template_summary(a, "en"))
+
+
+def test_allergen_sentence_none_and_unreadable():
+    a = _analysis()
+    none = a.model_copy(update={"facts": a.facts.model_copy(update={
+        "allergens_contains": [], "allergens_may_contain": [], "ingredients_known": True})})
+    unread = none.model_copy(update={"facts": none.facts.model_copy(update={"ingredients_known": False})})
+    for lang in ("en", "si", "ta"):
+        assert cm.allergen_sentence(none, lang) == cm.GLOSSARY["templates"]["allergen_none"][lang]
+        assert cm.allergen_sentence(unread, lang) == cm.GLOSSARY["templates"]["allergen_unreadable"][lang]

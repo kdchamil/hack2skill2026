@@ -31,6 +31,26 @@
     "good": {"en": "nothing found in what we could read", "si": "කියවිය හැකි දේවල කිසිවක් හමු නොවීය", "ta": "படிக்க முடிந்தவற்றில் எதுவும் இல்லை"}
   },
   "templates": {
+    "allergen_contains": {
+      "en": "Contains: {list}.",
+      "si": "අඩංගු වේ: {list}.",
+      "ta": "உள்ளடக்கியது: {list}."
+    },
+    "allergen_may": {
+      "en": "May contain: {list}.",
+      "si": "අඩංගු විය හැක: {list}.",
+      "ta": "இருக்கலாம்: {list}."
+    },
+    "allergen_none": {
+      "en": "No allergens found in what we could read.",
+      "si": "කියවිය හැකි දේවල අසාත්මිකතා කාරක කිසිවක් හමු නොවීය.",
+      "ta": "படிக்க முடிந்தவற்றில் ஒவ்வாமை பொருட்கள் எதுவும் கண்டறியப்படவில்லை."
+    },
+    "allergen_unreadable": {
+      "en": "Ingredients unreadable — check the pack.",
+      "si": "අමුද්‍රව්‍ය කියවිය නොහැක — ඇසුරුම පරීක්ෂා කරන්න.",
+      "ta": "பொருட்களைப் படிக்க முடியவில்லை — பொதியைச் சரிபார்க்கவும்."
+    },
     "allergen_headline": {
       "en": "May contain {names}",
       "si": "{names} අඩංගු විය හැක",
@@ -56,5 +76,6 @@
       "si": "කියවිය හැකි දේවල සැලකිය යුතු කිසිවක් අපට හමු නොවීය.",
       "ta": "படிக்க முடிந்தவற்றில் கவலைக்குரியது எதுவும் கண்டறியப்படவில்லை."
     }
-  }
+  },
+  "generic_allergen_words": ["allerg", "contain", "අසාත්මික", "අඩංගු", "ඇලර්ජ", "ஒவ்வாமை", "உள்ளடக்க", "அடங்க"]
 }
