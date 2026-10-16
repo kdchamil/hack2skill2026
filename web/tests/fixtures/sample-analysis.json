@@ -1,0 +1,737 @@
+{
+  "analysis": {
+    "product": {
+      "name": {
+        "value": "Kokis",
+        "confidence": 0.95
+      },
+      "brand": {
+        "value": "Lanka Crunch",
+        "confidence": 0.95
+      },
+      "category": {
+        "value": "food",
+        "confidence": 0.95
+      },
+      "label_languages": [
+        "si",
+        "en"
+      ],
+      "ingredients_verbatim": {
+        "value": "Rice flour, coconut milk, තල (sesame), salt, vegetable oil",
+        "confidence": 0.95
+      },
+      "ingredients": {
+        "value": [
+          "Rice flour",
+          "coconut milk",
+          "තල (sesame)",
+          "salt",
+          "vegetable oil"
+        ],
+        "confidence": 0.95
+      },
+      "allergen_contains_statement": {
+        "value": "Contains: sesame",
+        "confidence": 0.95
+      },
+      "allergen_may_contain_statement": {
+        "value": null,
+        "confidence": 0.9
+      },
+      "nutrition": {
+        "value": [
+          {
+            "nutrient": "sodium_mg",
+            "per_100g": 820,
+            "per_serving": 164,
+            "unit": "mg"
+          },
+          {
+            "nutrient": "sugars_total",
+            "per_100g": 3,
+            "per_serving": 0.6,
+            "unit": "g"
+          },
+          {
+            "nutrient": "fat_saturated",
+            "per_100g": 4,
+            "per_serving": 0.8,
+            "unit": "g"
+          }
+        ],
+        "confidence": 0.95
+      },
+      "serving_size_g": {
+        "value": 20,
+        "confidence": 0.95
+      },
+      "claims": {
+        "value": [],
+        "confidence": 0.95
+      },
+      "dates": {
+        "value": [
+          {
+            "kind": "best_before",
+            "raw": "12/2027",
+            "iso": "2027-12-01"
+          }
+        ],
+        "confidence": 0.95
+      },
+      "batch_lot": {
+        "value": "L2410",
+        "confidence": 0.95
+      },
+      "manufacturer": {
+        "value": "Lanka Crunch Foods",
+        "confidence": 0.95
+      },
+      "origin": {
+        "value": "Sri Lanka",
+        "confidence": 0.95
+      },
+      "certification_marks": {
+        "value": [],
+        "confidence": 0.95
+      },
+      "packaging_codes": {
+        "value": [
+          "PP 5"
+        ],
+        "confidence": 0.95
+      },
+      "barcode": null,
+      "missing_sides": [],
+      "retake_tip": null
+    },
+    "findings": [
+      {
+        "id": "allergen.contains.sesame",
+        "card": "allergens",
+        "category": "allergen_contains",
+        "severity": "avoid",
+        "risk": "allergen",
+        "tier": "label_stated",
+        "title": "Contains sesame",
+        "reason": "The label lists තල (sesame) as an ingredient.",
+        "next_step": "Avoid if anyone in the household is allergic to sesame.",
+        "sources": [
+          {
+            "label": "Pack label",
+            "url": null
+          }
+        ],
+        "data": {
+          "allergen": "sesame",
+          "matched": "තල"
+        }
+      },
+      {
+        "id": "nutrient.sodium",
+        "card": "nutrition",
+        "category": "nutrient_level",
+        "severity": "check",
+        "risk": "restricted",
+        "tier": "label_stated",
+        "title": "High sodium",
+        "reason": "820 mg sodium per 100 g is above the high threshold of 600 mg.",
+        "next_step": "Consider a lower-sodium option for low-salt diets.",
+        "sources": [
+          {
+            "label": "Pack label",
+            "url": null
+          },
+          {
+            "label": "UK FSA front-of-pack thresholds",
+            "url": null
+          }
+        ],
+        "data": {
+          "nutrient": "sodium_mg",
+          "per_100g": 820,
+          "level": "high"
+        }
+      },
+      {
+        "id": "diet.halal",
+        "card": "diet",
+        "category": "diet",
+        "severity": "check",
+        "risk": "debated",
+        "tier": "inferred",
+        "title": "Halal status unknown",
+        "reason": "No certification mark was read and ingredients alone cannot confirm halal.",
+        "next_step": "Look for a halal mark.",
+        "sources": [
+          {
+            "label": "Rule pack v1",
+            "url": null
+          }
+        ],
+        "data": {
+          "diet": "halal"
+        }
+      },
+      {
+        "id": "ingredient.none",
+        "card": "ingredients",
+        "category": "additive",
+        "severity": "good",
+        "risk": "no_known_concern",
+        "tier": "inferred",
+        "title": "No additives flagged",
+        "reason": "No E-numbers were found in the readable ingredients.",
+        "next_step": null,
+        "sources": [
+          {
+            "label": "Rule pack v1",
+            "url": null
+          }
+        ],
+        "data": {}
+      },
+      {
+        "id": "claims.none",
+        "card": "claims",
+        "category": "claim",
+        "severity": "info",
+        "risk": "no_known_concern",
+        "tier": "unknown",
+        "title": "No claims to test",
+        "reason": "No marketing claims were read on this pack.",
+        "next_step": null,
+        "sources": [
+          {
+            "label": "Pack label",
+            "url": null
+          }
+        ],
+        "data": {}
+      },
+      {
+        "id": "packaging.pp5",
+        "card": "packaging",
+        "category": "packaging",
+        "severity": "info",
+        "risk": "no_known_concern",
+        "tier": "label_stated",
+        "title": "Recycling code PP 5",
+        "reason": "The pack shows PP 5 (polypropylene).",
+        "next_step": "Check local recycling rules.",
+        "sources": [
+          {
+            "label": "Pack label",
+            "url": null
+          }
+        ],
+        "data": {}
+      },
+      {
+        "id": "packaging.carbon",
+        "card": "packaging",
+        "category": "carbon",
+        "severity": "info",
+        "risk": "no_known_concern",
+        "tier": "unknown",
+        "title": "Carbon: No reliable data",
+        "reason": "No reliable carbon data exists for this product.",
+        "next_step": null,
+        "sources": [
+          {
+            "label": "Rule pack v1",
+            "url": null
+          }
+        ],
+        "data": {}
+      }
+    ],
+    "cards": [
+      {
+        "id": "allergens",
+        "status": "avoid",
+        "tier": "label_stated",
+        "headline": "Contains sesame",
+        "finding_ids": [
+          "allergen.contains.sesame"
+        ]
+      },
+      {
+        "id": "nutrition",
+        "status": "check",
+        "tier": "label_stated",
+        "headline": "High sodium per 100 g",
+        "finding_ids": [
+          "nutrient.sodium"
+        ]
+      },
+      {
+        "id": "diet",
+        "status": "check",
+        "tier": "inferred",
+        "headline": "Halal status unknown",
+        "finding_ids": [
+          "diet.halal"
+        ]
+      },
+      {
+        "id": "ingredients",
+        "status": "good",
+        "tier": "inferred",
+        "headline": "No additives flagged",
+        "finding_ids": [
+          "ingredient.none"
+        ]
+      },
+      {
+        "id": "claims",
+        "status": "info",
+        "tier": "unknown",
+        "headline": "No claims to test",
+        "finding_ids": [
+          "claims.none"
+        ]
+      },
+      {
+        "id": "packaging",
+        "status": "info",
+        "tier": "label_stated",
+        "headline": "PP 5; carbon: no reliable data",
+        "finding_ids": [
+          "packaging.pp5",
+          "packaging.carbon"
+        ]
+      }
+    ],
+    "facts": {
+      "allergens_contains": [
+        "sesame"
+      ],
+      "allergens_may_contain": [],
+      "ingredients_known": true,
+      "diets": {
+        "vegan": "yes",
+        "vegetarian": "yes",
+        "gluten_free": "yes",
+        "lactose_free": "yes",
+        "halal": "unknown",
+        "kosher": "unknown"
+      },
+      "nutrient_levels": {
+        "sodium": "high",
+        "sugars": "low",
+        "fat_saturated": "medium"
+      },
+      "canonical_ingredient_ids": [
+        "rice",
+        "coconut",
+        "sesame",
+        "salt"
+      ]
+    },
+    "banners": [
+      "near_expiry:2026-10-20",
+      "retake:nutrition"
+    ],
+    "rule_pack_version": "v1",
+    "ri_reference": "Codex NRV (adult)",
+    "unresolved_terms": []
+  },
+  "commentary_en": {
+    "lang": "en",
+    "summary": "This kokis contains sesame and is high in sodium.",
+    "source": "template",
+    "cards": {
+      "allergens": {
+        "headline": "Contains sesame",
+        "reason": "Contains sesame."
+      },
+      "nutrition": {
+        "headline": "High in sodium",
+        "reason": "High in sodium."
+      }
+    }
+  },
+  "commentary_si": {
+    "lang": "si",
+    "summary": "මෙම කොකිස් වල තල අඩංගුයි, සෝඩියම් වැඩියි.",
+    "source": "template",
+    "cards": {
+      "allergens": {
+        "headline": "තල අඩංගුයි",
+        "reason": "තල අඩංගුයි."
+      },
+      "nutrition": {
+        "headline": "සෝඩියම් වැඩියි",
+        "reason": "සෝඩියම් වැඩියි."
+      }
+    }
+  },
+  "done": {
+    "scan_id": "scan-test-1",
+    "analysis": {
+      "product": {
+        "name": {
+          "value": "Kokis",
+          "confidence": 0.95
+        },
+        "brand": {
+          "value": "Lanka Crunch",
+          "confidence": 0.95
+        },
+        "category": {
+          "value": "food",
+          "confidence": 0.95
+        },
+        "label_languages": [
+          "si",
+          "en"
+        ],
+        "ingredients_verbatim": {
+          "value": "Rice flour, coconut milk, තල (sesame), salt, vegetable oil",
+          "confidence": 0.95
+        },
+        "ingredients": {
+          "value": [
+            "Rice flour",
+            "coconut milk",
+            "තල (sesame)",
+            "salt",
+            "vegetable oil"
+          ],
+          "confidence": 0.95
+        },
+        "allergen_contains_statement": {
+          "value": "Contains: sesame",
+          "confidence": 0.95
+        },
+        "allergen_may_contain_statement": {
+          "value": null,
+          "confidence": 0.9
+        },
+        "nutrition": {
+          "value": [
+            {
+              "nutrient": "sodium_mg",
+              "per_100g": 820,
+              "per_serving": 164,
+              "unit": "mg"
+            },
+            {
+              "nutrient": "sugars_total",
+              "per_100g": 3,
+              "per_serving": 0.6,
+              "unit": "g"
+            },
+            {
+              "nutrient": "fat_saturated",
+              "per_100g": 4,
+              "per_serving": 0.8,
+              "unit": "g"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "serving_size_g": {
+          "value": 20,
+          "confidence": 0.95
+        },
+        "claims": {
+          "value": [],
+          "confidence": 0.95
+        },
+        "dates": {
+          "value": [
+            {
+              "kind": "best_before",
+              "raw": "12/2027",
+              "iso": "2027-12-01"
+            }
+          ],
+          "confidence": 0.95
+        },
+        "batch_lot": {
+          "value": "L2410",
+          "confidence": 0.95
+        },
+        "manufacturer": {
+          "value": "Lanka Crunch Foods",
+          "confidence": 0.95
+        },
+        "origin": {
+          "value": "Sri Lanka",
+          "confidence": 0.95
+        },
+        "certification_marks": {
+          "value": [],
+          "confidence": 0.95
+        },
+        "packaging_codes": {
+          "value": [
+            "PP 5"
+          ],
+          "confidence": 0.95
+        },
+        "barcode": null,
+        "missing_sides": [],
+        "retake_tip": null
+      },
+      "findings": [
+        {
+          "id": "allergen.contains.sesame",
+          "card": "allergens",
+          "category": "allergen_contains",
+          "severity": "avoid",
+          "risk": "allergen",
+          "tier": "label_stated",
+          "title": "Contains sesame",
+          "reason": "The label lists තල (sesame) as an ingredient.",
+          "next_step": "Avoid if anyone in the household is allergic to sesame.",
+          "sources": [
+            {
+              "label": "Pack label",
+              "url": null
+            }
+          ],
+          "data": {
+            "allergen": "sesame",
+            "matched": "තල"
+          }
+        },
+        {
+          "id": "nutrient.sodium",
+          "card": "nutrition",
+          "category": "nutrient_level",
+          "severity": "check",
+          "risk": "restricted",
+          "tier": "label_stated",
+          "title": "High sodium",
+          "reason": "820 mg sodium per 100 g is above the high threshold of 600 mg.",
+          "next_step": "Consider a lower-sodium option for low-salt diets.",
+          "sources": [
+            {
+              "label": "Pack label",
+              "url": null
+            },
+            {
+              "label": "UK FSA front-of-pack thresholds",
+              "url": null
+            }
+          ],
+          "data": {
+            "nutrient": "sodium_mg",
+            "per_100g": 820,
+            "level": "high"
+          }
+        },
+        {
+          "id": "diet.halal",
+          "card": "diet",
+          "category": "diet",
+          "severity": "check",
+          "risk": "debated",
+          "tier": "inferred",
+          "title": "Halal status unknown",
+          "reason": "No certification mark was read and ingredients alone cannot confirm halal.",
+          "next_step": "Look for a halal mark.",
+          "sources": [
+            {
+              "label": "Rule pack v1",
+              "url": null
+            }
+          ],
+          "data": {
+            "diet": "halal"
+          }
+        },
+        {
+          "id": "ingredient.none",
+          "card": "ingredients",
+          "category": "additive",
+          "severity": "good",
+          "risk": "no_known_concern",
+          "tier": "inferred",
+          "title": "No additives flagged",
+          "reason": "No E-numbers were found in the readable ingredients.",
+          "next_step": null,
+          "sources": [
+            {
+              "label": "Rule pack v1",
+              "url": null
+            }
+          ],
+          "data": {}
+        },
+        {
+          "id": "claims.none",
+          "card": "claims",
+          "category": "claim",
+          "severity": "info",
+          "risk": "no_known_concern",
+          "tier": "unknown",
+          "title": "No claims to test",
+          "reason": "No marketing claims were read on this pack.",
+          "next_step": null,
+          "sources": [
+            {
+              "label": "Pack label",
+              "url": null
+            }
+          ],
+          "data": {}
+        },
+        {
+          "id": "packaging.pp5",
+          "card": "packaging",
+          "category": "packaging",
+          "severity": "info",
+          "risk": "no_known_concern",
+          "tier": "label_stated",
+          "title": "Recycling code PP 5",
+          "reason": "The pack shows PP 5 (polypropylene).",
+          "next_step": "Check local recycling rules.",
+          "sources": [
+            {
+              "label": "Pack label",
+              "url": null
+            }
+          ],
+          "data": {}
+        },
+        {
+          "id": "packaging.carbon",
+          "card": "packaging",
+          "category": "carbon",
+          "severity": "info",
+          "risk": "no_known_concern",
+          "tier": "unknown",
+          "title": "Carbon: No reliable data",
+          "reason": "No reliable carbon data exists for this product.",
+          "next_step": null,
+          "sources": [
+            {
+              "label": "Rule pack v1",
+              "url": null
+            }
+          ],
+          "data": {}
+        }
+      ],
+      "cards": [
+        {
+          "id": "allergens",
+          "status": "avoid",
+          "tier": "label_stated",
+          "headline": "Contains sesame",
+          "finding_ids": [
+            "allergen.contains.sesame"
+          ]
+        },
+        {
+          "id": "nutrition",
+          "status": "check",
+          "tier": "label_stated",
+          "headline": "High sodium per 100 g",
+          "finding_ids": [
+            "nutrient.sodium"
+          ]
+        },
+        {
+          "id": "diet",
+          "status": "check",
+          "tier": "inferred",
+          "headline": "Halal status unknown",
+          "finding_ids": [
+            "diet.halal"
+          ]
+        },
+        {
+          "id": "ingredients",
+          "status": "good",
+          "tier": "inferred",
+          "headline": "No additives flagged",
+          "finding_ids": [
+            "ingredient.none"
+          ]
+        },
+        {
+          "id": "claims",
+          "status": "info",
+          "tier": "unknown",
+          "headline": "No claims to test",
+          "finding_ids": [
+            "claims.none"
+          ]
+        },
+        {
+          "id": "packaging",
+          "status": "info",
+          "tier": "label_stated",
+          "headline": "PP 5; carbon: no reliable data",
+          "finding_ids": [
+            "packaging.pp5",
+            "packaging.carbon"
+          ]
+        }
+      ],
+      "facts": {
+        "allergens_contains": [
+          "sesame"
+        ],
+        "allergens_may_contain": [],
+        "ingredients_known": true,
+        "diets": {
+          "vegan": "yes",
+          "vegetarian": "yes",
+          "gluten_free": "yes",
+          "lactose_free": "yes",
+          "halal": "unknown",
+          "kosher": "unknown"
+        },
+        "nutrient_levels": {
+          "sodium": "high",
+          "sugars": "low",
+          "fat_saturated": "medium"
+        },
+        "canonical_ingredient_ids": [
+          "rice",
+          "coconut",
+          "sesame",
+          "salt"
+        ]
+      },
+      "banners": [
+        "near_expiry:2026-10-20",
+        "retake:nutrition"
+      ],
+      "rule_pack_version": "v1",
+      "ri_reference": "Codex NRV (adult)",
+      "unresolved_terms": []
+    },
+    "commentary": {
+      "lang": "en",
+      "summary": "This kokis contains sesame and is high in sodium.",
+      "source": "template",
+      "cards": {
+        "allergens": {
+          "headline": "Contains sesame",
+          "reason": "Contains sesame."
+        },
+        "nutrition": {
+          "headline": "High in sodium",
+          "reason": "High in sodium."
+        }
+      }
+    },
+    "trace": [
+      {
+        "tool": "extract_label",
+        "ms": 5,
+        "model_calls": 0
+      }
+    ],
+    "model_calls": 0,
+    "cached": false
+  }
+}
