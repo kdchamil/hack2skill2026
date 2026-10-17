@@ -372,7 +372,7 @@ These are targets for the R2 production service. The MVP must meet the ones mark
 | NFR-12 | Maintainability | Typed contracts shared by client and server, ≥ 85% line coverage on the rules engine, and every rule versioned with its source | CI coverage gate |
 | NFR-13 | Observability | Structured logs, traces per scan, and evaluation metrics on dashboards. No PII in logs. | Log-based tests |
 | NFR-14 ★ | On-device security | Profile data is unreadable without the device key: AES-256-GCM, non-extractable keys, biometric unlock where supported, auto-lock after 5 minutes idle. No request ever contains a profile field. | Crypto unit tests; an end-to-end test that inspects every outgoing request |
-| NFR-15 ★ | AI efficiency | At most 2 model calls on a first scan and 0 on a repeat. The Gemini pipeline beats the rules-only baseline on allergen recall. | Call counter in traces; baseline comparison in the evaluation suite |
+| NFR-15 ★ | AI efficiency | At most 3 model calls on a first scan when Search grounding runs (extract, grounding, commentary), otherwise 2; 0 on a repeat scan. (relaxed 18 Oct 2026 for Search grounding) The Gemini pipeline beats the rules-only baseline on allergen recall. | Call counter in traces; baseline comparison in the evaluation suite |
 
 ## 8. Use cases with illustrations
 

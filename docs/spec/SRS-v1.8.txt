@@ -893,7 +893,7 @@ Profile data is unreadable without the device key: AES-256-GCM, non-extractable 
 Crypto unit tests; an end-to-end test that inspects every outgoing request
 NFR-15 ★
 AI efficiency
-At most 2 model calls on a first scan and 0 on a repeat. The Gemini pipeline beats the rules-only baseline on allergen recall.
+At most 3 model calls on a first scan when Search grounding runs (extract, grounding, commentary), otherwise 2; 0 on a repeat scan. (relaxed 18 Oct 2026 for Search grounding) The Gemini pipeline beats the rules-only baseline on allergen recall.
 Call counter in traces; baseline comparison in the evaluation suite
 8. Use cases with illustrations
 Ten use cases cover the MVP and R2. Three are illustrated below: a sequence for the core scan, a decision flow for recall matching, and wireframes for 15 screens, redesigned on 17 Oct.
