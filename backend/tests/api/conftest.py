@@ -10,9 +10,11 @@ def _env(monkeypatch):
     monkeypatch.delenv("FIVESEC_MOCK", raising=False)
     monkeypatch.delenv("FIVESEC_PIPELINE", raising=False)
     monkeypatch.setenv("WEB_DIST", "/nonexistent")
+    monkeypatch.setenv("FIVESEC_RATE_LIMIT", "0")  # rate tests switch it back on
+    monkeypatch.setenv("FIVESEC_CACHE", "memory")
     from app.agent import pipeline
-    from app.ai import commentary
-    pipeline._BY_KEY.clear(); pipeline.SCANS.clear(); commentary._CACHE.clear()
+    from app.store import reset_caches, reset_limits
+    pipeline._BY_KEY.clear(); pipeline.SCANS.clear(); reset_caches(); reset_limits()
 
 
 @pytest.fixture

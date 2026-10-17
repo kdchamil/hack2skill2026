@@ -6,7 +6,6 @@ import asyncio
 import json
 import logging
 import re
-import time
 import uuid
 from typing import Any, Literal
 
@@ -20,6 +19,7 @@ from app.ai import listparse
 from app.ai.tts import TTSUnavailable, synthesize
 from app.config import get_settings
 from app.models import ListParseRequest, ListParseResponse
+from app.store.ratelimit import check_rate
 from app.rules.ranges import ranges as range_table
 
 log = logging.getLogger("fivesec")
@@ -69,6 +69,8 @@ async def fixtures() -> list[dict[str, str]]:
 @router.post("/scan")
 async def scan(request: Request) -> StreamingResponse:
     form = await request.form()
+    # Demo fixture scans make no model call, so they are not throttled. Validated again below.
+    fixture_scan = bool(str(form.get("fixture") or "").strip())
     extra = set(form.keys()) - ALLOWED_FIELDS
     if extra:
         raise _bad("unexpected form field")
@@ -102,6 +104,8 @@ async def scan(request: Request) -> StreamingResponse:
 
         if fixture not in {i["name"] if isinstance(i, dict) else i for i in list_fixtures()}:
             raise _bad("unknown fixture")
+
+    check_rate(request, exempt=fixture_scan)
 
     queue: asyncio.Queue[tuple[str, Any] | None] = asyncio.Queue()
 
@@ -143,7 +147,8 @@ class CommentaryReq(BaseModel):
 
 
 @router.post("/commentary")
-async def commentary(req: CommentaryReq) -> Any:
+async def commentary(req: CommentaryReq, request: Request) -> Any:
+    check_rate(request)
     resp = pipeline.SCANS.get(req.scan_id)
     if resp is None:
         raise HTTPException(404, "unknown scan_id")
@@ -158,7 +163,8 @@ class TTSReq(BaseModel):
 
 
 @router.post("/tts")
-async def tts(req: TTSReq) -> Response:
+async def tts(req: TTSReq, request: Request) -> Response:
+    check_rate(request)
     try:
         audio = await synthesize(req.text, req.lang)
     except TTSUnavailable:
@@ -227,30 +233,12 @@ async def get_ranges() -> dict[str, Any]:
     return {"ranges": range_table()}
 
 
-_LIST_HITS: dict[str, list[float]] = {}
-LIST_LIMIT, LIST_WINDOW_S = 30, 60.0
-
-
-def _list_rate_ok(who: str) -> bool:
-    now = time.monotonic()
-    hits = [t for t in _LIST_HITS.get(who, []) if now - t < LIST_WINDOW_S]
-    if len(hits) >= LIST_LIMIT:
-        _LIST_HITS[who] = hits
-        return False
-    hits.append(now)
-    _LIST_HITS[who] = hits
-    if len(_LIST_HITS) > 5000:
-        _LIST_HITS.pop(next(iter(_LIST_HITS)))
-    return True
-
-
 @router.post("/list/parse")
 async def list_parse(request: Request) -> ListParseResponse:
-    """Pasted text -> items. 400 on bad shape/extra fields/text over 2000 chars; 30 per minute per client; never logged or stored."""
+    """Pasted text -> items. 400 on bad shape/extra fields/text over 2000 chars; per-client token bucket; never logged or stored."""
     try:
         req = ListParseRequest.model_validate(await request.json())
     except Exception:  # noqa: BLE001 - invalid JSON or validation failure
         raise _bad("expected {text (max 2000 chars), lang en|si|ta} and nothing else") from None
-    if not _list_rate_ok(request.client.host if request.client else "?"):
-        raise HTTPException(429, "too many list requests")
+    check_rate(request)
     return ListParseResponse(items=await listparse.parse_list(req.text, req.lang))

@@ -3,7 +3,7 @@
 # Usage: scripts/setup_gcp.sh PROJECT_ID [REGION=asia-southeast1]
 #
 # Enables APIs, creates the Artifact Registry repo, creates the Cloud Run
-# runtime service account (roles/aiplatform.user only) and grants the Cloud
+# runtime service account (roles/aiplatform.user and roles/datastore.user) and grants the Cloud
 # Build service account what it needs to deploy.
 #
 # Text-to-Speech needs no IAM role beyond the API being enabled, so the
@@ -40,6 +40,7 @@ gcloud services enable \
   artifactregistry.googleapis.com \
   aiplatform.googleapis.com \
   texttospeech.googleapis.com \
+  firestore.googleapis.com \
   --project "$PROJECT_ID"
 
 echo "==> Artifact Registry repo: $REPO"
@@ -60,11 +61,26 @@ if ! gcloud iam service-accounts describe "$RUN_SA_EMAIL" \
     --project "$PROJECT_ID"
 fi
 
-echo "==> Runtime SA roles (aiplatform.user only; TTS needs no extra role)"
+echo "==> Runtime SA roles (aiplatform.user; TTS needs no extra role)"
 gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:${RUN_SA_EMAIL}" \
   --role="roles/aiplatform.user" \
   --condition=None >/dev/null
+
+echo "==> Firestore (native mode, $REGION) for the label/commentary/audio cache"
+if ! gcloud firestore databases describe --database="(default)" --project "$PROJECT_ID" >/dev/null 2>&1; then
+  gcloud firestore databases create --database="(default)" --location "$REGION" --type=firestore-native \
+    --project "$PROJECT_ID"
+fi
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member="serviceAccount:${RUN_SA_EMAIL}" \
+  --role="roles/datastore.user" \
+  --condition=None >/dev/null
+# TTL: Firestore deletes docs once their expires_at passes (can take up to ~24 h after).
+for COLL in label_extractions commentary tts_audio; do
+  gcloud firestore fields ttls update expires_at --collection-group="$COLL" --enable-ttl \
+    --async --project "$PROJECT_ID" >/dev/null || true
+done
 
 echo "==> Cloud Build service account: $CB_SA"
 gcloud projects add-iam-policy-binding "$PROJECT_ID" \
