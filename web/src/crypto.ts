@@ -159,8 +159,8 @@ export async function enablePasskey(meta: VaultMeta, pin: string): Promise<Vault
   const extractable = await unwrap(meta.pin.wrapped, await pinKek(pin, b64d(meta.pin.salt), meta.pin.iters), true)
   const created = (await navigator.credentials.create({
     publicKey: {
-      rp: { name: 'Five Seconds' },
-      user: { id: rand(16), name: 'household', displayName: 'Five Seconds household' },
+      rp: { name: 'FiveSeconds' },
+      user: { id: rand(16), name: 'household', displayName: 'FiveSeconds household' },
       challenge: rand(32),
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
       authenticatorSelection: { userVerification: 'required', residentKey: 'preferred' },

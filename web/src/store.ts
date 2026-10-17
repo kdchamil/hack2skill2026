@@ -101,7 +101,7 @@ export async function exportBackup(): Promise<string> {
 }
 export async function importBackup(json: string): Promise<VaultMeta> {
   const o = JSON.parse(json) as { app?: string; v?: number; meta?: VaultMeta; profiles?: string | null; history?: string | null; library?: string | null }
-  if (o.app !== 'five-seconds' || !o.meta?.recovery?.wrapped) throw new Error('Not a Five Seconds backup')
+  if (o.app !== 'five-seconds' || !o.meta?.recovery?.wrapped) throw new Error('Not a FiveSeconds backup')
   await wipeAll()
   await saveMeta(o.meta)
   if (o.profiles) await set('profiles', o.profiles)

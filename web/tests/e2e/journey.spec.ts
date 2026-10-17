@@ -25,7 +25,7 @@ test('seed household, unlock, scan, summary, areas, detail, claims, listen fallb
 
   // summary: grade, drivers, partial planet note, rings, five areas
   await expect(page.getByRole('img', { name: 'Grade D' }).first()).toBeVisible()
-  await expect(page.getByText(/moved it most/)).toBeVisible()
+  await expect(page.getByText(/Pulled down by/)).toBeVisible()
   await expect(page.getByTestId('planet-partial')).toBeVisible()
   const rings = page.locator('.ring-item')
   await expect(rings).toHaveCount(3)

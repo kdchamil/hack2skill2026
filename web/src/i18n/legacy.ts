@@ -1,7 +1,7 @@
 export type Dict = Record<string, string>
 
 export const en: Dict = {
-  'app.name': 'Five Seconds',
+  'app.name': 'FiveSeconds',
   'nav.scan': 'Scan', 'nav.household': 'Household', 'nav.main': 'Main navigation',
   'lang.label': 'Language',
   'scan.title': 'Scan a pack',
@@ -46,7 +46,7 @@ export const en: Dict = {
   'v.recTitle': 'Your recovery code', 'v.recBody': 'Write this down and keep it safe. It is shown once. It is the only way back in if you forget your PIN.',
   'v.recSaved': 'I have saved my recovery code', 'v.forgot': 'Forgot PIN? Use recovery code', 'v.recInput': 'Recovery code', 'v.newPin': 'New PIN',
   'v.recWrong': 'That recovery code did not work.', 'v.reset': 'Restore access', 'v.working': 'Working…', 'v.autolock': 'Locks automatically after 5 minutes idle.',
-  'v.importBad': 'That file is not a Five Seconds backup.', 'v.backupNote': 'The backup is encrypted. You need your PIN or recovery code to open it.',
+  'v.importBad': 'That file is not a FiveSeconds backup.', 'v.backupNote': 'The backup is encrypted. You need your PIN or recovery code to open it.',
   'common.loading': 'Loading…', 'common.retry': 'Try again', 'common.offline': 'Cannot reach the server.',
   'pwa.https': 'Camera and install need HTTPS.', 'skip': 'Skip to content',
   'allergen.peanut': 'Peanut', 'allergen.tree_nut': 'Tree nuts', 'allergen.milk': 'Milk', 'allergen.egg': 'Egg', 'allergen.fish': 'Fish', 'allergen.crustacean': 'Crustaceans',
@@ -104,7 +104,7 @@ export const si: Dict = {
   'v.recTitle': 'ඔබේ ප්‍රතිසාධන කේතය', 'v.recBody': 'මෙය ලියා ආරක්ෂිතව තබා ගන්න. එක් වරක් පමණක් පෙන්වයි. PIN එක අමතක වුවහොත් ආපසු ඇතුළු වීමට ඇති එකම මාර්ගය මෙයයි.',
   'v.recSaved': 'මම ප්‍රතිසාධන කේතය සුරකින ලදී', 'v.forgot': 'PIN අමතකද? ප්‍රතිසාධන කේතය භාවිතා කරන්න', 'v.recInput': 'ප්‍රතිසාධන කේතය', 'v.newPin': 'නව PIN',
   'v.recWrong': 'එම ප්‍රතිසාධන කේතය ක්‍රියා නොකළා.', 'v.reset': 'ප්‍රවේශය ප්‍රතිසාධනය කරන්න', 'v.working': 'සකසමින්…', 'v.autolock': 'විනාඩි 5ක් අක්‍රියව තිබුණොත් ස්වයංක්‍රීයව අගුළු වැටේ.',
-  'v.importBad': 'එය Five Seconds උපස්ථයක් නොවේ.', 'v.backupNote': 'උපස්ථය සංකේතනය කර ඇත. විවෘත කිරීමට PIN එක හෝ ප්‍රතිසාධන කේතය අවශ්‍යයි.',
+  'v.importBad': 'එය FiveSeconds උපස්ථයක් නොවේ.', 'v.backupNote': 'උපස්ථය සංකේතනය කර ඇත. විවෘත කිරීමට PIN එක හෝ ප්‍රතිසාධන කේතය අවශ්‍යයි.',
   'common.loading': 'පූරණය වෙමින්…', 'common.retry': 'නැවත උත්සාහ කරන්න', 'common.offline': 'සේවාදායකයට සම්බන්ධ විය නොහැක.',
   'pwa.https': 'කැමරාවට සහ ස්ථාපනයට HTTPS අවශ්‍යයි.', 'skip': 'අන්තර්ගතයට පිවිසෙන්න',
   'allergen.peanut': 'රටකජු', 'allergen.tree_nut': 'ගස් ඇට වර්ග', 'allergen.milk': 'කිරි', 'allergen.egg': 'බිත්තර', 'allergen.fish': 'මාළු', 'allergen.crustacean': 'කබොල සහිත මුහුදු ආහාර',
@@ -162,7 +162,7 @@ export const ta: Dict = {
   'v.recTitle': 'உங்கள் மீட்புக் குறியீடு', 'v.recBody': 'இதை எழுதி பாதுகாப்பாக வையுங்கள். இது ஒருமுறை மட்டுமே காட்டப்படும். PIN ஐ மறந்தால் உள்ளே வர இதுவே ஒரே வழி.',
   'v.recSaved': 'மீட்புக் குறியீட்டைச் சேமித்துவிட்டேன்', 'v.forgot': 'PIN மறந்துவிட்டதா? மீட்புக் குறியீட்டைப் பயன்படுத்துங்கள்', 'v.recInput': 'மீட்புக் குறியீடு', 'v.newPin': 'புதிய PIN',
   'v.recWrong': 'அந்த மீட்புக் குறியீடு வேலை செய்யவில்லை.', 'v.reset': 'அணுகலை மீட்டெடு', 'v.working': 'செயல்படுகிறது…', 'v.autolock': '5 நிமிடம் பயன்படுத்தாவிட்டால் தானாகப் பூட்டப்படும்.',
-  'v.importBad': 'அது Five Seconds காப்புப்பிரதி அல்ல.', 'v.backupNote': 'காப்புப்பிரதி குறியாக்கம் செய்யப்பட்டது. திறக்க PIN அல்லது மீட்புக் குறியீடு தேவை.',
+  'v.importBad': 'அது FiveSeconds காப்புப்பிரதி அல்ல.', 'v.backupNote': 'காப்புப்பிரதி குறியாக்கம் செய்யப்பட்டது. திறக்க PIN அல்லது மீட்புக் குறியீடு தேவை.',
   'common.loading': 'ஏற்றுகிறது…', 'common.retry': 'மீண்டும் முயல்க', 'common.offline': 'சேவையகத்தை அடைய முடியவில்லை.',
   'pwa.https': 'கேமராவுக்கும் நிறுவலுக்கும் HTTPS தேவை.', 'skip': 'உள்ளடக்கத்துக்குச் செல்',
   'allergen.peanut': 'நிலக்கடலை', 'allergen.tree_nut': 'மரக் கொட்டைகள்', 'allergen.milk': 'பால்', 'allergen.egg': 'முட்டை', 'allergen.fish': 'மீன்', 'allergen.crustacean': 'ஓடுடைய கடல் உணவு',

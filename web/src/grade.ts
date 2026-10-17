@@ -60,3 +60,16 @@ export const claimEvidence = (f: Finding): string[] => {
   const lines = Array.isArray(e) ? e.map((x) => (typeof x === 'string' ? x : '')).filter(Boolean) : []
   return [f.reason, ...lines]
 }
+
+const CARD_RANK: Record<string, number> = { A: 1, B: 2, C: 3, D: 4, E: 5 }
+/** "Grade D. Pulled down by Nutrition (E). Helped by Additives (A)." Direction is relative to C. Empty when no card moved it. */
+export function gradeSentence(t: T, cards: { id: string; grade: GradeLetter | null }[], letter: GradeLetter | null): string {
+  const graded = cards.filter((c): c is { id: string; grade: GradeLetter } => !!c.grade)
+  const worse = graded.filter((c) => CARD_RANK[c.grade] > 3).sort((a, b) => CARD_RANK[b.grade] - CARD_RANK[a.grade])
+  const better = graded.filter((c) => CARD_RANK[c.grade] < 3).sort((a, b) => CARD_RANK[a.grade] - CARD_RANK[b.grade])
+  const list = (xs: typeof graded) => xs.map((c) => `${t(`card.${c.id}`)} (${c.grade})`).join(t('grade.and'))
+  const parts = [t('grade.head', { g: letter ?? '' })]
+  if (worse.length) parts.push(t('grade.down', { names: list(worse) }))
+  if (better.length) parts.push(t('grade.up', { names: list(better) }))
+  return parts.length > 1 ? parts.join(' ') : ''
+}

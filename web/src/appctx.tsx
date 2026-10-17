@@ -13,6 +13,10 @@ export interface ScanView {
   phase: 'loading' | 'streaming' | 'done' | 'error'
   error: string | null
   cached?: boolean
+  trace?: Record<string, unknown>[]
+  modelCalls?: number
+  /** scan came from a demo pack: household-less verdicts use the sample household */
+  demo?: boolean
   /** set when opened from the Library: shown offline from the saved entry */
   saved?: LibraryEntry
 }

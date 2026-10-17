@@ -66,14 +66,14 @@ export default function App() {
     const ac = new AbortController()
     abort.current = ac
     stopListen()
-    setView({ ...EMPTY })
+    setView({ ...EMPTY, demo: !!input.fixture })
     setMember(null)
     setRoute({ tab: 'scan', sub: 'summary' })
     scan({ ...input, lang }, {
       onAnalysis: (analysis, ms) => setView((v) => ({ ...v, analysis, elapsedMs: ms, phase: 'streaming' })),
       onCommentary: (commentary) => setView((v) => ({ ...v, commentary })),
       onDone: (r, ms) => {
-        setView((v) => ({ ...v, analysis: r.analysis, commentary: r.commentary, scanId: r.scan_id, elapsedMs: v.elapsedMs ?? ms, phase: 'done', cached: r.cached }))
+        setView((v) => ({ ...v, analysis: r.analysis, commentary: r.commentary, scanId: r.scan_id, elapsedMs: v.elapsedMs ?? ms, phase: 'done', cached: r.cached, trace: Array.isArray(r.trace) ? r.trace : [], modelCalls: r.model_calls }))
         void onScanCompleted(r).catch(() => {}).then(() => {
           const item = getListState().items.find((i) => i.found?.scanId === r.scan_id)
           return saveScan(r, membersRef.current, item?.id ?? null)
@@ -140,7 +140,7 @@ export default function App() {
         </main>
         <ListPrompts onCompare={() => navigate(routes.compare)} />
         <BottomBar current={route.tab === 'privacy' ? null : route.tab} onGo={(x) => navigate({ tab: x })} />
-        <footer className="foot">{t('pwa.https')}</footer>
+        <footer className="foot">{window.isSecureContext ? '' : t('pwa.https')}</footer>
       </AppContext.Provider>
     </Ctx.Provider>
   )
