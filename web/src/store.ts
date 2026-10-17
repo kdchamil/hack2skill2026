@@ -59,6 +59,19 @@ export async function addHistory(key: CryptoKey, entry: HistoryEntry): Promise<v
   await set('history', await encryptJson(key, next))
 }
 
+// In-memory data key for modules (library.ts) that persist without a React hook. Set by useVault on unlock, cleared on lock/wipe.
+let sessionKey: CryptoKey | null = null
+export const setSessionKey = (k: CryptoKey | null) => { sessionKey = k }
+export const getSessionKey = () => sessionKey
+
+export async function loadLibraryBlob<T>(key: CryptoKey): Promise<T[]> {
+  const blob = await get<string>('library')
+  return blob ? decryptJson<T[]>(key, blob) : []
+}
+export async function saveLibraryBlob(key: CryptoKey, entries: unknown[]): Promise<void> {
+  await set('library', await encryptJson(key, entries))
+}
+
 /** Wipes IndexedDB (profiles, history, wrapped keys). The in-memory key must be dropped by the caller. */
 export async function wipeAll(): Promise<void> {
   await tx('readwrite', (s) => s.clear())
@@ -83,15 +96,17 @@ export async function exportBackup(): Promise<string> {
     meta: await getMeta(),
     profiles: (await get<string>('profiles')) ?? null,
     history: (await get<string>('history')) ?? null,
+    library: (await get<string>('library')) ?? null,
   })
 }
 export async function importBackup(json: string): Promise<VaultMeta> {
-  const o = JSON.parse(json) as { app?: string; v?: number; meta?: VaultMeta; profiles?: string | null; history?: string | null }
+  const o = JSON.parse(json) as { app?: string; v?: number; meta?: VaultMeta; profiles?: string | null; history?: string | null; library?: string | null }
   if (o.app !== 'five-seconds' || !o.meta?.recovery?.wrapped) throw new Error('Not a Five Seconds backup')
   await wipeAll()
   await saveMeta(o.meta)
   if (o.profiles) await set('profiles', o.profiles)
   if (o.history) await set('history', o.history)
+  if (o.library) await set('library', o.library)
   return o.meta
 }
 

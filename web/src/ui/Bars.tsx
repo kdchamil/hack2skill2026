@@ -16,8 +16,8 @@ export function ListenBar({ text, tag, onNext, onLang }: ListenBarProps) {
   const cycle = () => setRate(RATES[(RATES.indexOf(s.rate) + 1) % RATES.length])
   return (
     <div className="listenbar" role="group" aria-label={t('listen.bar')}>
-      <button type="button" className="lb-btn lb-play" onClick={press} aria-label={playing ? t('listen.pause') : t('listen.play')}>
-        {playing ? <Pause /> : <Play />}<span>{t('sum.listen')}</span>
+      <button type="button" className="lb-btn lb-play" onClick={press}>
+        {playing ? <Pause /> : <Play />}<span>{playing ? t('listen.pause') : t('sum.listen')}</span>
       </button>
       <select className="lb-lang" aria-label={t('listen.lang')} value={lang} onChange={(e) => onLang?.(e.target.value as Lang)}>
         {(Object.keys(LANG_LABELS) as Lang[]).map((l) => <option key={l} value={l} lang={l}>{LANG_LABELS[l].name}</option>)}

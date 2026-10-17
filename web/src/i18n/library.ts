@@ -1,6 +1,42 @@
 import type { Dict } from './legacy'
 
-const en: Dict = {}
-const si: Dict = {}
-const ta: Dict = {}
+const en: Dict = {
+  'lib.title': 'Library', 'lib.sub': '{n} scans · on this phone · works offline', 'lib.search': 'Search the library',
+  'lib.fAll': 'All', 'lib.fWeek': 'This week', 'lib.fAvoid': 'Avoid for someone', 'lib.fAB': 'Grade A to B', 'lib.filters': 'Filters',
+  'lib.today': 'Today', 'lib.empty': 'Nothing saved yet. Scans you make are kept here, on this phone only.', 'lib.noMatch': 'No scans match.',
+  'lib.paused': 'Saving is paused. New scans are not kept.', 'lib.locked': 'Unlock your household to see the Library.', 'lib.goHousehold': 'Go to Household',
+  'lib.stale': "{names}'s profile changed since this scan.", 'lib.recheck': 'Re-check', 'lib.rechecked': 'Re-checked with current profiles. The original result is kept.',
+  'lib.open': 'Open {name}', 'lib.delete': 'Delete this scan', 'lib.deleteAria': 'Delete {name}', 'lib.deleteAll': 'Delete the whole Library', 'lib.confirmAll': 'Delete all {n} saved scans from this phone? This cannot be undone.',
+  'lib.confirmYes': 'Yes, delete', 'lib.cancel': 'Cancel', 'lib.unnamed': 'Unnamed product', 'lib.original': 'Original result at scan time', 'lib.current': 'Current',
+  'lib.cards': 'Grade cards', 'lib.findings': 'Findings', 'lib.noRings': 'No household member was saved with this scan.',
+  'lib.save': 'Save scans to Library', 'lib.saveHint': "With each person's result that day", 'lib.photos': 'Scan photos', 'lib.photosHint': 'Never stored',
+  'lib.close': 'Close', 'lib.from': 'From a list', 'lib.card.nutrition': 'Nutrition', 'lib.card.processing': 'Processing', 'lib.card.additives': 'Additives',
+  'lib.card.carbon': 'Carbon', 'lib.card.water_land': 'Water and land', 'lib.card.packaging': 'Packaging',
+},
+si: Dict = {
+  'lib.title': 'පුස්තකාලය', 'lib.sub': 'ස්කෑන් {n} · මෙම දුරකථනයේ · ඔෆ්ලයින් ක්‍රියා කරයි', 'lib.search': 'පුස්තකාලයේ සොයන්න',
+  'lib.fAll': 'සියල්ල', 'lib.fWeek': 'මෙම සතිය', 'lib.fAvoid': 'යමෙකුට වළකින්න', 'lib.fAB': 'ශ්‍රේණිය A සිට B', 'lib.filters': 'පෙරහන්',
+  'lib.today': 'අද', 'lib.empty': 'තවම කිසිවක් සුරැකී නැත. ඔබේ ස්කෑන් මෙම දුරකථනයේ පමණක් තබයි.', 'lib.noMatch': 'ගැළපෙන ස්කෑන් නැත.',
+  'lib.paused': 'සුරැකීම නවතා ඇත. නව ස්කෑන් තබා නොගනී.', 'lib.locked': 'පුස්තකාලය බැලීමට පවුල අගුළු හරින්න.', 'lib.goHousehold': 'පවුලට යන්න',
+  'lib.stale': 'මෙම ස්කෑන් කළ පසු {names}ගේ පැතිකඩ වෙනස් විය.', 'lib.recheck': 'නැවත පරීක්ෂා කරන්න', 'lib.rechecked': 'වත්මන් පැතිකඩවලින් නැවත පරීක්ෂා කළා. මුල් ප්‍රතිඵලය තබා ඇත.',
+  'lib.open': '{name} විවෘත කරන්න', 'lib.delete': 'මෙම ස්කෑන් මකන්න', 'lib.deleteAria': '{name} මකන්න', 'lib.deleteAll': 'මුළු පුස්තකාලයම මකන්න', 'lib.confirmAll': 'සුරැකි ස්කෑන් {n} ම මෙම දුරකථනයෙන් මකන්නද? මෙය ආපසු හැරවිය නොහැක.',
+  'lib.confirmYes': 'ඔව්, මකන්න', 'lib.cancel': 'අවලංගු කරන්න', 'lib.unnamed': 'නම නැති නිෂ්පාදනය', 'lib.original': 'ස්කෑන් කළ වෙලාවේ මුල් ප්‍රතිඵලය', 'lib.current': 'වත්මන්',
+  'lib.cards': 'ශ්‍රේණි කාඩ්පත්', 'lib.findings': 'සොයාගැනීම්', 'lib.noRings': 'මෙම ස්කෑන් සමඟ පවුලේ සාමාජිකයෙකු සුරැකී නැත.',
+  'lib.save': 'ස්කෑන් පුස්තකාලයේ සුරකින්න', 'lib.saveHint': 'එදින එක් එක් අයගේ ප්‍රතිඵලය සමඟ', 'lib.photos': 'ඡායාරූප ස්කෑන්', 'lib.photosHint': 'කිසිදා ගබඩා නොවේ',
+  'lib.close': 'වසන්න', 'lib.from': 'ලැයිස්තුවකින්', 'lib.card.nutrition': 'පෝෂණය', 'lib.card.processing': 'සැකසීම', 'lib.card.additives': 'ආකලන',
+  'lib.card.carbon': 'කාබන්', 'lib.card.water_land': 'ජලය සහ ඉඩම්', 'lib.card.packaging': 'ඇසුරුම්',
+},
+ta: Dict = {
+  'lib.title': 'நூலகம்', 'lib.sub': '{n} ஸ்கேன்கள் · இந்தத் தொலைபேசியில் · ஆஃப்லைனிலும் வேலை செய்யும்', 'lib.search': 'நூலகத்தில் தேடு',
+  'lib.fAll': 'அனைத்தும்', 'lib.fWeek': 'இந்த வாரம்', 'lib.fAvoid': 'யாருக்காவது தவிர்க்கவும்', 'lib.fAB': 'தரம் A முதல் B', 'lib.filters': 'வடிகட்டிகள்',
+  'lib.today': 'இன்று', 'lib.empty': 'இன்னும் எதுவும் சேமிக்கப்படவில்லை. உங்கள் ஸ்கேன்கள் இந்தத் தொலைபேசியில் மட்டும் இருக்கும்.', 'lib.noMatch': 'பொருந்தும் ஸ்கேன்கள் இல்லை.',
+  'lib.paused': 'சேமிப்பு இடைநிறுத்தப்பட்டது. புதிய ஸ்கேன்கள் வைக்கப்படாது.', 'lib.locked': 'நூலகத்தைப் பார்க்க குடும்பத்தைத் திறக்கவும்.', 'lib.goHousehold': 'குடும்பத்துக்குச் செல்',
+  'lib.stale': 'இந்த ஸ்கேனுக்குப் பிறகு {names} சுயவிவரம் மாறியது.', 'lib.recheck': 'மீண்டும் சரிபார்', 'lib.rechecked': 'தற்போதைய சுயவிவரங்களுடன் மீண்டும் சரிபார்க்கப்பட்டது. அசல் முடிவு வைக்கப்பட்டுள்ளது.',
+  'lib.open': '{name} ஐத் திற', 'lib.delete': 'இந்த ஸ்கேனை அழி', 'lib.deleteAria': '{name} ஐ அழி', 'lib.deleteAll': 'முழு நூலகத்தையும் அழி', 'lib.confirmAll': 'சேமித்த {n} ஸ்கேன்களையும் இந்தத் தொலைபேசியிலிருந்து அழிக்கவா? இதைத் திரும்பப் பெற முடியாது.',
+  'lib.confirmYes': 'ஆம், அழி', 'lib.cancel': 'ரத்து செய்', 'lib.unnamed': 'பெயரற்ற பொருள்', 'lib.original': 'ஸ்கேன் நேரத்தின் அசல் முடிவு', 'lib.current': 'தற்போதையது',
+  'lib.cards': 'தர அட்டைகள்', 'lib.findings': 'கண்டறிதல்கள்', 'lib.noRings': 'இந்த ஸ்கேனுடன் எந்த உறுப்பினரும் சேமிக்கப்படவில்லை.',
+  'lib.save': 'ஸ்கேன்களை நூலகத்தில் சேமி', 'lib.saveHint': 'அன்றைய ஒவ்வொருவரின் முடிவுடன்', 'lib.photos': 'புகைப்பட ஸ்கேன்', 'lib.photosHint': 'ஒருபோதும் சேமிக்கப்படாது',
+  'lib.close': 'மூடு', 'lib.from': 'பட்டியலிலிருந்து', 'lib.card.nutrition': 'ஊட்டச்சத்து', 'lib.card.processing': 'பதப்படுத்தல்', 'lib.card.additives': 'சேர்க்கைகள்',
+  'lib.card.carbon': 'கார்பன்', 'lib.card.water_land': 'நீரும் நிலமும்', 'lib.card.packaging': 'பேக்கேஜிங்',
+}
 export default { en, si, ta }

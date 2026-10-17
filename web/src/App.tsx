@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchCommentary, scan, type ScanInput } from './api'
 import { stopListen } from './audio'
 import { Privacy } from './components/Privacy'
-import type { ScanView } from './components/Summary'
-import { AppContext, type AppCtx, type Route } from './appctx'
+import { AppContext, type AppCtx, type Route, type ScanView } from './appctx'
+import './screens/screens.css'
 import { Area } from './screens/Area'
 import { Basket } from './screens/Basket'
 import { Claims } from './screens/Claims'
@@ -38,6 +38,7 @@ export default function App() {
   const vault = useVault()
   const ctx = useMemo(() => makeCtx(lang), [lang])
   const abort = useRef<AbortController | null>(null)
+  const last = useRef<Omit<ScanInput, 'lang'> | null>(null)
   const viewRef = useRef(view)
   useEffect(() => { viewRef.current = view }, [view])
   const { t } = ctx
@@ -55,6 +56,7 @@ export default function App() {
   }, [])
 
   const runScan = useCallback((input: Omit<ScanInput, 'lang'>) => {
+    last.current = input
     abort.current?.abort()
     const ac = new AbortController()
     abort.current = ac
@@ -85,9 +87,10 @@ export default function App() {
     setRoute((r) => (r.tab === 'scan' && r.sub ? { tab: 'scan' } : r))
   }, [])
 
+  const retry = useCallback(() => { if (last.current) runScan(last.current); else setRoute({ tab: 'scan' }) }, [runScan])
   const navigate = useCallback((r: Route) => { stopListen(); setRoute(r) }, [])
-  const app = useMemo<AppCtx>(() => ({ route, navigate, member, setMember, view, vault, runScan, setLang, onDeleted }),
-    [route, navigate, member, view, vault, runScan, setLang, onDeleted])
+  const app = useMemo<AppCtx>(() => ({ route, navigate, member, setMember, view, vault, runScan, retry, setLang, onDeleted }),
+    [route, navigate, member, view, vault, runScan, retry, setLang, onDeleted])
   const sub = route.sub
 
   return (
@@ -97,7 +100,7 @@ export default function App() {
         <header className="top">
           <span className="brand" translate="no"><span aria-hidden="true">⏱</span> {t('app.name')}</span>
           <div className="row">
-            {sub !== 'summary' && (
+            {route.tab !== 'scan' && (
               <div className="row" role="group" aria-label={t('lang.label')}>
                 {(['en', 'si', 'ta'] as Lang[]).map((l) => (
                   <button key={l} type="button" className="btn chip-btn" lang={l} aria-pressed={lang === l} onClick={() => setLang(l)}>
@@ -110,7 +113,7 @@ export default function App() {
           </div>
         </header>
         <main id="main" tabIndex={-1}>
-          {route.tab === 'scan' && (!sub ? <Scan /> : sub === 'summary' ? <Summary /> : sub === 'thin' ? <Thin /> : sub === 'area' ? <Area /> : sub === 'detail' ? <Detail /> : <Claims />)}
+          {route.tab === 'scan' && (!sub ? <Scan /> : sub === 'summary' ? <Summary /> : sub === 'thin' ? <Thin /> : sub === 'area' ? <Area /> : sub === 'detail' ? <Detail /> : sub === 'compare' ? <Compare /> : <Claims />)}
           {route.tab === 'list' && (sub === 'compare' ? <Compare /> : <List />)}
           {route.tab === 'library' && <Library />}
           {route.tab === 'basket' && <Basket />}

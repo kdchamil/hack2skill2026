@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
-import { mockApi, PIN, setupHousehold } from './helpers'
+import { demoPack, mockApi, PIN, setupHousehold } from './helpers'
 
-test('seed household, unlock, demo pack, chips, detail, listen fallback', async ({ page }) => {
+test('seed household, unlock, scan, summary, areas, detail, claims, listen fallback', async ({ page }) => {
   await mockApi(page)
   await setupHousehold(page)
   await expect(page.getByText('Amaya').first()).toBeVisible()
@@ -16,31 +16,49 @@ test('seed household, unlock, demo pack, chips, detail, listen fallback', async 
   await page.getByRole('button', { name: 'Unlock', exact: true }).click()
   await expect(page.getByRole('button', { name: 'Add member' })).toBeVisible()
 
-  // demo pack
+  // scan screen: household count, steps, then demo pack
   await page.getByRole('button', { name: 'Scan', exact: true }).click()
+  await expect(page.getByTestId('checking-for')).toHaveText('Checking for 3')
+  await expect(page.getByRole('list', { name: 'Photo steps' })).toContainText('Ingredients')
   await page.getByRole('button', { name: 'Try a demo pack' }).click()
   await page.getByRole('button', { name: 'Kokis (Sinhala + English)' }).click()
 
-  const chips = page.locator('.vchip')
-  await expect(chips).toHaveCount(3)
-  await expect(chips.nth(0)).toContainText('Avoid for Amaya: contains sesame')
-  await expect(chips.nth(1)).toContainText('Check for Dad: high sodium')
-  await expect(chips.nth(2)).toContainText('None found for Ravi in what we could read')
-  await expect(page.locator('.card')).toHaveCount(6)
-  await expect(page.getByText('Turn to the nutrition panel')).toBeVisible()
-  await expect(page.getByTestId('elapsed')).toBeVisible()
+  // summary: grade, drivers, partial planet note, rings, five areas
+  await expect(page.getByRole('img', { name: 'Grade D' }).first()).toBeVisible()
+  await expect(page.getByText(/moved it most/)).toBeVisible()
+  await expect(page.getByTestId('planet-partial')).toBeVisible()
+  const rings = page.locator('.ring-item')
+  await expect(rings).toHaveCount(3)
+  await expect(rings.nth(0)).toHaveAccessibleName(/Amaya: Avoid/)
+  await expect(rings.nth(1)).toHaveAccessibleName(/Dad: Check/)
+  await expect(rings.nth(2)).toHaveAccessibleName(/Ravi: None found/)
+  await expect(page.locator('.area-row')).toHaveCount(5)
+  await expect(page.locator('.area-row').nth(0)).toContainText('Contains: egg, sesame')
+
+  // ring filter toggles
+  await rings.nth(0).click()
+  await expect(rings.nth(0)).toHaveAttribute('aria-pressed', 'true')
+  await page.locator('.area-row').nth(0).click()
+  await expect(page.getByTestId('watch')).toContainText('Amaya: what to watch')
+  await expect(page.getByTestId('contains')).toContainText('Sesame, Egg')
+  await expect(page.getByTestId('may-contain')).toContainText('Peanut')
+  await page.locator('.strip-main').click()
+  await page.locator('.ring-item').first().click()
+  await expect(page.locator('.ring-item').first()).toHaveAttribute('aria-pressed', 'false')
 
   // language switch uses /api/commentary
-  await page.getByRole('button', { name: 'සිං' }).click()
-  await expect(page.locator('[data-card="allergens"]')).toContainText('තල අඩංගුයි')
-  await page.getByRole('button', { name: 'EN', exact: true }).click()
+  await page.locator('.listenbar select').selectOption('si')
+  await expect(page.locator('.area-row').nth(0)).toContainText('තල')
+  await page.locator('.listenbar select').selectOption('en')
 
-  // card detail
-  await page.locator('[data-card="allergens"] .card-main').click()
-  const dlg = page.getByRole('dialog')
-  await expect(dlg).toContainText('Contains sesame')
-  await expect(dlg).toContainText('Label-stated')
-  await dlg.getByRole('button', { name: 'Report wrong info', exact: true }).click()
+  // Body: nutrition card detail
+  await page.locator('.area-row').nth(0).click()
+  await expect(page.getByText('No recall data for your market')).toBeVisible()
+  await page.locator('[data-card="nutrition"]').click()
+  await expect(page.getByRole('heading', { name: 'Nutrition', level: 1 })).toBeVisible()
+  await expect(page.getByRole('table')).toContainText('Sodium')
+  await expect(page.getByText('Check for Dad').first()).toBeVisible()
+  await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
   const rep = page.getByRole('dialog', { name: 'Report wrong info' })
   await expect(rep).toContainText("Don't include names or health details")
   await rep.getByLabel(/What is wrong/).fill('x'.repeat(600))
@@ -50,9 +68,54 @@ test('seed household, unlock, demo pack, chips, detail, listen fallback', async 
   await rep.getByRole('button', { name: 'Close' }).first().click()
 
   // listen falls back to text on 503
-  await dlg.getByRole('button', { name: /Listen/ }).click()
-  await expect(dlg.getByText('Audio unavailable — reading on screen')).toBeVisible()
-  await expect(dlg.locator('.listen-text')).not.toBeEmpty()
+  await page.getByRole('button', { name: 'Listen' }).click()
+  await expect(page.getByText('Audio unavailable — reading on screen')).toBeVisible()
+  await expect(page.locator('.listen-text')).not.toBeEmpty()
+
+  // Planet, People, Truth (claims), Choice via Next
+  await page.locator('.strip-main').click()
+  await page.locator('.area-row').nth(1).click()
+  await expect(page.getByText('No reliable data').first()).toBeVisible()
+  await page.getByRole('button', { name: 'Next' }).click()
+  await expect(page.getByRole('heading', { name: 'The people behind it' })).toBeVisible()
+  await expect(page.getByText('Unknown').first()).toBeVisible()
+  await page.getByRole('button', { name: 'Next' }).click()
+  await expect(page.getByText('A barcode cannot prove a product is genuine.')).toBeVisible()
+  await page.getByRole('button', { name: 'Open claim check' }).click()
+  const cards = page.locator('.claimcard')
+  await expect(cards).toHaveCount(4)
+  await expect(cards.nth(0)).toContainText('Contradicted')
+  await expect(cards.nth(1)).toContainText('Unverifiable')
+  await expect(cards.nth(2)).toContainText('Supported')
+  await expect(cards.nth(3)).toContainText('Unsupported')
+  await page.locator('.strip-main').click()
+  await page.getByRole('navigation', { name: 'Areas' }).getByRole('button', { name: 'Choose' }).click()
+  await page.getByRole('switch').check()
+  await expect(page.getByTestId('no-price')).toBeVisible()
+  await page.getByRole('button', { name: 'Pick from Library' }).click()
+  await expect(page.getByRole('button', { name: 'Library', exact: true })).toHaveAttribute('aria-current', 'page')
+})
+
+test('thin data: no grade, retake, check for every member', async ({ page }) => {
+  await mockApi(page)
+  await setupHousehold(page)
+  await demoPack(page, 'Blurred label')
+  await expect(page.getByTestId('no-grade')).toContainText('Not enough data to grade')
+  await expect(page.getByTestId('thin-everyone')).toContainText('Amaya, Dad, Ravi: Check')
+  await page.getByRole('button', { name: 'Scan the ingredient side' }).click()
+  await expect(page.getByRole('heading', { name: 'Scan a pack' })).toBeVisible()
+})
+
+test('scan error shows retry', async ({ page }) => {
+  await mockApi(page)
+  let fail = true
+  await page.route('**/api/scan', (r) => (fail ? r.fulfill({ status: 500, json: { message: 'boom' } }) : r.fallback()))
+  await page.goto('/')
+  await demoPack(page)
+  await expect(page.getByRole('alert')).toContainText('boom')
+  fail = false
+  await page.getByRole('button', { name: 'Try again' }).click()
+  await expect(page.locator('.area-row')).toHaveCount(5)
 })
 
 test('delete all wipes the household', async ({ page }) => {
@@ -73,8 +136,9 @@ test('report: offline shows a retry message, then succeeds', async ({ page }) =>
   await page.goto('/')
   await page.getByRole('button', { name: 'Try a demo pack' }).click()
   await page.getByRole('button', { name: 'Kokis (Sinhala + English)' }).click()
-  await page.locator('[data-card="allergens"] .card-main').click()
-  await page.getByRole('dialog').locator('[data-finding]').first().getByRole('button', { name: /Report wrong info/ }).click()
+  await page.locator('.area-row').nth(0).click()
+  await page.locator('[data-card="nutrition"]').click()
+  await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
   const rep = page.getByRole('dialog', { name: 'Report wrong info' })
   await rep.getByRole('button', { name: 'Send report' }).click()
   await expect(rep.getByRole('alert')).toContainText('Could not send')

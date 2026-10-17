@@ -1,0 +1,49 @@
+/* Scan, Summary, Thin, Area, Detail, Claims. Tokens come from styles.css. */
+.pill { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--sp-3); border-radius: 999px; background: var(--primary-soft); color: var(--primary-ink); font-weight: 700; font-size: var(--fs-caption); }
+.between { justify-content: space-between; }
+.viewfinder { position: relative; }
+.guide { position: absolute; inset: 14% 8%; border: 3px solid #fff; border-radius: 16px; box-shadow: 0 0 0 9999px rgb(0 0 0 / .28); pointer-events: none; }
+.torch { position: absolute; right: 10px; bottom: 10px; }
+.torch[aria-pressed='true'] { background: var(--primary); color: var(--on-primary); }
+.steps { display: flex; gap: var(--sp-2); list-style: none; padding: 0; margin: 0; }
+.steps li { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 36px; border-radius: 999px; border: 2px solid var(--line); background: var(--surface); font-weight: 700; font-size: var(--fs-caption); }
+.steps li[aria-current='step'] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); }
+.steps li.done { border-style: dashed; }
+.turn { font: 700 1.1rem/1.3 var(--font-display); margin: 0; }
+.shutter { min-height: 56px; }
+.gradehead { display: flex; gap: var(--sp-4); align-items: center; }
+.gradehead h1 { margin: 0; }
+.gradehead p { margin: 4px 0 0; }
+.gscale { display: flex; gap: 6px; list-style: none; padding: 0; margin: 0; }
+.gscale li { flex: 1; text-align: center; padding: 4px 0; border: 2px solid var(--line); border-radius: 8px; font: 700 .9rem var(--font-display); color: var(--muted); }
+.gscale li.on { border-color: var(--fg); color: var(--fg); background: var(--surface); }
+.h2s { font: 700 var(--fs-caption)/1.3 var(--font-body); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: var(--sp-3) 0 0; }
+.tight { gap: var(--sp-2); }
+.strong { font-weight: 700; }
+.thinbox { display: flex; gap: var(--sp-4); align-items: center; padding: var(--sp-4); border: 2px dashed var(--unknown); border-radius: var(--r-card); }
+.thinbox h2, .thinbox p { margin: 0 0 4px; }
+.kvlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+.kv { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-chip); min-height: 44px; }
+.frow { display: flex; gap: var(--sp-3); align-items: flex-start; width: 100%; padding: var(--sp-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); color: var(--fg); font: inherit; text-align: left; }
+.frow-btn { min-height: 56px; cursor: pointer; }
+.frow-text { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; min-width: 0; }
+.frow-title { font-weight: 700; }
+.frow-reason { color: var(--fg); }
+.watch { border-left: 6px solid var(--check-bd); background: var(--check-bg); color: var(--check-fg); padding: var(--sp-3); border-radius: var(--r-card); display: flex; flex-direction: column; gap: var(--sp-2); }
+.watch h2 { margin: 0; font-size: 1.05rem; }
+.checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.switch { display: flex; gap: var(--sp-3); align-items: center; min-height: var(--tap); }
+.switch input { width: 28px; height: 28px; }
+.meter { height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--primary-ink); }
+.ntable { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.ntable th, .ntable td { padding: 6px 4px; border-bottom: 1px solid var(--line); text-align: right; }
+.ntable th[scope='row'] { text-align: left; font-weight: 600; }
+.claimcard { padding: var(--sp-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-start; }
+.claimcard h2, .claimcard p { margin: 0; }
+.claimlist { display: flex; flex-direction: column; gap: var(--sp-3); padding: 0; list-style: none; }
+.claimb { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-weight: 700; border: 2px solid currentColor; }
+.claimb-supported { color: var(--good-fg); background: var(--good-bg); }
+.claimb-unsupported { color: var(--check-fg); background: var(--check-bg); border-style: dashed; }
+.claimb-contradicted { color: var(--avoid-fg); background: var(--avoid-bg); }
+.claimb-unverifiable { color: var(--info-fg); background: var(--info-bg); border-style: dotted; }

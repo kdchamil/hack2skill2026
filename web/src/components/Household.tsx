@@ -5,9 +5,12 @@ import type { Vault } from '../useVault'
 import {
   ALLERGENS, DIETS, demoMembers, GOALS, LIFE_STAGES, MAX_ALIAS, MAX_MEMBERS, type AllergenId, type DietId, type GoalId, type LifeStage, type Member,
 } from '../verdict'
+import { librarySaving, setLibrarySaving } from '../library'
+import { Ring } from '../ui'
 import { DeleteAll } from './DeleteAll'
 import { Sheet } from './Sheet'
 
+const SKIN_TYPES = ['normal', 'dry', 'oily', 'combination', 'sensitive'] as const
 function toggle<T>(list: T[], v: T): T[] { return list.includes(v) ? list.filter((x) => x !== v) : [...list, v] }
 
 function Setup({ vault }: { vault: Vault }) {
@@ -120,7 +123,7 @@ function MemberForm({ initial, onSave, onCancel }: { initial: Member; onSave: (m
     </fieldset>
   )
   return (
-    <Sheet title={initial.alias || t('hh.add')} labelId="member-h" onClose={onCancel}>
+    <Sheet title={initial.alias ? t('hh2.editTitle', { name: initial.alias }) : t('hh2.newTitle')} labelId="member-h" onClose={onCancel}>
       <form className="stack" onSubmit={(e) => { e.preventDefault(); if (m.alias.trim()) onSave({ ...m, alias: m.alias.trim().slice(0, MAX_ALIAS) }) }}>
         <label className="field">{t('hh.alias')}
           <input value={m.alias} maxLength={MAX_ALIAS} required onChange={(e) => setM({ ...m, alias: e.target.value })} />
@@ -128,6 +131,12 @@ function MemberForm({ initial, onSave, onCancel }: { initial: Member; onSave: (m
         <label className="field">{t('hh.stage')}
           <select value={m.life_stage} onChange={(e) => setM({ ...m, life_stage: e.target.value as LifeStage })}>
             {LIFE_STAGES.map((s) => <option key={s} value={s}>{t(`stage.${s}`)}</option>)}
+          </select>
+        </label>
+        <label className="field">{t('hh2.skin')}
+          <select value={m.skin_type ?? ''} onChange={(e) => setM({ ...m, skin_type: e.target.value || undefined })}>
+            <option value="">{t('hh2.skinNone')}</option>
+            {SKIN_TYPES.map((s) => <option key={s} value={s}>{t(`skin.${s}`)}</option>)}
           </select>
         </label>
         {group<AllergenId>(t('hh.allergens'), ALLERGENS, 'allergen', m.allergens, (v) => setM({ ...m, allergens: v }))}
@@ -146,6 +155,8 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
   const { t } = useT()
   const [editing, setEditing] = useState<Member | null>(null)
   const [msg, setMsg] = useState('')
+  const [removing, setRemoving] = useState<Member | null>(null)
+  const [saving, setSaving] = useState(librarySaving)
   const fileRef = useRef<HTMLInputElement>(null)
   const { members, status } = vault
 
@@ -176,29 +187,36 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
       {status === 'locked' && <Unlock vault={vault} />}
       {status === 'unlocked' && !vault.recoveryCode && (
         <>
+          <p className="status status-known" data-testid="lock-status">{t(vault.hasPasskey ? 'hh2.unlockedPk' : 'hh2.unlockedPin')}</p>
           <div className="row between wrap">
-            <p className="muted">{t('hh.count', { n: members.length })}</p>
+            <h2>{t('hh2.members', { n: members.length })}</h2>
             <button type="button" className="btn secondary" onClick={vault.lock}>{t('hh.lock')}</button>
           </div>
           {members.length === 0 && <p>{t('hh.empty')}</p>}
           <ul className="list">
-            {members.map((m) => (
-              <li key={m.id} className="member">
-                <div>
-                  <strong>{m.alias}</strong> <span className="muted">· {t(`stage.${m.life_stage}`)}</span>
-                  <div className="muted">{[...m.allergens.map((a) => t(`allergen.${a}`)), ...m.diets.map((d) => t(`diet.${d}`)), ...m.goals.map((g) => t(`goal.${g}`))].join(', ')}</div>
-                </div>
-                <div className="row">
-                  <button type="button" className="btn secondary small" aria-label={`${t('hh.edit')} ${m.alias}`} onClick={() => setEditing(m)}>{t('hh.edit')}</button>
-                  <button type="button" className="btn ghost small" aria-label={`${t('hh.delete')} ${m.alias}`} onClick={() => void vault.saveMembers(members.filter((x) => x.id !== m.id))}>{t('hh.delete')}</button>
-                </div>
-              </li>
-            ))}
+            {members.map((m) => {
+              const bits = [...m.allergens.map((a) => t(`allergen.${a}`)), ...m.diets.map((d) => t(`diet.${d}`)), ...m.goals.map((g) => t(`goal.${g}`))]
+              return (
+                <li key={m.id} className="member">
+                  <div className="row">
+                    <Ring member={{ id: m.id, name: m.alias, level: 'none' }} compact />
+                    <div>
+                      <strong>{m.alias}</strong> <span className="muted">· {t(`stage.${m.life_stage}`)}</span>
+                      <div className="muted">{bits.length ? bits.join(', ') : t('hh2.noProfile')}</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <button type="button" className="btn secondary small" aria-label={`${t('hh.edit')} ${m.alias}`} onClick={() => setEditing(m)}>{t('hh.edit')}</button>
+                    <button type="button" className="btn ghost small" aria-label={`${t('hh.delete')} ${m.alias}`} onClick={() => setRemoving(m)}>{t('hh.delete')}</button>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
           <div className="actions">
             <button type="button" className="btn primary" disabled={members.length >= MAX_MEMBERS}
               onClick={() => setEditing({ id: crypto.randomUUID(), alias: '', life_stage: 'adult', allergens: [], diets: [], goals: [] })}>
-              {t('hh.add')}
+              {t('hh2.addN', { n: members.length })}
             </button>
             <button type="button" className="btn secondary" disabled={members.length + 3 > MAX_MEMBERS}
               onClick={() => void vault.saveMembers([...members, ...demoMembers().map((d) => ({ ...d, id: crypto.randomUUID() }))])}>
@@ -206,6 +224,14 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
             </button>
           </div>
           {members.length >= MAX_MEMBERS && <p className="muted">{t('hh.max')}</p>}
+          <h2>{t('hh2.settings')}</h2>
+          <div className="member">
+            <div><strong>{t('lib.save')}</strong><div className="muted">{t('lib.saveHint')}</div></div>
+            <label className="check"><input type="checkbox" role="switch" checked={saving} aria-label={t('lib.save')} onChange={(e) => { setLibrarySaving(e.target.checked); setSaving(e.target.checked) }} /></label>
+          </div>
+          <div className="member">
+            <div><strong>{t('lib.photos')}</strong><div className="muted">{t('lib.photosHint')}</div></div>
+          </div>
           <p className="muted">{t('v.backupNote')}</p>
           <div className="actions">
             <button type="button" className="btn secondary" onClick={exportIt}>{t('hh.export')}</button>
@@ -220,8 +246,18 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
       {msg && <p role="alert" className="error">{msg}</p>}
 
       <hr />
+      <p className="muted">{t('hh2.delAllNote')}</p>
       <DeleteAll vault={vault} onDeleted={onDeleted} />
 
+      {removing && (
+        <Sheet title={t('hh2.remove', { name: removing.alias })} labelId="rm-h" tall={false} onClose={() => setRemoving(null)}>
+          <p>{t('hh2.removeNote', { name: removing.alias })}</p>
+          <div className="actions">
+            <button type="button" className="btn danger" onClick={() => { void vault.saveMembers(members.filter((x) => x.id !== removing.id)); setRemoving(null) }}>{t('hh.delete')}</button>
+            <button type="button" className="btn secondary" onClick={() => setRemoving(null)}>{t('hh.cancel')}</button>
+          </div>
+        </Sheet>
+      )}
       {editing && <MemberForm initial={editing} onSave={save} onCancel={() => setEditing(null)} />}
     </section>
   )

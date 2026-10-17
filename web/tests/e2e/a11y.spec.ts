@@ -9,7 +9,7 @@ async function axe(page: Page) {
 }
 
 for (const scheme of ['light', 'dark'] as const) {
-  test(`axe: scan, summary, household (${scheme})`, async ({ page }) => {
+  test(`axe: scan, summary, areas, detail, claims, thin, household (${scheme})`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: scheme })
     await mockApi(page)
     await page.goto('/')
@@ -20,20 +20,38 @@ for (const scheme of ['light', 'dark'] as const) {
     await axe(page)
 
     await page.getByRole('button', { name: 'Scan', exact: true }).click()
+    await axe(page)
     await page.getByRole('button', { name: 'Try a demo pack' }).click()
+    await axe(page)
     await page.getByRole('button', { name: 'Kokis (Sinhala + English)' }).click()
-    await expect(page.locator('.vchip')).toHaveCount(3)
+    await expect(page.locator('.area-row')).toHaveCount(5)
     await axe(page)
 
-    await page.locator('[data-card="allergens"] .card-main').click()
-    await expect(page.getByRole('dialog')).toBeVisible()
+    for (const i of [0, 1, 2, 3, 4]) {
+      await page.locator('.area-row').nth(i).click()
+      await expect(page.locator('.area-tabs')).toBeVisible()
+      await axe(page)
+      await page.locator('.strip-main').click()
+    }
+    await page.locator('.area-row').nth(0).click()
+    await page.locator('[data-card="nutrition"]').click()
+    await expect(page.getByRole('table')).toBeVisible()
     await axe(page)
-
-    await page.getByRole('dialog').getByRole('button', { name: 'Report wrong info', exact: true }).click()
+    await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
     await expect(page.getByRole('dialog', { name: 'Report wrong info' })).toBeVisible()
     await axe(page)
     await page.keyboard.press('Escape')
-    await page.keyboard.press('Escape')
+    await page.locator('.strip-main').click()
+    await page.locator('.area-row').nth(3).click()
+    await page.getByRole('button', { name: 'Open claim check' }).click()
+    await expect(page.locator('.claimcard')).toHaveCount(4)
+    await axe(page)
+
+    await page.getByRole('button', { name: 'Scan', exact: true }).click()
+    await page.getByRole('button', { name: 'Try a demo pack' }).click()
+    await page.getByRole('button', { name: 'Blurred label' }).click()
+    await expect(page.getByTestId('no-grade')).toBeVisible()
+    await axe(page)
 
     await page.getByRole('button', { name: 'Privacy' }).click()
     await expect(page.getByRole('heading', { name: 'Privacy', level: 1 })).toBeVisible()

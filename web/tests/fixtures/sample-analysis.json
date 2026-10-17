@@ -1,737 +1,2946 @@
 {
+ "analysis": {
+  "product": {
+   "name": {
+    "value": "Crunchy Kokis",
+    "confidence": 0.92
+   },
+   "brand": {
+    "value": "Lanka Treats",
+    "confidence": 0.92
+   },
+   "category": {
+    "value": "food",
+    "confidence": 0.92
+   },
+   "label_languages": [
+    "si",
+    "en"
+   ],
+   "ingredients_verbatim": {
+    "value": "සහල් පිටි (Rice Flour), පොල් කිරි (Coconut Milk), සීනි (Sugar), බිත්තර (Egg), තල (Sesame), පාම් තෙල් (Palm Oil), ලුණු (Salt)",
+    "confidence": 0.92
+   },
+   "ingredients": {
+    "value": [
+     "සහල් පිටි (Rice Flour)",
+     "පොල් කිරි (Coconut Milk)",
+     "සීනි (Sugar)",
+     "බිත්තර (Egg)",
+     "තල (Sesame)",
+     "පාම් තෙල් (Palm Oil)",
+     "ලුණු (Salt)"
+    ],
+    "confidence": 0.92
+   },
+   "allergen_contains_statement": {
+    "value": "Contains: Egg, Sesame (තල)",
+    "confidence": 0.92
+   },
+   "allergen_may_contain_statement": {
+    "value": "May contain traces of peanuts",
+    "confidence": 0.92
+   },
+   "nutrition": {
+    "value": [
+     {
+      "nutrient": "energy_kcal",
+      "per_100g": 510.0,
+      "per_serving": 153.0,
+      "unit": "kcal"
+     },
+     {
+      "nutrient": "sugars_total",
+      "per_100g": 12.0,
+      "per_serving": 3.6,
+      "unit": "g"
+     },
+     {
+      "nutrient": "fat_saturated",
+      "per_100g": 9.0,
+      "per_serving": 2.7,
+      "unit": "g"
+     },
+     {
+      "nutrient": "sodium_mg",
+      "per_100g": 820.0,
+      "per_serving": 246.0,
+      "unit": "mg"
+     },
+     {
+      "nutrient": "protein",
+      "per_100g": 7.0,
+      "per_serving": 2.1,
+      "unit": "g"
+     },
+     {
+      "nutrient": "fibre",
+      "per_100g": 2.0,
+      "per_serving": 0.6,
+      "unit": "g"
+     },
+     {
+      "nutrient": "carbohydrate",
+      "per_100g": 62.0,
+      "per_serving": 18.6,
+      "unit": "g"
+     },
+     {
+      "nutrient": "fat_total",
+      "per_100g": 28.0,
+      "per_serving": 8.4,
+      "unit": "g"
+     }
+    ],
+    "confidence": 0.92
+   },
+   "serving_size_g": {
+    "value": 30.0,
+    "confidence": 0.92
+   },
+   "claims": {
+    "value": [],
+    "confidence": 0.92
+   },
+   "dates": {
+    "value": [
+     {
+      "kind": "best_before",
+      "raw": "BB 12 JUN 2027",
+      "iso": "2027-06-12"
+     }
+    ],
+    "confidence": 0.92
+   },
+   "batch_lot": {
+    "value": "L2610A",
+    "confidence": 0.92
+   },
+   "manufacturer": {
+    "value": "Lanka Treats (Pvt) Ltd, Colombo",
+    "confidence": 0.92
+   },
+   "origin": {
+    "value": "Sri Lanka",
+    "confidence": 0.92
+   },
+   "certification_marks": {
+    "value": [],
+    "confidence": 0.92
+   },
+   "packaging_codes": {
+    "value": [
+     "PP 5"
+    ],
+    "confidence": 0.92
+   },
+   "barcode": "4791234567890",
+   "missing_sides": [],
+   "retake_tip": null
+  },
+  "findings": [
+   {
+    "id": "allergen.contains.egg",
+    "area": "body",
+    "topic": "allergens",
+    "card": null,
+    "category": "allergen_contains",
+    "severity": "check",
+    "risk": "allergen",
+    "tier": "label_stated",
+    "title": "Contains egg",
+    "reason": "Matched \"බිත්තර\" in the ingredients.",
+    "next_step": "Consider avoiding this product if you react to egg. Check with a professional.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "allergen": "egg",
+     "matched": "බිත්තර",
+     "where": "ingredients"
+    }
+   },
+   {
+    "id": "allergen.contains.sesame",
+    "area": "body",
+    "topic": "allergens",
+    "card": null,
+    "category": "allergen_contains",
+    "severity": "check",
+    "risk": "allergen",
+    "tier": "label_stated",
+    "title": "Contains sesame",
+    "reason": "Matched \"තල\" in the ingredients.",
+    "next_step": "Consider avoiding this product if you react to sesame. Check with a professional.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "allergen": "sesame",
+     "matched": "තල",
+     "where": "ingredients"
+    }
+   },
+   {
+    "id": "allergen.may_contain.peanut",
+    "area": "body",
+    "topic": "allergens",
+    "card": null,
+    "category": "allergen_may_contain",
+    "severity": "info",
+    "risk": "allergen",
+    "tier": "label_stated",
+    "title": "May contain peanut",
+    "reason": "The pack's may-contain statement mentions \"peanuts\".",
+    "next_step": "Consider this if you react to traces of peanut. Check with a professional.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "allergen": "peanut",
+     "matched": "peanuts",
+     "where": "may-contain statement"
+    }
+   },
+   {
+    "id": "nutrition.sugars",
+    "area": "body",
+    "topic": "nutrition",
+    "card": "nutrition",
+    "category": "nutrient_level",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Sugars level: medium",
+    "reason": "12.0 g per 100 g; UK FSA front-of-pack: low up to 5, high above 22.5 g.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "nutrient": "sugars_total",
+     "per_100g": 12.0,
+     "level": "medium",
+     "unit": "g",
+     "pct_ri": 7.2
+    }
+   },
+   {
+    "id": "nutrition.fat_saturated",
+    "area": "body",
+    "topic": "nutrition",
+    "card": "nutrition",
+    "category": "nutrient_level",
+    "severity": "check",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Saturated fat level: high",
+    "reason": "9.0 g per 100 g; UK FSA front-of-pack: low up to 1.5, high above 5 g.",
+    "next_step": "Consider how this fits your daily intake. Check with a professional.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "nutrient": "fat_saturated",
+     "per_100g": 9.0,
+     "level": "high",
+     "unit": "g",
+     "pct_ri": 13.5
+    }
+   },
+   {
+    "id": "nutrition.sodium",
+    "area": "body",
+    "topic": "nutrition",
+    "card": "nutrition",
+    "category": "nutrient_level",
+    "severity": "check",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Sodium level: high",
+    "reason": "820.0 mg per 100 g (about 2.05 g salt); UK FSA front-of-pack: low up to 120, high above 600 mg.",
+    "next_step": "Consider how this fits your daily intake. Check with a professional.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "nutrient": "sodium_mg",
+     "per_100g": 820.0,
+     "level": "high",
+     "unit": "mg",
+     "pct_ri": 12.3
+    }
+   },
+   {
+    "id": "nutrition.summary",
+    "area": "body",
+    "topic": "nutrition",
+    "card": "nutrition",
+    "category": "nutrition_summary",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Nutrition summary",
+    "reason": "Per 100 g: 510 kcal, sugars 12.0 g (medium), saturated fat 9.0 g (high), sodium 820 mg (high).",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "per_100g": {
+      "energy_kcal": 510.0,
+      "sugars_total": 12.0,
+      "fat_saturated": 9.0,
+      "sodium_mg": 820.0,
+      "protein": 7.0,
+      "fibre": 2.0,
+      "carbohydrate": 62.0,
+      "fat_total": 28.0,
+      "salt_g": 2.05
+     },
+     "per_serving": {
+      "energy_kcal": 153.0,
+      "sugars_total": 3.6,
+      "fat_saturated": 2.7,
+      "sodium_mg": 246.0,
+      "protein": 2.1,
+      "fibre": 0.6,
+      "carbohydrate": 18.6,
+      "fat_total": 8.4
+     },
+     "pct_ri": {
+      "energy_kcal": 7.6,
+      "sodium_mg": 12.3,
+      "sugars_total": 7.2,
+      "fat_saturated": 13.5,
+      "protein": 4.2,
+      "fibre": 2.4
+     },
+     "ri_basis": "per serving (30 g)",
+     "ri_reference": "Codex NRV (adult): energy 2000 kcal, sodium 2000 mg, sugars 50 g (reference value), saturated fat 20 g, protein 50 g, fibre 25 g",
+     "serving_size_g": 30.0
+    }
+   },
+   {
+    "id": "diet.vegan",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Vegan: no",
+    "reason": "Ingredients include කිරි, බිත්තර.",
+    "next_step": "Consider checking the pack or the maker if this matters to you.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "vegan",
+     "value": "no"
+    }
+   },
+   {
+    "id": "diet.vegetarian",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Vegetarian: yes",
+    "reason": "No meat, fish or gelatin ingredients found in the list.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "vegetarian",
+     "value": "yes"
+    }
+   },
+   {
+    "id": "diet.gluten_free",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Gluten free: yes",
+    "reason": "No gluten-containing cereals found in the list.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "gluten_free",
+     "value": "yes"
+    }
+   },
+   {
+    "id": "diet.lactose_free",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Lactose free: yes",
+    "reason": "No milk ingredients found in the list.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "lactose_free",
+     "value": "yes"
+    }
+   },
+   {
+    "id": "diet.halal",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Halal: unknown",
+    "reason": "No certification mark; ingredients alone cannot confirm halal.",
+    "next_step": "Consider checking the pack or the maker if this matters to you.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "halal",
+     "value": "unknown"
+    }
+   },
+   {
+    "id": "diet.kosher",
+    "area": "body",
+    "topic": "diet",
+    "card": null,
+    "category": "diet",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Kosher: unknown",
+    "reason": "No certification mark; ingredients alone cannot confirm kosher.",
+    "next_step": "Consider checking the pack or the maker if this matters to you.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "diet": "kosher",
+     "value": "unknown"
+    }
+   },
+   {
+    "id": "additives.none",
+    "area": "body",
+    "topic": "additives",
+    "card": "additives",
+    "category": "additives_none",
+    "severity": "good",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "No additives found",
+    "reason": "No E-number or additive name was found in the ingredient list we could read.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {}
+   },
+   {
+    "id": "ingredients.processing",
+    "area": "body",
+    "topic": "processing",
+    "card": "processing",
+    "category": "processing",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "inferred",
+    "title": "Processing level: processed",
+    "reason": "Estimated from 0 additive(s) and 0 industrial ingredient(s); this is a rough guide, not a classification.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "level": "processed",
+     "additives": [],
+     "industrial_ingredients": [],
+     "score": 0
+    }
+   },
+   {
+    "id": "ingredients.count",
+    "area": "body",
+    "topic": "processing",
+    "card": "processing",
+    "category": "ingredient_count",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "7 ingredients listed",
+    "reason": "The ingredient list has 7 entries.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "count": 7
+    }
+   },
+   {
+    "id": "packaging.code.pp5",
+    "area": "planet",
+    "topic": "packaging",
+    "card": "packaging",
+    "category": "packaging",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Recycling code PP 5: PP (polypropylene)",
+    "reason": "Material read from the recycling mark on the pack; local collection rules vary.",
+    "next_step": "Consider checking local recycling rules.",
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "abbr": "PP",
+     "number": 5,
+     "material": "PP (polypropylene)",
+     "code": "PP 5",
+     "raw": "PP 5"
+    }
+   },
+   {
+    "id": "packaging.carbon",
+    "area": "planet",
+    "topic": "carbon",
+    "card": "carbon",
+    "category": "carbon",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Carbon footprint: no reliable data",
+    "reason": "No reliable carbon data exists for this product in our sources.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "carbon": null,
+     "placeholder": true
+    }
+   },
+   {
+    "id": "date.best_before",
+    "area": "body",
+    "topic": "dates",
+    "card": null,
+    "category": "date",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Best before date 2027-06-12",
+    "reason": "The best before date read is 2027-06-12, 238 day(s) from today (day-month-year).",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "kind": "best_before",
+     "iso": "2027-06-12",
+     "days_left": 238,
+     "parse": "day-month-year"
+    }
+   },
+   {
+    "id": "recalls.unknown",
+    "area": "body",
+    "topic": "recalls",
+    "card": null,
+    "category": "recalls",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "No recall data for your market",
+    "reason": "We have no recall feed for your market, so a recall cannot be ruled out.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   },
+   {
+    "id": "water_land.unknown",
+    "area": "planet",
+    "topic": "water_land",
+    "card": "water_land",
+    "category": "water_land",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Water and land use: no reliable data",
+    "reason": "No reliable water or land-use data exists for this product in our sources.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   },
+   {
+    "id": "labour.unknown",
+    "area": "people",
+    "topic": "labour",
+    "card": null,
+    "category": "labour",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Labour: no data",
+    "reason": "No labour information was read from the pack and we have no independent source.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   },
+   {
+    "id": "sourcing.unknown",
+    "area": "people",
+    "topic": "sourcing",
+    "card": null,
+    "category": "sourcing",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Sourcing: no data",
+    "reason": "No sourcing information was read from the pack and we have no independent source.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   },
+   {
+    "id": "animal_welfare.unknown",
+    "area": "people",
+    "topic": "animal_welfare",
+    "card": null,
+    "category": "animal_welfare",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Animal welfare: no data",
+    "reason": "No animal welfare information was read from the pack and we have no independent source.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   },
+   {
+    "id": "label_clarity.checklist",
+    "area": "truth",
+    "topic": "label_clarity",
+    "card": null,
+    "category": "label_clarity",
+    "severity": "good",
+    "risk": "no_known_concern",
+    "tier": "label_stated",
+    "title": "Label shows 5 of 5 key items",
+    "reason": "Checked: ingredients shown, nutrition shown, manufacturer shown, expiry shown, warnings shown.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     },
+     {
+      "label": "Pack label",
+      "url": null
+     }
+    ],
+    "data": {
+     "checklist": {
+      "ingredients": true,
+      "nutrition": true,
+      "manufacturer": true,
+      "expiry": true,
+      "warnings": true
+     },
+     "disclosed": 5,
+     "total": 5
+    }
+   },
+   {
+    "id": "authenticity.unknown",
+    "area": "truth",
+    "topic": "authenticity",
+    "card": null,
+    "category": "authenticity",
+    "severity": "info",
+    "risk": "no_known_concern",
+    "tier": "unknown",
+    "title": "Authenticity: cannot be checked",
+    "reason": "A barcode cannot prove a product is genuine.",
+    "next_step": null,
+    "sources": [
+     {
+      "label": "Rule pack 2026.10.17-1",
+      "url": null
+     }
+    ],
+    "data": {
+     "placeholder": true
+    }
+   }
+  ],
+  "cards": [
+   {
+    "id": "nutrition",
+    "grade": "E",
+    "status": "check",
+    "tier": "inferred",
+    "headline": "High in sodium, saturated fat",
+    "finding_ids": [
+     "nutrition.sugars",
+     "nutrition.fat_saturated",
+     "nutrition.sodium",
+     "nutrition.summary"
+    ]
+   },
+   {
+    "id": "processing",
+    "grade": "B",
+    "status": "info",
+    "tier": "inferred",
+    "headline": "7 ingredients; processed",
+    "finding_ids": [
+     "ingredients.processing",
+     "ingredients.count"
+    ]
+   },
+   {
+    "id": "additives",
+    "grade": "A",
+    "status": "good",
+    "tier": "inferred",
+    "headline": "No additives found",
+    "finding_ids": [
+     "additives.none"
+    ]
+   },
+   {
+    "id": "carbon",
+    "grade": null,
+    "status": "info",
+    "tier": "unknown",
+    "headline": "No reliable data",
+    "finding_ids": [
+     "packaging.carbon"
+    ]
+   },
+   {
+    "id": "water_land",
+    "grade": null,
+    "status": "info",
+    "tier": "unknown",
+    "headline": "No reliable data",
+    "finding_ids": [
+     "water_land.unknown"
+    ]
+   },
+   {
+    "id": "packaging",
+    "grade": "C",
+    "status": "info",
+    "tier": "label_stated",
+    "headline": "PP 5 polypropylene",
+    "finding_ids": [
+     "packaging.code.pp5"
+    ]
+   }
+  ],
+  "grade": {
+   "letter": "D",
+   "reason": null,
+   "planet_partial": true,
+   "drivers": [
+    "nutrition",
+    "additives"
+   ],
+   "rule_version": "grade-1.0"
+  },
+  "areas": [
+   {
+    "id": "body",
+    "status": "check",
+    "tier": "inferred",
+    "headline": "Contains egg, sesame; may contain peanut",
+    "finding_ids": [
+     "allergen.contains.egg",
+     "allergen.contains.sesame",
+     "allergen.may_contain.peanut",
+     "nutrition.sugars",
+     "nutrition.fat_saturated",
+     "nutrition.sodium",
+     "nutrition.summary",
+     "diet.vegan",
+     "diet.vegetarian",
+     "diet.gluten_free",
+     "diet.lactose_free",
+     "diet.halal",
+     "diet.kosher",
+     "additives.none",
+     "ingredients.processing",
+     "ingredients.count",
+     "date.best_before",
+     "recalls.unknown"
+    ],
+    "card_ids": [
+     "nutrition",
+     "processing",
+     "additives"
+    ]
+   },
+   {
+    "id": "planet",
+    "status": "info",
+    "tier": "label_stated",
+    "headline": "PP 5 polypropylene; carbon, water: no data",
+    "finding_ids": [
+     "packaging.code.pp5",
+     "packaging.carbon",
+     "water_land.unknown"
+    ],
+    "card_ids": [
+     "carbon",
+     "water_land",
+     "packaging"
+    ]
+   },
+   {
+    "id": "people",
+    "status": "info",
+    "tier": "unknown",
+    "headline": "No labour, sourcing or welfare data",
+    "finding_ids": [
+     "labour.unknown",
+     "sourcing.unknown",
+     "animal_welfare.unknown"
+    ],
+    "card_ids": []
+   },
+   {
+    "id": "truth",
+    "status": "info",
+    "tier": "label_stated",
+    "headline": "No claims read; label shows 5 of 5 items",
+    "finding_ids": [
+     "label_clarity.checklist",
+     "authenticity.unknown"
+    ],
+    "card_ids": []
+   },
+   {
+    "id": "choice",
+    "status": "info",
+    "tier": "unknown",
+    "headline": "Scan another product to compare",
+    "finding_ids": [],
+    "card_ids": []
+   }
+  ],
+  "product_range": "snacks",
+  "facts": {
+   "allergens_contains": [
+    "egg",
+    "sesame"
+   ],
+   "allergens_may_contain": [
+    "peanut"
+   ],
+   "ingredients_known": true,
+   "diets": {
+    "vegan": "no",
+    "vegetarian": "yes",
+    "gluten_free": "yes",
+    "lactose_free": "yes",
+    "halal": "unknown",
+    "kosher": "unknown"
+   },
+   "nutrient_levels": {
+    "sodium": "high",
+    "sugars": "medium",
+    "fat_saturated": "high"
+   },
+   "canonical_ingredient_ids": [
+    "egg",
+    "fruit",
+    "rice",
+    "salt",
+    "sesame",
+    "sugar",
+    "vegetable_oil"
+   ]
+  },
+  "banners": [],
+  "rule_pack_version": "2026.10.17-1",
+  "ri_reference": "Codex NRV (adult): energy 2000 kcal, sodium 2000 mg, sugars 50 g (reference value), saturated fat 20 g, protein 50 g, fibre 25 g",
+  "unresolved_terms": []
+ },
+ "commentary_en": {
+  "lang": "en",
+  "summary": "Contains: egg, sesame. May contain: peanut. Some details may need a closer look; consider checking the highlighted cards.",
+  "cards": {
+   "nutrition": {
+    "headline": "High in sodium, saturated fat",
+    "reason": "9.0 g per 100 g; UK FSA front-of-pack: low up to 1.5, high above 5 g."
+   },
+   "processing": {
+    "headline": "7 ingredients; processed",
+    "reason": "Estimated from 0 additive(s) and 0 industrial ingredient(s); this is a rough guide, not a classification."
+   },
+   "additives": {
+    "headline": "No additives found",
+    "reason": "No E-number or additive name was found in the ingredient list we could read."
+   },
+   "carbon": {
+    "headline": "No reliable data",
+    "reason": "No reliable carbon data exists for this product in our sources."
+   },
+   "water_land": {
+    "headline": "No reliable data",
+    "reason": "No reliable water or land-use data exists for this product in our sources."
+   },
+   "packaging": {
+    "headline": "PP 5 polypropylene",
+    "reason": "Material read from the recycling mark on the pack; local collection rules vary."
+   }
+  },
+  "areas": {
+   "body": {
+    "headline": "Contains: egg, sesame.",
+    "reason": "May contain: peanut."
+   },
+   "planet": {
+    "headline": "PP 5 polypropylene; carbon, water: no data",
+    "reason": "Material read from the recycling mark on the pack; local collection rules vary."
+   },
+   "people": {
+    "headline": "No labour, sourcing or welfare data",
+    "reason": "No labour information was read from the pack and we have no independent source."
+   },
+   "truth": {
+    "headline": "No claims read; label shows 5 of 5 items",
+    "reason": "A barcode cannot prove a product is genuine."
+   },
+   "choice": {
+    "headline": "Scan another product to compare",
+    "reason": "Open this card for details."
+   }
+  },
+  "source": "template"
+ },
+ "commentary_si": {
+  "lang": "si",
+  "summary": "අඩංගු වේ: බිත්තර, තල. අඩංගු විය හැක: රටකජු. සමහර විස්තර සමීපව බැලිය යුතු විය හැක; උද්දීපනය කළ කාඩ්පත් පරීක්ෂා කර බලන්න.",
+  "cards": {
+   "nutrition": {
+    "headline": "පෝෂණය: පරීක්ෂා කර බලන්න",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "processing": {
+    "headline": "සැකසුම: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "additives": {
+    "headline": "ආහාර ආකලන: කියවිය හැකි දේවල කිසිවක් හමු නොවීය",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "carbon": {
+    "headline": "කාබන්: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "water_land": {
+    "headline": "ජලය සහ ඉඩම්: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "packaging": {
+    "headline": "ඇසුරුම්: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   }
+  },
+  "areas": {
+   "body": {
+    "headline": "අඩංගු වේ: බිත්තර, තල.",
+    "reason": "අඩංගු විය හැක: රටකජු."
+   },
+   "planet": {
+    "headline": "ඔබේ ග්‍රහලෝකය: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "people": {
+    "headline": "මෙය පිටුපස සිටින අය: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "truth": {
+    "headline": "ප්‍රකාශ පිටුපස සත්‍යය: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   },
+   "choice": {
+    "headline": "ඔබේ ඊළඟ හොඳම තේරීම: තොරතුරු",
+    "reason": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න."
+   }
+  },
+  "source": "template"
+ },
+ "done": {
+  "scan_id": "scan-test-1",
   "analysis": {
-    "product": {
-      "name": {
-        "value": "Kokis",
-        "confidence": 0.95
-      },
-      "brand": {
-        "value": "Lanka Crunch",
-        "confidence": 0.95
-      },
-      "category": {
-        "value": "food",
-        "confidence": 0.95
-      },
-      "label_languages": [
-        "si",
-        "en"
-      ],
-      "ingredients_verbatim": {
-        "value": "Rice flour, coconut milk, තල (sesame), salt, vegetable oil",
-        "confidence": 0.95
-      },
-      "ingredients": {
-        "value": [
-          "Rice flour",
-          "coconut milk",
-          "තල (sesame)",
-          "salt",
-          "vegetable oil"
-        ],
-        "confidence": 0.95
-      },
-      "allergen_contains_statement": {
-        "value": "Contains: sesame",
-        "confidence": 0.95
-      },
-      "allergen_may_contain_statement": {
-        "value": null,
-        "confidence": 0.9
-      },
-      "nutrition": {
-        "value": [
-          {
-            "nutrient": "sodium_mg",
-            "per_100g": 820,
-            "per_serving": 164,
-            "unit": "mg"
-          },
-          {
-            "nutrient": "sugars_total",
-            "per_100g": 3,
-            "per_serving": 0.6,
-            "unit": "g"
-          },
-          {
-            "nutrient": "fat_saturated",
-            "per_100g": 4,
-            "per_serving": 0.8,
-            "unit": "g"
-          }
-        ],
-        "confidence": 0.95
-      },
-      "serving_size_g": {
-        "value": 20,
-        "confidence": 0.95
-      },
-      "claims": {
-        "value": [],
-        "confidence": 0.95
-      },
-      "dates": {
-        "value": [
-          {
-            "kind": "best_before",
-            "raw": "12/2027",
-            "iso": "2027-12-01"
-          }
-        ],
-        "confidence": 0.95
-      },
-      "batch_lot": {
-        "value": "L2410",
-        "confidence": 0.95
-      },
-      "manufacturer": {
-        "value": "Lanka Crunch Foods",
-        "confidence": 0.95
-      },
-      "origin": {
-        "value": "Sri Lanka",
-        "confidence": 0.95
-      },
-      "certification_marks": {
-        "value": [],
-        "confidence": 0.95
-      },
-      "packaging_codes": {
-        "value": [
-          "PP 5"
-        ],
-        "confidence": 0.95
-      },
-      "barcode": null,
-      "missing_sides": [],
-      "retake_tip": null
+   "product": {
+    "name": {
+     "value": "Crunchy Kokis",
+     "confidence": 0.92
     },
-    "findings": [
-      {
-        "id": "allergen.contains.sesame",
-        "card": "allergens",
-        "category": "allergen_contains",
-        "severity": "avoid",
-        "risk": "allergen",
-        "tier": "label_stated",
-        "title": "Contains sesame",
-        "reason": "The label lists තල (sesame) as an ingredient.",
-        "next_step": "Avoid if anyone in the household is allergic to sesame.",
-        "sources": [
-          {
-            "label": "Pack label",
-            "url": null
-          }
-        ],
-        "data": {
-          "allergen": "sesame",
-          "matched": "තල"
-        }
-      },
-      {
-        "id": "nutrient.sodium",
-        "card": "nutrition",
-        "category": "nutrient_level",
-        "severity": "check",
-        "risk": "restricted",
-        "tier": "label_stated",
-        "title": "High sodium",
-        "reason": "820 mg sodium per 100 g is above the high threshold of 600 mg.",
-        "next_step": "Consider a lower-sodium option for low-salt diets.",
-        "sources": [
-          {
-            "label": "Pack label",
-            "url": null
-          },
-          {
-            "label": "UK FSA front-of-pack thresholds",
-            "url": null
-          }
-        ],
-        "data": {
-          "nutrient": "sodium_mg",
-          "per_100g": 820,
-          "level": "high"
-        }
-      },
-      {
-        "id": "diet.halal",
-        "card": "diet",
-        "category": "diet",
-        "severity": "check",
-        "risk": "debated",
-        "tier": "inferred",
-        "title": "Halal status unknown",
-        "reason": "No certification mark was read and ingredients alone cannot confirm halal.",
-        "next_step": "Look for a halal mark.",
-        "sources": [
-          {
-            "label": "Rule pack v1",
-            "url": null
-          }
-        ],
-        "data": {
-          "diet": "halal"
-        }
-      },
-      {
-        "id": "ingredient.none",
-        "card": "ingredients",
-        "category": "additive",
-        "severity": "good",
-        "risk": "no_known_concern",
-        "tier": "inferred",
-        "title": "No additives flagged",
-        "reason": "No E-numbers were found in the readable ingredients.",
-        "next_step": null,
-        "sources": [
-          {
-            "label": "Rule pack v1",
-            "url": null
-          }
-        ],
-        "data": {}
-      },
-      {
-        "id": "claims.none",
-        "card": "claims",
-        "category": "claim",
-        "severity": "info",
-        "risk": "no_known_concern",
-        "tier": "unknown",
-        "title": "No claims to test",
-        "reason": "No marketing claims were read on this pack.",
-        "next_step": null,
-        "sources": [
-          {
-            "label": "Pack label",
-            "url": null
-          }
-        ],
-        "data": {}
-      },
-      {
-        "id": "packaging.pp5",
-        "card": "packaging",
-        "category": "packaging",
-        "severity": "info",
-        "risk": "no_known_concern",
-        "tier": "label_stated",
-        "title": "Recycling code PP 5",
-        "reason": "The pack shows PP 5 (polypropylene).",
-        "next_step": "Check local recycling rules.",
-        "sources": [
-          {
-            "label": "Pack label",
-            "url": null
-          }
-        ],
-        "data": {}
-      },
-      {
-        "id": "packaging.carbon",
-        "card": "packaging",
-        "category": "carbon",
-        "severity": "info",
-        "risk": "no_known_concern",
-        "tier": "unknown",
-        "title": "Carbon: No reliable data",
-        "reason": "No reliable carbon data exists for this product.",
-        "next_step": null,
-        "sources": [
-          {
-            "label": "Rule pack v1",
-            "url": null
-          }
-        ],
-        "data": {}
-      }
-    ],
-    "cards": [
-      {
-        "id": "allergens",
-        "status": "avoid",
-        "tier": "label_stated",
-        "headline": "Contains sesame",
-        "finding_ids": [
-          "allergen.contains.sesame"
-        ]
-      },
-      {
-        "id": "nutrition",
-        "status": "check",
-        "tier": "label_stated",
-        "headline": "High sodium per 100 g",
-        "finding_ids": [
-          "nutrient.sodium"
-        ]
-      },
-      {
-        "id": "diet",
-        "status": "check",
-        "tier": "inferred",
-        "headline": "Halal status unknown",
-        "finding_ids": [
-          "diet.halal"
-        ]
-      },
-      {
-        "id": "ingredients",
-        "status": "good",
-        "tier": "inferred",
-        "headline": "No additives flagged",
-        "finding_ids": [
-          "ingredient.none"
-        ]
-      },
-      {
-        "id": "claims",
-        "status": "info",
-        "tier": "unknown",
-        "headline": "No claims to test",
-        "finding_ids": [
-          "claims.none"
-        ]
-      },
-      {
-        "id": "packaging",
-        "status": "info",
-        "tier": "label_stated",
-        "headline": "PP 5; carbon: no reliable data",
-        "finding_ids": [
-          "packaging.pp5",
-          "packaging.carbon"
-        ]
-      }
-    ],
-    "facts": {
-      "allergens_contains": [
-        "sesame"
-      ],
-      "allergens_may_contain": [],
-      "ingredients_known": true,
-      "diets": {
-        "vegan": "yes",
-        "vegetarian": "yes",
-        "gluten_free": "yes",
-        "lactose_free": "yes",
-        "halal": "unknown",
-        "kosher": "unknown"
-      },
-      "nutrient_levels": {
-        "sodium": "high",
-        "sugars": "low",
-        "fat_saturated": "medium"
-      },
-      "canonical_ingredient_ids": [
-        "rice",
-        "coconut",
-        "sesame",
-        "salt"
-      ]
+    "brand": {
+     "value": "Lanka Treats",
+     "confidence": 0.92
     },
-    "banners": [
-      "near_expiry:2026-10-20",
-      "retake:nutrition"
+    "category": {
+     "value": "food",
+     "confidence": 0.92
+    },
+    "label_languages": [
+     "si",
+     "en"
     ],
-    "rule_pack_version": "v1",
-    "ri_reference": "Codex NRV (adult)",
-    "unresolved_terms": []
-  },
-  "commentary_en": {
-    "lang": "en",
-    "summary": "This kokis contains sesame and is high in sodium.",
-    "source": "template",
-    "cards": {
-      "allergens": {
-        "headline": "Contains sesame",
-        "reason": "Contains sesame."
+    "ingredients_verbatim": {
+     "value": "සහල් පිටි (Rice Flour), පොල් කිරි (Coconut Milk), සීනි (Sugar), බිත්තර (Egg), තල (Sesame), පාම් තෙල් (Palm Oil), ලුණු (Salt)",
+     "confidence": 0.92
+    },
+    "ingredients": {
+     "value": [
+      "සහල් පිටි (Rice Flour)",
+      "පොල් කිරි (Coconut Milk)",
+      "සීනි (Sugar)",
+      "බිත්තර (Egg)",
+      "තල (Sesame)",
+      "පාම් තෙල් (Palm Oil)",
+      "ලුණු (Salt)"
+     ],
+     "confidence": 0.92
+    },
+    "allergen_contains_statement": {
+     "value": "Contains: Egg, Sesame (තල)",
+     "confidence": 0.92
+    },
+    "allergen_may_contain_statement": {
+     "value": "May contain traces of peanuts",
+     "confidence": 0.92
+    },
+    "nutrition": {
+     "value": [
+      {
+       "nutrient": "energy_kcal",
+       "per_100g": 510.0,
+       "per_serving": 153.0,
+       "unit": "kcal"
       },
-      "nutrition": {
-        "headline": "High in sodium",
-        "reason": "High in sodium."
+      {
+       "nutrient": "sugars_total",
+       "per_100g": 12.0,
+       "per_serving": 3.6,
+       "unit": "g"
+      },
+      {
+       "nutrient": "fat_saturated",
+       "per_100g": 9.0,
+       "per_serving": 2.7,
+       "unit": "g"
+      },
+      {
+       "nutrient": "sodium_mg",
+       "per_100g": 820.0,
+       "per_serving": 246.0,
+       "unit": "mg"
+      },
+      {
+       "nutrient": "protein",
+       "per_100g": 7.0,
+       "per_serving": 2.1,
+       "unit": "g"
+      },
+      {
+       "nutrient": "fibre",
+       "per_100g": 2.0,
+       "per_serving": 0.6,
+       "unit": "g"
+      },
+      {
+       "nutrient": "carbohydrate",
+       "per_100g": 62.0,
+       "per_serving": 18.6,
+       "unit": "g"
+      },
+      {
+       "nutrient": "fat_total",
+       "per_100g": 28.0,
+       "per_serving": 8.4,
+       "unit": "g"
       }
+     ],
+     "confidence": 0.92
+    },
+    "serving_size_g": {
+     "value": 30.0,
+     "confidence": 0.92
+    },
+    "claims": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "dates": {
+     "value": [
+      {
+       "kind": "best_before",
+       "raw": "BB 12 JUN 2027",
+       "iso": "2027-06-12"
+      }
+     ],
+     "confidence": 0.92
+    },
+    "batch_lot": {
+     "value": "L2610A",
+     "confidence": 0.92
+    },
+    "manufacturer": {
+     "value": "Lanka Treats (Pvt) Ltd, Colombo",
+     "confidence": 0.92
+    },
+    "origin": {
+     "value": "Sri Lanka",
+     "confidence": 0.92
+    },
+    "certification_marks": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "packaging_codes": {
+     "value": [
+      "PP 5"
+     ],
+     "confidence": 0.92
+    },
+    "barcode": "4791234567890",
+    "missing_sides": [],
+    "retake_tip": null
+   },
+   "findings": [
+    {
+     "id": "allergen.contains.egg",
+     "area": "body",
+     "topic": "allergens",
+     "card": null,
+     "category": "allergen_contains",
+     "severity": "check",
+     "risk": "allergen",
+     "tier": "label_stated",
+     "title": "Contains egg",
+     "reason": "Matched \"බිත්තර\" in the ingredients.",
+     "next_step": "Consider avoiding this product if you react to egg. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "allergen": "egg",
+      "matched": "බිත්තර",
+      "where": "ingredients"
+     }
+    },
+    {
+     "id": "allergen.contains.sesame",
+     "area": "body",
+     "topic": "allergens",
+     "card": null,
+     "category": "allergen_contains",
+     "severity": "check",
+     "risk": "allergen",
+     "tier": "label_stated",
+     "title": "Contains sesame",
+     "reason": "Matched \"තල\" in the ingredients.",
+     "next_step": "Consider avoiding this product if you react to sesame. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "allergen": "sesame",
+      "matched": "තල",
+      "where": "ingredients"
+     }
+    },
+    {
+     "id": "allergen.may_contain.peanut",
+     "area": "body",
+     "topic": "allergens",
+     "card": null,
+     "category": "allergen_may_contain",
+     "severity": "info",
+     "risk": "allergen",
+     "tier": "label_stated",
+     "title": "May contain peanut",
+     "reason": "The pack's may-contain statement mentions \"peanuts\".",
+     "next_step": "Consider this if you react to traces of peanut. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "allergen": "peanut",
+      "matched": "peanuts",
+      "where": "may-contain statement"
+     }
+    },
+    {
+     "id": "nutrition.sugars",
+     "area": "body",
+     "topic": "nutrition",
+     "card": "nutrition",
+     "category": "nutrient_level",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Sugars level: medium",
+     "reason": "12.0 g per 100 g; UK FSA front-of-pack: low up to 5, high above 22.5 g.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "nutrient": "sugars_total",
+      "per_100g": 12.0,
+      "level": "medium",
+      "unit": "g",
+      "pct_ri": 7.2
+     }
+    },
+    {
+     "id": "nutrition.fat_saturated",
+     "area": "body",
+     "topic": "nutrition",
+     "card": "nutrition",
+     "category": "nutrient_level",
+     "severity": "check",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Saturated fat level: high",
+     "reason": "9.0 g per 100 g; UK FSA front-of-pack: low up to 1.5, high above 5 g.",
+     "next_step": "Consider how this fits your daily intake. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "nutrient": "fat_saturated",
+      "per_100g": 9.0,
+      "level": "high",
+      "unit": "g",
+      "pct_ri": 13.5
+     }
+    },
+    {
+     "id": "nutrition.sodium",
+     "area": "body",
+     "topic": "nutrition",
+     "card": "nutrition",
+     "category": "nutrient_level",
+     "severity": "check",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Sodium level: high",
+     "reason": "820.0 mg per 100 g (about 2.05 g salt); UK FSA front-of-pack: low up to 120, high above 600 mg.",
+     "next_step": "Consider how this fits your daily intake. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "nutrient": "sodium_mg",
+      "per_100g": 820.0,
+      "level": "high",
+      "unit": "mg",
+      "pct_ri": 12.3
+     }
+    },
+    {
+     "id": "nutrition.summary",
+     "area": "body",
+     "topic": "nutrition",
+     "card": "nutrition",
+     "category": "nutrition_summary",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Nutrition summary",
+     "reason": "Per 100 g: 510 kcal, sugars 12.0 g (medium), saturated fat 9.0 g (high), sodium 820 mg (high).",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "per_100g": {
+       "energy_kcal": 510.0,
+       "sugars_total": 12.0,
+       "fat_saturated": 9.0,
+       "sodium_mg": 820.0,
+       "protein": 7.0,
+       "fibre": 2.0,
+       "carbohydrate": 62.0,
+       "fat_total": 28.0,
+       "salt_g": 2.05
+      },
+      "per_serving": {
+       "energy_kcal": 153.0,
+       "sugars_total": 3.6,
+       "fat_saturated": 2.7,
+       "sodium_mg": 246.0,
+       "protein": 2.1,
+       "fibre": 0.6,
+       "carbohydrate": 18.6,
+       "fat_total": 8.4
+      },
+      "pct_ri": {
+       "energy_kcal": 7.6,
+       "sodium_mg": 12.3,
+       "sugars_total": 7.2,
+       "fat_saturated": 13.5,
+       "protein": 4.2,
+       "fibre": 2.4
+      },
+      "ri_basis": "per serving (30 g)",
+      "ri_reference": "Codex NRV (adult): energy 2000 kcal, sodium 2000 mg, sugars 50 g (reference value), saturated fat 20 g, protein 50 g, fibre 25 g",
+      "serving_size_g": 30.0
+     }
+    },
+    {
+     "id": "diet.vegan",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Vegan: no",
+     "reason": "Ingredients include කිරි, බිත්තර.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "vegan",
+      "value": "no"
+     }
+    },
+    {
+     "id": "diet.vegetarian",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Vegetarian: yes",
+     "reason": "No meat, fish or gelatin ingredients found in the list.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "vegetarian",
+      "value": "yes"
+     }
+    },
+    {
+     "id": "diet.gluten_free",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Gluten free: yes",
+     "reason": "No gluten-containing cereals found in the list.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "gluten_free",
+      "value": "yes"
+     }
+    },
+    {
+     "id": "diet.lactose_free",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Lactose free: yes",
+     "reason": "No milk ingredients found in the list.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "lactose_free",
+      "value": "yes"
+     }
+    },
+    {
+     "id": "diet.halal",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Halal: unknown",
+     "reason": "No certification mark; ingredients alone cannot confirm halal.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "halal",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.kosher",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Kosher: unknown",
+     "reason": "No certification mark; ingredients alone cannot confirm kosher.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "kosher",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "additives.none",
+     "area": "body",
+     "topic": "additives",
+     "card": "additives",
+     "category": "additives_none",
+     "severity": "good",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "No additives found",
+     "reason": "No E-number or additive name was found in the ingredient list we could read.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {}
+    },
+    {
+     "id": "ingredients.processing",
+     "area": "body",
+     "topic": "processing",
+     "card": "processing",
+     "category": "processing",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "inferred",
+     "title": "Processing level: processed",
+     "reason": "Estimated from 0 additive(s) and 0 industrial ingredient(s); this is a rough guide, not a classification.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "level": "processed",
+      "additives": [],
+      "industrial_ingredients": [],
+      "score": 0
+     }
+    },
+    {
+     "id": "ingredients.count",
+     "area": "body",
+     "topic": "processing",
+     "card": "processing",
+     "category": "ingredient_count",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "7 ingredients listed",
+     "reason": "The ingredient list has 7 entries.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "count": 7
+     }
+    },
+    {
+     "id": "packaging.code.pp5",
+     "area": "planet",
+     "topic": "packaging",
+     "card": "packaging",
+     "category": "packaging",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Recycling code PP 5: PP (polypropylene)",
+     "reason": "Material read from the recycling mark on the pack; local collection rules vary.",
+     "next_step": "Consider checking local recycling rules.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "abbr": "PP",
+      "number": 5,
+      "material": "PP (polypropylene)",
+      "code": "PP 5",
+      "raw": "PP 5"
+     }
+    },
+    {
+     "id": "packaging.carbon",
+     "area": "planet",
+     "topic": "carbon",
+     "card": "carbon",
+     "category": "carbon",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Carbon footprint: no reliable data",
+     "reason": "No reliable carbon data exists for this product in our sources.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "carbon": null,
+      "placeholder": true
+     }
+    },
+    {
+     "id": "date.best_before",
+     "area": "body",
+     "topic": "dates",
+     "card": null,
+     "category": "date",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Best before date 2027-06-12",
+     "reason": "The best before date read is 2027-06-12, 238 day(s) from today (day-month-year).",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "kind": "best_before",
+      "iso": "2027-06-12",
+      "days_left": 238,
+      "parse": "day-month-year"
+     }
+    },
+    {
+     "id": "recalls.unknown",
+     "area": "body",
+     "topic": "recalls",
+     "card": null,
+     "category": "recalls",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "No recall data for your market",
+     "reason": "We have no recall feed for your market, so a recall cannot be ruled out.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "water_land.unknown",
+     "area": "planet",
+     "topic": "water_land",
+     "card": "water_land",
+     "category": "water_land",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Water and land use: no reliable data",
+     "reason": "No reliable water or land-use data exists for this product in our sources.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "labour.unknown",
+     "area": "people",
+     "topic": "labour",
+     "card": null,
+     "category": "labour",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Labour: no data",
+     "reason": "No labour information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "sourcing.unknown",
+     "area": "people",
+     "topic": "sourcing",
+     "card": null,
+     "category": "sourcing",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Sourcing: no data",
+     "reason": "No sourcing information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "animal_welfare.unknown",
+     "area": "people",
+     "topic": "animal_welfare",
+     "card": null,
+     "category": "animal_welfare",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Animal welfare: no data",
+     "reason": "No animal welfare information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "label_clarity.checklist",
+     "area": "truth",
+     "topic": "label_clarity",
+     "card": null,
+     "category": "label_clarity",
+     "severity": "good",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Label shows 5 of 5 key items",
+     "reason": "Checked: ingredients shown, nutrition shown, manufacturer shown, expiry shown, warnings shown.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "checklist": {
+       "ingredients": true,
+       "nutrition": true,
+       "manufacturer": true,
+       "expiry": true,
+       "warnings": true
+      },
+      "disclosed": 5,
+      "total": 5
+     }
+    },
+    {
+     "id": "authenticity.unknown",
+     "area": "truth",
+     "topic": "authenticity",
+     "card": null,
+     "category": "authenticity",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Authenticity: cannot be checked",
+     "reason": "A barcode cannot prove a product is genuine.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
     }
-  },
-  "commentary_si": {
-    "lang": "si",
-    "summary": "මෙම කොකිස් වල තල අඩංගුයි, සෝඩියම් වැඩියි.",
-    "source": "template",
-    "cards": {
-      "allergens": {
-        "headline": "තල අඩංගුයි",
-        "reason": "තල අඩංගුයි."
-      },
-      "nutrition": {
-        "headline": "සෝඩියම් වැඩියි",
-        "reason": "සෝඩියම් වැඩියි."
-      }
+   ],
+   "cards": [
+    {
+     "id": "nutrition",
+     "grade": "E",
+     "status": "check",
+     "tier": "inferred",
+     "headline": "High in sodium, saturated fat",
+     "finding_ids": [
+      "nutrition.sugars",
+      "nutrition.fat_saturated",
+      "nutrition.sodium",
+      "nutrition.summary"
+     ]
+    },
+    {
+     "id": "processing",
+     "grade": "B",
+     "status": "info",
+     "tier": "inferred",
+     "headline": "7 ingredients; processed",
+     "finding_ids": [
+      "ingredients.processing",
+      "ingredients.count"
+     ]
+    },
+    {
+     "id": "additives",
+     "grade": "A",
+     "status": "good",
+     "tier": "inferred",
+     "headline": "No additives found",
+     "finding_ids": [
+      "additives.none"
+     ]
+    },
+    {
+     "id": "carbon",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No reliable data",
+     "finding_ids": [
+      "packaging.carbon"
+     ]
+    },
+    {
+     "id": "water_land",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No reliable data",
+     "finding_ids": [
+      "water_land.unknown"
+     ]
+    },
+    {
+     "id": "packaging",
+     "grade": "C",
+     "status": "info",
+     "tier": "label_stated",
+     "headline": "PP 5 polypropylene",
+     "finding_ids": [
+      "packaging.code.pp5"
+     ]
     }
-  },
-  "done": {
-    "scan_id": "scan-test-1",
-    "analysis": {
-      "product": {
-        "name": {
-          "value": "Kokis",
-          "confidence": 0.95
-        },
-        "brand": {
-          "value": "Lanka Crunch",
-          "confidence": 0.95
-        },
-        "category": {
-          "value": "food",
-          "confidence": 0.95
-        },
-        "label_languages": [
-          "si",
-          "en"
-        ],
-        "ingredients_verbatim": {
-          "value": "Rice flour, coconut milk, තල (sesame), salt, vegetable oil",
-          "confidence": 0.95
-        },
-        "ingredients": {
-          "value": [
-            "Rice flour",
-            "coconut milk",
-            "තල (sesame)",
-            "salt",
-            "vegetable oil"
-          ],
-          "confidence": 0.95
-        },
-        "allergen_contains_statement": {
-          "value": "Contains: sesame",
-          "confidence": 0.95
-        },
-        "allergen_may_contain_statement": {
-          "value": null,
-          "confidence": 0.9
-        },
-        "nutrition": {
-          "value": [
-            {
-              "nutrient": "sodium_mg",
-              "per_100g": 820,
-              "per_serving": 164,
-              "unit": "mg"
-            },
-            {
-              "nutrient": "sugars_total",
-              "per_100g": 3,
-              "per_serving": 0.6,
-              "unit": "g"
-            },
-            {
-              "nutrient": "fat_saturated",
-              "per_100g": 4,
-              "per_serving": 0.8,
-              "unit": "g"
-            }
-          ],
-          "confidence": 0.95
-        },
-        "serving_size_g": {
-          "value": 20,
-          "confidence": 0.95
-        },
-        "claims": {
-          "value": [],
-          "confidence": 0.95
-        },
-        "dates": {
-          "value": [
-            {
-              "kind": "best_before",
-              "raw": "12/2027",
-              "iso": "2027-12-01"
-            }
-          ],
-          "confidence": 0.95
-        },
-        "batch_lot": {
-          "value": "L2410",
-          "confidence": 0.95
-        },
-        "manufacturer": {
-          "value": "Lanka Crunch Foods",
-          "confidence": 0.95
-        },
-        "origin": {
-          "value": "Sri Lanka",
-          "confidence": 0.95
-        },
-        "certification_marks": {
-          "value": [],
-          "confidence": 0.95
-        },
-        "packaging_codes": {
-          "value": [
-            "PP 5"
-          ],
-          "confidence": 0.95
-        },
-        "barcode": null,
-        "missing_sides": [],
-        "retake_tip": null
-      },
-      "findings": [
-        {
-          "id": "allergen.contains.sesame",
-          "card": "allergens",
-          "category": "allergen_contains",
-          "severity": "avoid",
-          "risk": "allergen",
-          "tier": "label_stated",
-          "title": "Contains sesame",
-          "reason": "The label lists තල (sesame) as an ingredient.",
-          "next_step": "Avoid if anyone in the household is allergic to sesame.",
-          "sources": [
-            {
-              "label": "Pack label",
-              "url": null
-            }
-          ],
-          "data": {
-            "allergen": "sesame",
-            "matched": "තල"
-          }
-        },
-        {
-          "id": "nutrient.sodium",
-          "card": "nutrition",
-          "category": "nutrient_level",
-          "severity": "check",
-          "risk": "restricted",
-          "tier": "label_stated",
-          "title": "High sodium",
-          "reason": "820 mg sodium per 100 g is above the high threshold of 600 mg.",
-          "next_step": "Consider a lower-sodium option for low-salt diets.",
-          "sources": [
-            {
-              "label": "Pack label",
-              "url": null
-            },
-            {
-              "label": "UK FSA front-of-pack thresholds",
-              "url": null
-            }
-          ],
-          "data": {
-            "nutrient": "sodium_mg",
-            "per_100g": 820,
-            "level": "high"
-          }
-        },
-        {
-          "id": "diet.halal",
-          "card": "diet",
-          "category": "diet",
-          "severity": "check",
-          "risk": "debated",
-          "tier": "inferred",
-          "title": "Halal status unknown",
-          "reason": "No certification mark was read and ingredients alone cannot confirm halal.",
-          "next_step": "Look for a halal mark.",
-          "sources": [
-            {
-              "label": "Rule pack v1",
-              "url": null
-            }
-          ],
-          "data": {
-            "diet": "halal"
-          }
-        },
-        {
-          "id": "ingredient.none",
-          "card": "ingredients",
-          "category": "additive",
-          "severity": "good",
-          "risk": "no_known_concern",
-          "tier": "inferred",
-          "title": "No additives flagged",
-          "reason": "No E-numbers were found in the readable ingredients.",
-          "next_step": null,
-          "sources": [
-            {
-              "label": "Rule pack v1",
-              "url": null
-            }
-          ],
-          "data": {}
-        },
-        {
-          "id": "claims.none",
-          "card": "claims",
-          "category": "claim",
-          "severity": "info",
-          "risk": "no_known_concern",
-          "tier": "unknown",
-          "title": "No claims to test",
-          "reason": "No marketing claims were read on this pack.",
-          "next_step": null,
-          "sources": [
-            {
-              "label": "Pack label",
-              "url": null
-            }
-          ],
-          "data": {}
-        },
-        {
-          "id": "packaging.pp5",
-          "card": "packaging",
-          "category": "packaging",
-          "severity": "info",
-          "risk": "no_known_concern",
-          "tier": "label_stated",
-          "title": "Recycling code PP 5",
-          "reason": "The pack shows PP 5 (polypropylene).",
-          "next_step": "Check local recycling rules.",
-          "sources": [
-            {
-              "label": "Pack label",
-              "url": null
-            }
-          ],
-          "data": {}
-        },
-        {
-          "id": "packaging.carbon",
-          "card": "packaging",
-          "category": "carbon",
-          "severity": "info",
-          "risk": "no_known_concern",
-          "tier": "unknown",
-          "title": "Carbon: No reliable data",
-          "reason": "No reliable carbon data exists for this product.",
-          "next_step": null,
-          "sources": [
-            {
-              "label": "Rule pack v1",
-              "url": null
-            }
-          ],
-          "data": {}
-        }
-      ],
-      "cards": [
-        {
-          "id": "allergens",
-          "status": "avoid",
-          "tier": "label_stated",
-          "headline": "Contains sesame",
-          "finding_ids": [
-            "allergen.contains.sesame"
-          ]
-        },
-        {
-          "id": "nutrition",
-          "status": "check",
-          "tier": "label_stated",
-          "headline": "High sodium per 100 g",
-          "finding_ids": [
-            "nutrient.sodium"
-          ]
-        },
-        {
-          "id": "diet",
-          "status": "check",
-          "tier": "inferred",
-          "headline": "Halal status unknown",
-          "finding_ids": [
-            "diet.halal"
-          ]
-        },
-        {
-          "id": "ingredients",
-          "status": "good",
-          "tier": "inferred",
-          "headline": "No additives flagged",
-          "finding_ids": [
-            "ingredient.none"
-          ]
-        },
-        {
-          "id": "claims",
-          "status": "info",
-          "tier": "unknown",
-          "headline": "No claims to test",
-          "finding_ids": [
-            "claims.none"
-          ]
-        },
-        {
-          "id": "packaging",
-          "status": "info",
-          "tier": "label_stated",
-          "headline": "PP 5; carbon: no reliable data",
-          "finding_ids": [
-            "packaging.pp5",
-            "packaging.carbon"
-          ]
-        }
-      ],
-      "facts": {
-        "allergens_contains": [
-          "sesame"
-        ],
-        "allergens_may_contain": [],
-        "ingredients_known": true,
-        "diets": {
-          "vegan": "yes",
-          "vegetarian": "yes",
-          "gluten_free": "yes",
-          "lactose_free": "yes",
-          "halal": "unknown",
-          "kosher": "unknown"
-        },
-        "nutrient_levels": {
-          "sodium": "high",
-          "sugars": "low",
-          "fat_saturated": "medium"
-        },
-        "canonical_ingredient_ids": [
-          "rice",
-          "coconut",
-          "sesame",
-          "salt"
-        ]
-      },
-      "banners": [
-        "near_expiry:2026-10-20",
-        "retake:nutrition"
-      ],
-      "rule_pack_version": "v1",
-      "ri_reference": "Codex NRV (adult)",
-      "unresolved_terms": []
-    },
-    "commentary": {
-      "lang": "en",
-      "summary": "This kokis contains sesame and is high in sodium.",
-      "source": "template",
-      "cards": {
-        "allergens": {
-          "headline": "Contains sesame",
-          "reason": "Contains sesame."
-        },
-        "nutrition": {
-          "headline": "High in sodium",
-          "reason": "High in sodium."
-        }
-      }
-    },
-    "trace": [
-      {
-        "tool": "extract_label",
-        "ms": 5,
-        "model_calls": 0
-      }
+   ],
+   "grade": {
+    "letter": "D",
+    "reason": null,
+    "planet_partial": true,
+    "drivers": [
+     "nutrition",
+     "additives"
     ],
-    "model_calls": 0,
-    "cached": false
-  }
+    "rule_version": "grade-1.0"
+   },
+   "areas": [
+    {
+     "id": "body",
+     "status": "check",
+     "tier": "inferred",
+     "headline": "Contains egg, sesame; may contain peanut",
+     "finding_ids": [
+      "allergen.contains.egg",
+      "allergen.contains.sesame",
+      "allergen.may_contain.peanut",
+      "nutrition.sugars",
+      "nutrition.fat_saturated",
+      "nutrition.sodium",
+      "nutrition.summary",
+      "diet.vegan",
+      "diet.vegetarian",
+      "diet.gluten_free",
+      "diet.lactose_free",
+      "diet.halal",
+      "diet.kosher",
+      "additives.none",
+      "ingredients.processing",
+      "ingredients.count",
+      "date.best_before",
+      "recalls.unknown"
+     ],
+     "card_ids": [
+      "nutrition",
+      "processing",
+      "additives"
+     ]
+    },
+    {
+     "id": "planet",
+     "status": "info",
+     "tier": "label_stated",
+     "headline": "PP 5 polypropylene; carbon, water: no data",
+     "finding_ids": [
+      "packaging.code.pp5",
+      "packaging.carbon",
+      "water_land.unknown"
+     ],
+     "card_ids": [
+      "carbon",
+      "water_land",
+      "packaging"
+     ]
+    },
+    {
+     "id": "people",
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No labour, sourcing or welfare data",
+     "finding_ids": [
+      "labour.unknown",
+      "sourcing.unknown",
+      "animal_welfare.unknown"
+     ],
+     "card_ids": []
+    },
+    {
+     "id": "truth",
+     "status": "info",
+     "tier": "label_stated",
+     "headline": "No claims read; label shows 5 of 5 items",
+     "finding_ids": [
+      "label_clarity.checklist",
+      "authenticity.unknown"
+     ],
+     "card_ids": []
+    },
+    {
+     "id": "choice",
+     "status": "info",
+     "tier": "unknown",
+     "headline": "Scan another product to compare",
+     "finding_ids": [],
+     "card_ids": []
+    }
+   ],
+   "product_range": "snacks",
+   "facts": {
+    "allergens_contains": [
+     "egg",
+     "sesame"
+    ],
+    "allergens_may_contain": [
+     "peanut"
+    ],
+    "ingredients_known": true,
+    "diets": {
+     "vegan": "no",
+     "vegetarian": "yes",
+     "gluten_free": "yes",
+     "lactose_free": "yes",
+     "halal": "unknown",
+     "kosher": "unknown"
+    },
+    "nutrient_levels": {
+     "sodium": "high",
+     "sugars": "medium",
+     "fat_saturated": "high"
+    },
+    "canonical_ingredient_ids": [
+     "egg",
+     "fruit",
+     "rice",
+     "salt",
+     "sesame",
+     "sugar",
+     "vegetable_oil"
+    ]
+   },
+   "banners": [],
+   "rule_pack_version": "2026.10.17-1",
+   "ri_reference": "Codex NRV (adult): energy 2000 kcal, sodium 2000 mg, sugars 50 g (reference value), saturated fat 20 g, protein 50 g, fibre 25 g",
+   "unresolved_terms": []
+  },
+  "commentary": {
+   "lang": "en",
+   "summary": "Contains: egg, sesame. May contain: peanut. Some details may need a closer look; consider checking the highlighted cards.",
+   "cards": {
+    "nutrition": {
+     "headline": "High in sodium, saturated fat",
+     "reason": "9.0 g per 100 g; UK FSA front-of-pack: low up to 1.5, high above 5 g."
+    },
+    "processing": {
+     "headline": "7 ingredients; processed",
+     "reason": "Estimated from 0 additive(s) and 0 industrial ingredient(s); this is a rough guide, not a classification."
+    },
+    "additives": {
+     "headline": "No additives found",
+     "reason": "No E-number or additive name was found in the ingredient list we could read."
+    },
+    "carbon": {
+     "headline": "No reliable data",
+     "reason": "No reliable carbon data exists for this product in our sources."
+    },
+    "water_land": {
+     "headline": "No reliable data",
+     "reason": "No reliable water or land-use data exists for this product in our sources."
+    },
+    "packaging": {
+     "headline": "PP 5 polypropylene",
+     "reason": "Material read from the recycling mark on the pack; local collection rules vary."
+    }
+   },
+   "areas": {
+    "body": {
+     "headline": "Contains: egg, sesame.",
+     "reason": "May contain: peanut."
+    },
+    "planet": {
+     "headline": "PP 5 polypropylene; carbon, water: no data",
+     "reason": "Material read from the recycling mark on the pack; local collection rules vary."
+    },
+    "people": {
+     "headline": "No labour, sourcing or welfare data",
+     "reason": "No labour information was read from the pack and we have no independent source."
+    },
+    "truth": {
+     "headline": "No claims read; label shows 5 of 5 items",
+     "reason": "A barcode cannot prove a product is genuine."
+    },
+    "choice": {
+     "headline": "Scan another product to compare",
+     "reason": "Open this card for details."
+    }
+   },
+   "source": "template"
+  },
+  "trace": [
+   {
+    "tool": "cache_hit",
+    "ms": 0,
+    "model_calls": 0
+   }
+  ],
+  "model_calls": 0,
+  "cached": true
+ },
+ "thin": {
+  "scan_id": "scan-thin-1",
+  "analysis": {
+   "product": {
+    "name": {
+     "value": null,
+     "confidence": 0.5
+    },
+    "brand": {
+     "value": null,
+     "confidence": 0.0
+    },
+    "category": {
+     "value": "food",
+     "confidence": 0.7
+    },
+    "label_languages": [
+     "en"
+    ],
+    "ingredients_verbatim": {
+     "value": null,
+     "confidence": 0.3
+    },
+    "ingredients": {
+     "value": null,
+     "confidence": 0.3
+    },
+    "allergen_contains_statement": {
+     "value": "",
+     "confidence": 0.92
+    },
+    "allergen_may_contain_statement": {
+     "value": "",
+     "confidence": 0.92
+    },
+    "nutrition": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "serving_size_g": {
+     "value": null,
+     "confidence": 0.0
+    },
+    "claims": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "dates": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "batch_lot": {
+     "value": null,
+     "confidence": 0.0
+    },
+    "manufacturer": {
+     "value": null,
+     "confidence": 0.0
+    },
+    "origin": {
+     "value": null,
+     "confidence": 0.0
+    },
+    "certification_marks": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "packaging_codes": {
+     "value": [],
+     "confidence": 0.92
+    },
+    "barcode": null,
+    "missing_sides": [
+     "ingredients"
+    ],
+    "retake_tip": "The ingredient list is blurred. Hold the phone steady, avoid glare, and photograph the ingredient side flat and close up."
+   },
+   "findings": [
+    {
+     "id": "allergen.ingredients_unknown",
+     "area": "body",
+     "topic": "allergens",
+     "card": null,
+     "category": "allergen_contains",
+     "severity": "check",
+     "risk": "allergen",
+     "tier": "unknown",
+     "title": "Ingredients could not be read",
+     "reason": "The ingredient list was not legible, so allergens may be missing from this result.",
+     "next_step": "Turn to the ingredient side and retake the photo. Check with a professional.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "retake": "ingredients"
+     }
+    },
+    {
+     "id": "nutrition.unknown",
+     "area": "body",
+     "topic": "nutrition",
+     "card": "nutrition",
+     "category": "nutrient_level",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Nutrition values could not be read",
+     "reason": "No readable nutrition table was found on this label.",
+     "next_step": "Turn to the nutrition table and retake the photo.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {}
+    },
+    {
+     "id": "diet.vegan",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Vegan: unknown",
+     "reason": "Ingredients could not be read.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "vegan",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.vegetarian",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Vegetarian: unknown",
+     "reason": "Ingredients could not be read.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "vegetarian",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.gluten_free",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Gluten free: unknown",
+     "reason": "Ingredients could not be read.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "gluten_free",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.lactose_free",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Lactose free: unknown",
+     "reason": "Ingredients could not be read.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "lactose_free",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.halal",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Halal: unknown",
+     "reason": "Ingredients could not be read and no certification mark was found.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "halal",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "diet.kosher",
+     "area": "body",
+     "topic": "diet",
+     "card": null,
+     "category": "diet",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Kosher: unknown",
+     "reason": "Ingredients could not be read and no certification mark was found.",
+     "next_step": "Consider checking the pack or the maker if this matters to you.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "diet": "kosher",
+      "value": "unknown"
+     }
+    },
+    {
+     "id": "ingredients.unreadable",
+     "area": "body",
+     "topic": "additives",
+     "card": "additives",
+     "category": "ingredients_unknown",
+     "severity": "check",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Ingredients could not be read",
+     "reason": "The ingredient list was not legible, so additives and processing level cannot be estimated.",
+     "next_step": "Turn to the ingredient side and retake the photo.",
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "retake": "ingredients"
+     }
+    },
+    {
+     "id": "packaging.code.none",
+     "area": "planet",
+     "topic": "packaging",
+     "card": "packaging",
+     "category": "packaging",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "No recycling code read",
+     "reason": "No recognisable recycling mark was read from the pack.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {}
+    },
+    {
+     "id": "packaging.carbon",
+     "area": "planet",
+     "topic": "carbon",
+     "card": "carbon",
+     "category": "carbon",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Carbon footprint: no reliable data",
+     "reason": "No reliable carbon data exists for this product in our sources.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "carbon": null,
+      "placeholder": true
+     }
+    },
+    {
+     "id": "recalls.unknown",
+     "area": "body",
+     "topic": "recalls",
+     "card": null,
+     "category": "recalls",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "No recall data for your market",
+     "reason": "We have no recall feed for your market, so a recall cannot be ruled out.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "water_land.unknown",
+     "area": "planet",
+     "topic": "water_land",
+     "card": "water_land",
+     "category": "water_land",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Water and land use: no reliable data",
+     "reason": "No reliable water or land-use data exists for this product in our sources.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "labour.unknown",
+     "area": "people",
+     "topic": "labour",
+     "card": null,
+     "category": "labour",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Labour: no data",
+     "reason": "No labour information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "sourcing.unknown",
+     "area": "people",
+     "topic": "sourcing",
+     "card": null,
+     "category": "sourcing",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Sourcing: no data",
+     "reason": "No sourcing information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "animal_welfare.unknown",
+     "area": "people",
+     "topic": "animal_welfare",
+     "card": null,
+     "category": "animal_welfare",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Animal welfare: no data",
+     "reason": "No animal welfare information was read from the pack and we have no independent source.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    },
+    {
+     "id": "label_clarity.checklist",
+     "area": "truth",
+     "topic": "label_clarity",
+     "card": null,
+     "category": "label_clarity",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "label_stated",
+     "title": "Label shows 0 of 5 key items",
+     "reason": "Checked: ingredients not read, nutrition not read, manufacturer not read, expiry not read, warnings not read.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      },
+      {
+       "label": "Pack label",
+       "url": null
+      }
+     ],
+     "data": {
+      "checklist": {
+       "ingredients": false,
+       "nutrition": false,
+       "manufacturer": false,
+       "expiry": false,
+       "warnings": false
+      },
+      "disclosed": 0,
+      "total": 5
+     }
+    },
+    {
+     "id": "authenticity.unknown",
+     "area": "truth",
+     "topic": "authenticity",
+     "card": null,
+     "category": "authenticity",
+     "severity": "info",
+     "risk": "no_known_concern",
+     "tier": "unknown",
+     "title": "Authenticity: cannot be checked",
+     "reason": "A barcode cannot prove a product is genuine.",
+     "next_step": null,
+     "sources": [
+      {
+       "label": "Rule pack 2026.10.17-1",
+       "url": null
+      }
+     ],
+     "data": {
+      "placeholder": true
+     }
+    }
+   ],
+   "cards": [
+    {
+     "id": "nutrition",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "Nutrition not read",
+     "finding_ids": [
+      "nutrition.unknown"
+     ]
+    },
+    {
+     "id": "processing",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "Ingredients not read",
+     "finding_ids": []
+    },
+    {
+     "id": "additives",
+     "grade": null,
+     "status": "check",
+     "tier": "unknown",
+     "headline": "Ingredients not read",
+     "finding_ids": [
+      "ingredients.unreadable"
+     ]
+    },
+    {
+     "id": "carbon",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No reliable data",
+     "finding_ids": [
+      "packaging.carbon"
+     ]
+    },
+    {
+     "id": "water_land",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No reliable data",
+     "finding_ids": [
+      "water_land.unknown"
+     ]
+    },
+    {
+     "id": "packaging",
+     "grade": null,
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No recycling code read",
+     "finding_ids": [
+      "packaging.code.none"
+     ]
+    }
+   ],
+   "grade": {
+    "letter": null,
+    "reason": "thin_data",
+    "planet_partial": true,
+    "drivers": [],
+    "rule_version": "grade-1.0"
+   },
+   "areas": [
+    {
+     "id": "body",
+     "status": "check",
+     "tier": "unknown",
+     "headline": "Ingredients unreadable — check the pack",
+     "finding_ids": [
+      "allergen.ingredients_unknown",
+      "nutrition.unknown",
+      "diet.vegan",
+      "diet.vegetarian",
+      "diet.gluten_free",
+      "diet.lactose_free",
+      "diet.halal",
+      "diet.kosher",
+      "ingredients.unreadable",
+      "recalls.unknown"
+     ],
+     "card_ids": [
+      "nutrition",
+      "processing",
+      "additives"
+     ]
+    },
+    {
+     "id": "planet",
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No recycling code read; carbon, water: no data",
+     "finding_ids": [
+      "packaging.code.none",
+      "packaging.carbon",
+      "water_land.unknown"
+     ],
+     "card_ids": [
+      "carbon",
+      "water_land",
+      "packaging"
+     ]
+    },
+    {
+     "id": "people",
+     "status": "info",
+     "tier": "unknown",
+     "headline": "No labour, sourcing or welfare data",
+     "finding_ids": [
+      "labour.unknown",
+      "sourcing.unknown",
+      "animal_welfare.unknown"
+     ],
+     "card_ids": []
+    },
+    {
+     "id": "truth",
+     "status": "info",
+     "tier": "label_stated",
+     "headline": "No claims read; label shows 0 of 5 items",
+     "finding_ids": [
+      "label_clarity.checklist",
+      "authenticity.unknown"
+     ],
+     "card_ids": []
+    },
+    {
+     "id": "choice",
+     "status": "info",
+     "tier": "unknown",
+     "headline": "Scan another product to compare",
+     "finding_ids": [],
+     "card_ids": []
+    }
+   ],
+   "product_range": null,
+   "facts": {
+    "allergens_contains": [],
+    "allergens_may_contain": [],
+    "ingredients_known": false,
+    "diets": {
+     "vegan": "unknown",
+     "vegetarian": "unknown",
+     "gluten_free": "unknown",
+     "lactose_free": "unknown",
+     "halal": "unknown",
+     "kosher": "unknown"
+    },
+    "nutrient_levels": {
+     "sodium": "unknown",
+     "sugars": "unknown",
+     "fat_saturated": "unknown"
+    },
+    "canonical_ingredient_ids": []
+   },
+   "banners": [
+    "retake:ingredients"
+   ],
+   "rule_pack_version": "2026.10.17-1",
+   "ri_reference": "Codex NRV (adult): energy 2000 kcal, sodium 2000 mg, sugars 50 g (reference value), saturated fat 20 g, protein 50 g, fibre 25 g",
+   "unresolved_terms": []
+  },
+  "commentary": {
+   "lang": "en",
+   "summary": "Ingredients unreadable — check the pack. Some details may need a closer look; consider checking the highlighted cards.",
+   "cards": {
+    "nutrition": {
+     "headline": "Nutrition not read",
+     "reason": "No readable nutrition table was found on this label."
+    },
+    "processing": {
+     "headline": "Ingredients not read",
+     "reason": "Open this card for details."
+    },
+    "additives": {
+     "headline": "Ingredients not read",
+     "reason": "The ingredient list was not legible, so additives and processing level cannot be estimated."
+    },
+    "carbon": {
+     "headline": "No reliable data",
+     "reason": "No reliable carbon data exists for this product in our sources."
+    },
+    "water_land": {
+     "headline": "No reliable data",
+     "reason": "No reliable water or land-use data exists for this product in our sources."
+    },
+    "packaging": {
+     "headline": "No recycling code read",
+     "reason": "No recognisable recycling mark was read from the pack."
+    }
+   },
+   "areas": {
+    "body": {
+     "headline": "Ingredients unreadable — check the pack.",
+     "reason": "Open this card for details."
+    },
+    "planet": {
+     "headline": "No recycling code read; carbon, water: no data",
+     "reason": "No recognisable recycling mark was read from the pack."
+    },
+    "people": {
+     "headline": "No labour, sourcing or welfare data",
+     "reason": "No labour information was read from the pack and we have no independent source."
+    },
+    "truth": {
+     "headline": "No claims read; label shows 0 of 5 items",
+     "reason": "Checked: ingredients not read, nutrition not read, manufacturer not read, expiry not read, warnings not read."
+    },
+    "choice": {
+     "headline": "Scan another product to compare",
+     "reason": "Open this card for details."
+    }
+   },
+   "source": "template"
+  },
+  "trace": [
+   {
+    "tool": "cache_hit",
+    "ms": 0,
+    "model_calls": 0
+   }
+  ],
+  "model_calls": 0,
+  "cached": true
+ }
 }

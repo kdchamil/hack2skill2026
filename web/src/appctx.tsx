@@ -1,9 +1,18 @@
 import { createContext, useContext } from 'react'
 import type { ScanInput } from './api'
-import type { ScanView } from './components/Summary'
 import type { Tab } from './ui'
-import type { Lang } from './types'
+import type { Analysis, Commentary, Lang } from './types'
 import type { useVault } from './useVault'
+
+export interface ScanView {
+  analysis: Analysis | null
+  commentary: Commentary | null
+  scanId: string | null
+  elapsedMs: number | null
+  phase: 'loading' | 'streaming' | 'done' | 'error'
+  error: string | null
+  cached?: boolean
+}
 
 export type Sub = 'summary' | 'thin' | 'area' | 'detail' | 'claims' | 'compare'
 /** tab: the bottom-bar slot; sub: scan/list sub-route; id: area id or card id. 'privacy' is reachable from the header. */
@@ -25,6 +34,8 @@ export interface AppCtx {
   view: ScanView
   vault: ReturnType<typeof useVault>
   runScan: (input: Omit<ScanInput, 'lang'>) => void
+  /** re-run the last scan input (error state) */
+  retry: () => void
   setLang: (l: Lang) => void
   onDeleted: () => void
 }

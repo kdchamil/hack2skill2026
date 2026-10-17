@@ -17,13 +17,14 @@ export function Ring({ member, selected, onSelect, compact }: RingProps) {
         <span className="ring-initial">{Array.from(member.name)[0]?.toLocaleUpperCase() ?? '?'}</span>
         <Badge level={member.level} />
       </span>
-      {!compact && <span className="ring-word" aria-hidden="true">{word}</span>}
-      {!compact && member.reason && <span className="ring-reason" aria-hidden="true">{member.reason}</span>}
+      {onSelect && <span className="sr-only">{compact ? `${member.name}: ${word}` : `${member.name}: `}</span>}
+      {!compact && <span className="ring-word" aria-hidden={onSelect ? undefined : true}>{word}</span>}
+      {!compact && member.reason && <span className="ring-reason" aria-hidden={onSelect ? undefined : true}>{member.reason}</span>}
     </>
   )
   const label = ringAria(t, member)
   return onSelect ? (
-    <button type="button" className="ring-item" aria-label={label} aria-pressed={selected ?? false} onClick={() => onSelect(member.id)}>{body}</button>
+    <button type="button" className="ring-item" aria-pressed={selected ?? false} onClick={() => onSelect(member.id)}>{body}</button>
   ) : (
     <span className="ring-item" role="img" aria-label={label}>{body}</span>
   )

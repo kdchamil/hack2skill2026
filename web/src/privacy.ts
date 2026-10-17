@@ -22,6 +22,7 @@ function clearWebStorage(s: Storage | undefined) {
  *  app keys and Cache Storage entries the app created. The caller drops the in-memory key and scan state. */
 export async function deleteAll(): Promise<void> {
   try { await withdrawShares() } catch { /* never block the wipe */ }
+  store.setSessionKey(null)
   await store.destroyDb()
   clearWebStorage(typeof localStorage === 'undefined' ? undefined : localStorage)
   clearWebStorage(typeof sessionStorage === 'undefined' ? undefined : sessionStorage)

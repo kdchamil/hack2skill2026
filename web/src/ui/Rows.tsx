@@ -14,10 +14,9 @@ export interface AreaRowProps {
 }
 
 export function AreaRow({ area, icon, title, headline, grades, status, tier, onOpen }: AreaRowProps) {
-  const { t } = useT()
   const Icon = area ? AREA_ICONS[area] : null
   return (
-    <button type="button" className="area-row" aria-label={`${t('row.open', { title })}. ${clampWords(headline)}`} onClick={onOpen}>
+    <button type="button" className="area-row" onClick={onOpen}>
       <span className="area-icon" aria-hidden="true">{icon ?? (Icon && <Icon size={28} />)}</span>
       <span className="area-text">
         <span className="area-title">{title}</span>
@@ -41,7 +40,8 @@ export function SummaryStrip({ grade, name, members, onBack, selectedId, onSelec
   const { t } = useT()
   return (
     <div className="strip">
-      <button type="button" className="strip-main" aria-label={t('strip.back', { name })} onClick={onBack}>
+      <button type="button" className="strip-main" onClick={onBack}>
+        <span className="sr-only">{t('strip.back', { name: '' })}</span>
         <GradeTile grade={grade} size="sm" />
         <span className="strip-name">{name}</span>
       </button>
