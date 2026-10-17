@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react'
 import type { ScanInput } from './api'
+import type { LibraryEntry } from './library'
 import type { Tab } from './ui'
 import type { Analysis, Commentary, Lang } from './types'
 import type { useVault } from './useVault'
@@ -12,6 +13,8 @@ export interface ScanView {
   phase: 'loading' | 'streaming' | 'done' | 'error'
   error: string | null
   cached?: boolean
+  /** set when opened from the Library: shown offline from the saved entry */
+  saved?: LibraryEntry
 }
 
 export type Sub = 'summary' | 'thin' | 'area' | 'detail' | 'claims' | 'compare'
@@ -38,6 +41,9 @@ export interface AppCtx {
   retry: () => void
   setLang: (l: Lang) => void
   onDeleted: () => void
+  openSaved: (e: LibraryEntry) => void
+  /** replace the saved entry shown (after a re-check) */
+  updateSaved: (e: LibraryEntry) => void
 }
 
 export const AppContext = createContext<AppCtx | null>(null)

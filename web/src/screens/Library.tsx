@@ -52,7 +52,7 @@ export function Library({ onOpen }: { onOpen?: (e: LibraryEntry) => void }) {
   const time = (ts: number) => new Date(ts).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' })
   const nm = (e: LibraryEntry) => e.name ?? t('lib.unnamed')
 
-  const doOpen = (e: LibraryEntry) => (onOpen ? onOpen(e) : setOpen(e))
+  const doOpen = (e: LibraryEntry) => (onOpen && e.analysis ? onOpen(e) : setOpen(e))
   const doRecheck = async (e: LibraryEntry) => {
     const n = await recheck(e, members)
     setAll((a) => a.map((x) => (x.id === n.id ? n : x))); setOpen((o) => (o?.id === n.id ? n : o)); setNote(t('lib.rechecked'))

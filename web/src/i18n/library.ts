@@ -12,6 +12,7 @@ const en: Dict = {
   'lib.save': 'Save scans to Library', 'lib.saveHint': "With each person's result that day", 'lib.photos': 'Scan photos', 'lib.photosHint': 'Never stored',
   'lib.close': 'Close', 'lib.from': 'From a list', 'lib.card.nutrition': 'Nutrition', 'lib.card.processing': 'Processing', 'lib.card.additives': 'Additives',
   'lib.card.carbon': 'Carbon', 'lib.card.water_land': 'Water and land', 'lib.card.packaging': 'Packaging',
+  'lib.offline': "Saved offline, {date}. No network used.",
 },
 si: Dict = {
   'lib.title': 'පුස්තකාලය', 'lib.sub': 'ස්කෑන් {n} · මෙම දුරකථනයේ · ඔෆ්ලයින් ක්‍රියා කරයි', 'lib.search': 'පුස්තකාලයේ සොයන්න',
@@ -25,6 +26,7 @@ si: Dict = {
   'lib.save': 'ස්කෑන් පුස්තකාලයේ සුරකින්න', 'lib.saveHint': 'එදින එක් එක් අයගේ ප්‍රතිඵලය සමඟ', 'lib.photos': 'ඡායාරූප ස්කෑන්', 'lib.photosHint': 'කිසිදා ගබඩා නොවේ',
   'lib.close': 'වසන්න', 'lib.from': 'ලැයිස්තුවකින්', 'lib.card.nutrition': 'පෝෂණය', 'lib.card.processing': 'සැකසීම', 'lib.card.additives': 'ආකලන',
   'lib.card.carbon': 'කාබන්', 'lib.card.water_land': 'ජලය සහ ඉඩම්', 'lib.card.packaging': 'ඇසුරුම්',
+  'lib.offline': "{date} දින සුරැකි. අන්තර්ජාලය භාවිත නොකළා.",
 },
 ta: Dict = {
   'lib.title': 'நூலகம்', 'lib.sub': '{n} ஸ்கேன்கள் · இந்தத் தொலைபேசியில் · ஆஃப்லைனிலும் வேலை செய்யும்', 'lib.search': 'நூலகத்தில் தேடு',
@@ -38,5 +40,6 @@ ta: Dict = {
   'lib.save': 'ஸ்கேன்களை நூலகத்தில் சேமி', 'lib.saveHint': 'அன்றைய ஒவ்வொருவரின் முடிவுடன்', 'lib.photos': 'புகைப்பட ஸ்கேன்', 'lib.photosHint': 'ஒருபோதும் சேமிக்கப்படாது',
   'lib.close': 'மூடு', 'lib.from': 'பட்டியலிலிருந்து', 'lib.card.nutrition': 'ஊட்டச்சத்து', 'lib.card.processing': 'பதப்படுத்தல்', 'lib.card.additives': 'சேர்க்கைகள்',
   'lib.card.carbon': 'கார்பன்', 'lib.card.water_land': 'நீரும் நிலமும்', 'lib.card.packaging': 'பேக்கேஜிங்',
+  'lib.offline': "{date} அன்று சேமிக்கப்பட்டது. இணையம் பயன்படுத்தவில்லை.",
 }
 export default { en, si, ta }

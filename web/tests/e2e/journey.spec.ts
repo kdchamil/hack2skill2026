@@ -121,12 +121,33 @@ test('scan error shows retry', async ({ page }) => {
 test('delete all wipes the household', async ({ page }) => {
   await mockApi(page)
   await setupHousehold(page)
+  // put data in the library and the list first
+  await demoPack(page)
+  await page.locator('.area-row').first().waitFor()
+  await page.waitForTimeout(500)
+  await page.evaluate(() => {
+    const L = (window as unknown as { __fsList: { saveItems: (i: unknown[]) => void; toItems: (p: unknown[]) => unknown[] } }).__fsList
+    L.saveItems(L.toItems([{ name: 'Rice', quantity: 1, unit: null, brand: null, range_id: null }]))
+  })
+  await page.waitForTimeout(300)
+  await page.getByRole('button', { name: 'Household', exact: true }).click()
   await page.getByRole('button', { name: 'Delete all my data' }).click()
   await page.getByRole('button', { name: 'Yes, delete everything' }).click()
   await expect(page.getByTestId('deleted-msg')).toHaveText('All data on this phone was deleted.')
   await expect(page.getByRole('heading', { name: 'Protect your household' })).toBeVisible()
   const dbs = await page.evaluate(async () => (await indexedDB.databases()).length ? await new Promise((r) => { const q = indexedDB.open('fivesec'); q.onsuccess = () => { const t = q.result.transaction('kv'); const c = t.objectStore('kv').count(); c.onsuccess = () => r(c.result) } }) : 0)
   expect(dbs).toBe(0)
+  const left = await page.evaluate(async () => ({
+    dbs: (await indexedDB.databases()).map((d) => d.name),
+    ls: Object.keys(localStorage).filter((k) => k.startsWith('fivesec')).filter((k) => k !== 'fivesec.lang'),
+  }))
+  expect(left.dbs).not.toContain('fivesec')
+  expect(left.ls).toEqual([])
+  // list, library and basket are empty after a fresh start
+  await page.getByRole('button', { name: 'List', exact: true }).click()
+  await expect(page.getByTestId('progress')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Library', exact: true }).click()
+  await expect(page.getByTestId('lib-entry')).toHaveCount(0)
 })
 
 test('report: offline shows a retry message, then succeeds', async ({ page }) => {
@@ -145,4 +166,19 @@ test('report: offline shows a retry message, then succeeds', async ({ page }) =>
   fail = false
   await rep.getByRole('button', { name: 'Try again' }).click()
   await expect(rep).toContainText('Thanks — sent for review')
+})
+
+test('+N ring opens a sheet to filter a hidden member', async ({ page }) => {
+  await mockApi(page)
+  await setupHousehold(page)
+  for (const n of ['Mia', 'Noa']) {
+    await page.getByRole('button', { name: /^Add member/ }).click()
+    await page.getByLabel(/Name or nickname/).fill(n)
+    await page.getByRole('button', { name: 'Save', exact: true }).click()
+  }
+  await demoPack(page)
+  await page.getByTestId('ring-more').click()
+  const sheet = page.getByRole('dialog')
+  await sheet.locator('.ring-item').first().click()
+  await expect(page.getByRole('status').filter({ hasText: /Showing/ })).toBeVisible()
 })

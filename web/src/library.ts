@@ -1,7 +1,7 @@
 // Library (US-52, FR-55, FR-56): encrypted on-device scan entries with a household snapshot of verdicts only.
 // Entries hold no image and no profile contents: the snapshot is {member id, profile version hash, verdict, reason codes}.
 import { getSessionKey, loadLibraryBlob, saveLibraryBlob } from './store'
-import type { Finding, GradeCardId, GradeLetter, HouseholdFacts, ScanResponse, Tier } from './types'
+import type { Analysis, Commentary, Finding, GradeCardId, GradeLetter, HouseholdFacts, ScanResponse, Tier } from './types'
 import { computeVerdict, type Member, type Reason, type VerdictLevel } from './verdict'
 
 export const MAX_ENTRIES = 100
@@ -19,6 +19,9 @@ export interface LibraryEntry {
   cards: { id: GradeCardId; grade: GradeLetter | null; tier: Tier; headline: string }[]
   findings: Finding[]
   facts: HouseholdFacts
+  /** full product analysis + commentary (product data only, no profile fields) so the entry opens offline */
+  analysis?: Analysis
+  commentary?: Commentary | null
   list_item_id: string | null
   snapshot: SnapshotItem[]
   /** the snapshot as first saved; kept when a re-check replaces `snapshot` */
@@ -81,7 +84,7 @@ export async function saveScan(result: ScanResponse, members: Member[], listItem
     name: a.product.name.value, brand: a.product.brand.value, barcode: a.product.barcode,
     label_hash: result.scan_id, grade: a.grade.letter,
     cards: a.cards.map((c) => ({ id: c.id, grade: c.grade, tier: c.tier, headline: c.headline })),
-    findings: a.findings, facts: a.facts, list_item_id: listItemId ?? null,
+    findings: a.findings, facts: a.facts, analysis: a, commentary: result.commentary ?? null, list_item_id: listItemId ?? null,
     snapshot: snapshotFor(a.facts, members), original: null,
   }
   const r = await mutate(async (cur) => ({ next: [entry, ...cur.filter((e) => !(e.label_hash === entry.label_hash && entry.ts - e.ts < 60_000))].slice(0, MAX_ENTRIES), out: entry }))

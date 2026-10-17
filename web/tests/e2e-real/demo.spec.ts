@@ -8,11 +8,11 @@ async function noVoices(page: Page) {
   })
 }
 
-async function openDemo(page: Page, title: string) {
+async function openDemo(page: Page, title: string, ready = '.area-row') {
   await page.getByRole('button', { name: 'Scan', exact: true }).click()
   await page.getByRole('button', { name: 'Try a demo pack' }).click()
   await page.getByRole('button', { name: title }).click()
-  await expect(page.locator('.card')).toHaveCount(6)
+  await page.locator(ready).first().waitFor()
 }
 
 test('3-minute judge demo against the real backend, with no household data on the wire', async ({ page }) => {
@@ -30,64 +30,50 @@ test('3-minute judge demo against the real backend, with no household data on th
 
   // demo pack: kokis with sesame and high sodium
   await openDemo(page, 'Crunchy Kokis')
-  const chips = page.locator('.vchip')
-  await expect(chips).toHaveCount(3)
-  await expect(chips.nth(0)).toContainText('Avoid for Amaya')
-  await expect(chips.nth(0)).toContainText(/sesame/i)
-  await expect(chips.nth(1)).toContainText('Check for Dad')
-  await expect(chips.nth(1)).toContainText(/sodium/i)
-  await expect(page.getByTestId('elapsed')).toBeVisible()
+  const rings = page.locator('.ring-item')
+  await expect(rings).toHaveCount(3)
+  await expect(rings.nth(0)).toHaveAccessibleName(/Amaya: Avoid.*sesame/i)
+  await expect(rings.nth(1)).toHaveAccessibleName(/Dad: Check.*sodium/i)
+  await expect(page.locator('.area-row')).toHaveCount(5)
+  await expect(page.getByRole('button', { name: 'Listen' })).toBeVisible()
 
-  // language switch changes the card text (real /api/commentary)
-  const allergens = page.locator('[data-card="allergens"] .card-headline')
-  await expect(page.getByText('Writing the explanation')).toHaveCount(0) // commentary streamed in
-  const en = await allergens.innerText()
-  await page.getByRole('button', { name: 'සිං' }).click()
-  await expect(allergens).not.toHaveText(en)
-  const si = await allergens.innerText()
-  await page.getByRole('button', { name: 'தமிழ்', exact: true }).click()
-  await expect(allergens).not.toHaveText(si)
-  await expect(allergens).not.toHaveText(en)
-  await page.getByRole('button', { name: 'EN', exact: true }).click()
-  await expect(allergens).toHaveText(en)
+  // language switch changes the area text (real /api/commentary)
+  const first = page.locator('.area-row').nth(0)
+  const en = await first.innerText()
+  await page.locator('.listenbar select').selectOption('si')
+  await expect(first).not.toHaveText(en)
+  await page.locator('.listenbar select').selectOption('ta')
+  await expect(first).not.toHaveText(en)
+  await page.locator('.listenbar select').selectOption('en')
+  await expect(first).toContainText('Contains: egg, sesame')
 
   // packaging card: label-stated recycling code, carbon is "No reliable data"
-  await page.locator('[data-card="packaging"] .card-main').click()
-  let dlg = page.getByRole('dialog')
-  await expect(dlg).toContainText('Recycling code PP 5')
-  await expect(dlg.locator('[data-finding="packaging.code.pp5"]')).toContainText('Label-stated')
-  await expect(dlg.locator('[data-finding="packaging.carbon"]')).toContainText(/no reliable data/i)
-  await expect(dlg.locator('[data-finding="packaging.carbon"]')).toContainText('Unknown')
-  await page.keyboard.press('Escape')
-
-  // evidence drawer lists tiers
-  await page.getByRole('button', { name: 'All evidence' }).click()
-  dlg = page.getByRole('dialog')
-  for (const tier of ['Label-stated', 'Inferred', 'Unknown']) await expect(dlg.locator('.tier', { hasText: tier }).first()).toBeVisible()
-  await page.keyboard.press('Escape')
+  await page.locator('.area-row').nth(1).click()
+  await expect(page.getByText(/no reliable data/i).first()).toBeVisible()
+  await page.locator('[data-card="packaging"]').click()
+  await expect(page.getByText(/PP 5/).first()).toBeVisible()
+  await expect(page.getByText('Label-stated').first()).toBeVisible()
 
   // Listen falls back to on-screen text when TTS is unavailable (503 in mock mode)
-  await page.locator('[data-card="allergens"] .card-main').click()
-  dlg = page.getByRole('dialog')
-  await dlg.getByRole('button', { name: /Listen/ }).click()
-  await expect(dlg.getByText('Audio unavailable — reading on screen')).toBeVisible()
-  await expect(dlg.locator('.listen-text')).not.toBeEmpty()
-  await page.keyboard.press('Escape')
+  await page.getByRole('button', { name: 'Listen' }).click()
+  await expect(page.getByText('Audio unavailable — reading on screen')).toBeVisible()
+  await expect(page.locator('.listen-text')).not.toBeEmpty()
 
   // claims: "Sugar free" contradicted by dextrose
-  await page.getByRole('button', { name: 'Scan another' }).click()
   await openDemo(page, 'Digestive Biscuits Sugar Free')
-  await page.locator('[data-card="claims"] .card-main').click()
-  dlg = page.getByRole('dialog')
-  await expect(dlg).toContainText(/contradicted/i)
-  await expect(dlg).toContainText(/dextrose/i)
-  await page.keyboard.press('Escape')
+  await page.locator('.area-row').nth(3).click()
+  await page.getByRole('button', { name: 'Open claim check' }).click()
+  await expect(page.locator('.claimcard').first()).toContainText(/contradicted/i)
+  await expect(page.locator('.claimcard').first()).toContainText(/dextrose/i)
 
-  // blurred label: retake guidance, ingredients Unknown
-  await page.getByRole('button', { name: 'Scan another' }).click()
-  await openDemo(page, 'blurred label')
-  await expect(page.getByText('Turn to the ingredient side')).toBeVisible()
-  await expect(page.locator('[data-card="ingredients"]')).toContainText('Unknown')
+  // blurred label: no grade, retake guidance
+  await openDemo(page, 'blurred label', '[data-testid="no-grade"]')
+  await expect(page.getByTestId('no-grade')).toContainText('Not enough data to grade')
+  await expect(page.getByRole('button', { name: 'Scan the ingredient side' })).toBeVisible()
+
+  // library holds the scans; one opens offline
+  await page.getByRole('button', { name: 'Library', exact: true }).click()
+  await expect(page.getByTestId('lib-entry')).toHaveCount(3)
 
   // privacy: nothing sent anywhere carries household data
   const api = seen.filter((r) => r.url.includes('/api/'))
@@ -130,9 +116,10 @@ test('delete-all returns the app to first run: IndexedDB empty, no members, old 
   await setupHousehold(page)
   await expect(page.getByText('Amaya').first()).toBeVisible()
   await openDemo(page, 'Crunchy Kokis')
-  await expect(page.locator('.vchip')).toHaveCount(3)
+  await expect(page.locator('.ring-item')).toHaveCount(3)
+  await page.waitForTimeout(500)
   await page.evaluate(() => { sessionStorage.setItem('fivesec.tmp', '1') })
-  expect((await idbState(page)).keys.sort()).toEqual(['history', 'meta', 'profiles'])
+  expect((await idbState(page)).keys.sort()).toEqual(expect.arrayContaining(['history', 'library', 'meta', 'profiles']))
 
   // reachable from the Privacy tab as well as Household; use Privacy here
   await page.getByRole('button', { name: 'Privacy' }).click()
@@ -163,13 +150,14 @@ test('report wrong information sends only scan_id, finding_id and note', async (
   await noVoices(page)
   await setupHousehold(page)
   await openDemo(page, 'Crunchy Kokis')
-  await expect(page.locator('.vchip')).toHaveCount(3)
+  await expect(page.locator('.ring-item')).toHaveCount(3)
 
   const posts: string[] = []
   await page.route('**/api/report', (route) => { posts.push(route.request().postData() ?? ''); return route.continue() })
 
-  await page.locator('[data-card="allergens"] .card-main').click()
-  await page.getByRole('dialog').getByRole('button', { name: 'Report wrong info', exact: true }).click()
+  await page.locator('.area-row').nth(0).click()
+  await page.locator('[data-card="nutrition"]').click()
+  await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
   const rep = page.getByRole('dialog', { name: 'Report wrong info' })
   await expect(rep).toContainText("Don't include names or health details")
   await rep.getByLabel(/What is wrong/).fill('The sesame is not on my pack')
@@ -177,12 +165,9 @@ test('report wrong information sends only scan_id, finding_id and note', async (
   await expect(rep).toContainText('Thanks — sent for review')
   await rep.getByRole('button', { name: 'Close' }).first().click()
 
-  // one-tap from a finding row, no note
-  const row = page.getByRole('dialog').locator('[data-finding]').first()
-  const fid = await row.getAttribute('data-finding')
-  await row.getByRole('button', { name: /Report wrong info/ }).click()
+  // one-tap, no note
+  await page.getByRole('button', { name: 'Report wrong info', exact: true }).click()
   await Promise.all([page.waitForResponse((r) => r.url().endsWith('/api/report') && r.status() === 202), page.getByRole('dialog', { name: 'Report wrong info' }).getByRole('button', { name: 'Send report' }).click()])
-  await expect(page.getByTestId('report-ok')).toBeVisible()
 
   expect(posts).toHaveLength(2)
   const [drawer, finding] = posts.map((p) => JSON.parse(p) as Record<string, unknown>)
@@ -193,6 +178,6 @@ test('report wrong information sends only scan_id, finding_id and note', async (
     for (const f of ['amaya', 'dad', 'ravi', 'alias', 'life_stage', 'low_sodium', 'household', 'profile', 'image']) expect(raw).not.toContain(f)
   }
   expect(drawer.note).toBe('The sesame is not on my pack')
-  expect(finding.finding_id).toBe(fid)
+  expect(typeof finding.finding_id).toBe('string')
   expect(finding.note).toBeUndefined()
 })

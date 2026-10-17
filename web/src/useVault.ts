@@ -2,10 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   createVault, enablePasskey, passkeySupported, resetPinWithRecovery, unlockWithPasskey, unlockWithPin, unlockWithRecovery, type VaultMeta,
 } from './crypto'
-import { purgeMember, saveScan } from './library'
+import { purgeMember } from './library'
 import { deleteAll } from './privacy'
 import * as store from './store'
-import type { Analysis, ScanResponse } from './types'
+import type { Analysis } from './types'
 import type { Member } from './verdict'
 
 export type VaultStatus = 'loading' | 'none' | 'locked' | 'unlocked'
@@ -16,6 +16,7 @@ export function useVault() {
   const [meta, setMeta] = useState<VaultMeta | null>(null)
   const [members, setMembers] = useState<Member[]>([])
   const [recoveryCode, setRecoveryCode] = useState<string | null>(null)
+  const [dataKey, setDataKey] = useState<CryptoKey | null>(null)
   const keyRef = useRef<CryptoKey | null>(null)
   const timer = useRef<number | undefined>(undefined)
 
@@ -28,6 +29,7 @@ export function useVault() {
 
   const lock = useCallback(() => {
     keyRef.current = null
+    setDataKey(null)
     store.setSessionKey(null)
     setMembers([])
     setStatus((s) => (s === 'unlocked' ? 'locked' : s))
@@ -45,13 +47,14 @@ export function useVault() {
 
   const open = useCallback(async (key: CryptoKey) => {
     keyRef.current = key
+    setDataKey(key)
     store.setSessionKey(key)
     setMembers(await store.loadProfiles(key))
     setStatus('unlocked')
   }, [])
 
   return {
-    status, meta, members, recoveryCode, passkeySupported: passkeySupported(),
+    status, meta, members, dataKey, recoveryCode, passkeySupported: passkeySupported(),
     hasPasskey: !!meta?.passkey,
     async create(pin: string, withPasskey: boolean): Promise<{ passkeyOk: boolean }> {
       const r = await createVault(pin)
@@ -97,11 +100,10 @@ export function useVault() {
     },
     async remember(entry: { scan_id: string; name: string | null; analysis: Analysis }) {
       if (keyRef.current) await store.addHistory(keyRef.current, { ...entry, ts: Date.now() })
-      // interim until App calls saveScan(result, members, listItemId) itself; saveScan de-duplicates a repeat within a minute
-      await saveScan({ scan_id: entry.scan_id, analysis: entry.analysis } as ScanResponse, members).catch(() => {})
     },
     async wipe() {
       keyRef.current = null
+      setDataKey(null)
       store.setSessionKey(null)
       setMembers([]); setMeta(null); setRecoveryCode(null)
       window.clearTimeout(timer.current)
@@ -112,6 +114,7 @@ export function useVault() {
       try {
         const m = await store.importBackup(text)
         keyRef.current = null
+        setDataKey(null)
         store.setSessionKey(null)
         setMembers([]); setMeta(m); setStatus('locked')
         return true

@@ -24,9 +24,9 @@ test('library: saves a scan with household verdicts, opens offline, filters, re-
   await context.setOffline(true)
   const t0 = Date.now()
   await page.getByTestId('lib-entry').getByRole('button', { name: /^Open/ }).click()
-  await expect(page.getByRole('dialog')).toBeVisible()
+  await expect(page.getByTestId('saved-note')).toBeVisible()
   expect(Date.now() - t0).toBeLessThan(1000)
-  await page.getByRole('dialog').getByRole('button', { name: 'Close' }).first().click()
+  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()
   await context.setOffline(false)
 
   // change a profile -> stale -> re-check
@@ -36,6 +36,9 @@ test('library: saves a scan with household verdicts, opens offline, filters, re-
   await page.getByRole('button', { name: 'Save' }).click()
   await page.getByRole('button', { name: 'Library', exact: true }).click()
   await expect(page.getByTestId('lib-stale')).toContainText('Dad')
+  await page.getByTestId('lib-entry').getByRole('button', { name: /^Open/ }).click()
+  await expect(page.getByTestId('saved-stale')).toContainText('Dad')
+  await page.getByRole('button', { name: 'Library', exact: true }).click()
   await page.getByRole('button', { name: 'Re-check' }).click()
   await expect(page.getByTestId('lib-stale')).toHaveCount(0)
 

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useT } from '../ctx'
+import { Sheet } from './Sheet'
 import { Octagon, Tick, Triangle } from './icons'
 import { moreAria, ringAria, splitRings, type RingMember, type VerdictLevel } from './logic'
 
@@ -35,17 +37,30 @@ export interface RingRowProps { members: RingMember[]; max?: number; selectedId?
 export function RingRow({ members, max, selectedId, onSelect, compact }: RingRowProps) {
   const { t } = useT()
   const { shown, hidden, hiddenAvoid, hiddenLevel } = splitRings(members, max)
+  const [more, setMore] = useState(false)
+  const moreBody = (
+    <>
+      <span className={`ring ring-more ring-${hiddenLevel}`} aria-hidden="true">
+        <span className="ring-initial">+{hidden.length}</span>
+        {hiddenAvoid > 0 && <Badge level="avoid" />}
+      </span>
+      {!compact && <span className="ring-word" aria-hidden="true">{hiddenAvoid > 0 ? t('ring.moreAvoid', { n: hidden.length }) : t('ring.more', { n: hidden.length })}</span>}
+    </>
+  )
   return (
     <div className="ring-row">
       {shown.map((m) => <Ring key={m.id} member={m} compact={compact} selected={selectedId === m.id} onSelect={onSelect} />)}
-      {hidden.length > 0 && hiddenLevel && (
-        <span className="ring-item" role="img" aria-label={moreAria(t, hidden.length, hiddenAvoid)}>
-          <span className={`ring ring-more ring-${hiddenLevel}`} aria-hidden="true">
-            <span className="ring-initial">+{hidden.length}</span>
-            {hiddenAvoid > 0 && <Badge level="avoid" />}
-          </span>
-          {!compact && <span className="ring-word" aria-hidden="true">{hiddenAvoid > 0 ? t('ring.moreAvoid', { n: hidden.length }) : t('ring.more', { n: hidden.length })}</span>}
-        </span>
+      {hidden.length > 0 && hiddenLevel && (onSelect ? (
+        <button type="button" className="ring-item" data-testid="ring-more" aria-label={moreAria(t, hidden.length, hiddenAvoid)} aria-haspopup="dialog" onClick={() => setMore(true)}>{moreBody}</button>
+      ) : (
+        <span className="ring-item" role="img" aria-label={moreAria(t, hidden.length, hiddenAvoid)}>{moreBody}</span>
+      ))}
+      {more && onSelect && (
+        <Sheet title={t('ring.pick')} labelId="ring-more-h" onClose={() => setMore(false)}>
+          <div className="ring-row">
+            {hidden.map((m) => <Ring key={m.id} member={m} selected={selectedId === m.id} onSelect={(id) => { setMore(false); onSelect(id) }} />)}
+          </div>
+        </Sheet>
       )}
     </div>
   )

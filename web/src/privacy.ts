@@ -1,4 +1,5 @@
 // Delete-all (US-36, FR-33): wipes everything this app keeps on the phone, at once.
+import { resetListState } from './list'
 import * as store from './store'
 
 export const APP_PREFIX = 'fivesec'
@@ -23,6 +24,7 @@ function clearWebStorage(s: Storage | undefined) {
 export async function deleteAll(): Promise<void> {
   try { await withdrawShares() } catch { /* never block the wipe */ }
   store.setSessionKey(null)
+  resetListState()
   await store.destroyDb()
   clearWebStorage(typeof localStorage === 'undefined' ? undefined : localStorage)
   clearWebStorage(typeof sessionStorage === 'undefined' ? undefined : sessionStorage)

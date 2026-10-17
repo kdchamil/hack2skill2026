@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchCommentary, scan, type ScanInput } from './api'
 import { stopListen } from './audio'
 import { Privacy } from './components/Privacy'
-import { AppContext, type AppCtx, type Route, type ScanView } from './appctx'
+import { AppContext, routes, type AppCtx, type Route, type ScanView } from './appctx'
 import './screens/screens.css'
 import { Area } from './screens/Area'
 import { Basket } from './screens/Basket'
@@ -11,7 +11,9 @@ import { Compare } from './screens/Compare'
 import { Detail } from './screens/Detail'
 import { Household } from './screens/Household'
 import { Library } from './screens/Library'
-import { List } from './screens/List'
+import { List, ListPrompts } from './screens/List'
+import { getListState, onScanCompleted, setListKey } from './list'
+import { saveScan, type LibraryEntry } from './library'
 import { Scan } from './screens/Scan'
 import { Summary } from './screens/Summary'
 import { Thin } from './screens/Thin'
@@ -42,6 +44,9 @@ export default function App() {
   const viewRef = useRef(view)
   useEffect(() => { viewRef.current = view }, [view])
   const { t } = ctx
+  const membersRef = useRef(vault.members)
+  useEffect(() => { membersRef.current = vault.members }, [vault.members])
+  useEffect(() => { void setListKey(vault.dataKey) }, [vault.dataKey])
 
   useEffect(() => { document.documentElement.lang = lang }, [lang])
 
@@ -50,7 +55,7 @@ export default function App() {
     try { localStorage.setItem('fivesec.lang', l) } catch { /* ignore */ }
     stopListen()
     const v = viewRef.current
-    if (v.scanId && v.commentary?.lang !== l) {
+    if (v.scanId && !v.saved && v.commentary?.lang !== l) {
       void fetchCommentary(v.scanId, l).then((c) => setView((cur) => (cur.scanId === v.scanId ? { ...cur, commentary: c } : cur))).catch(() => {})
     }
   }, [])
@@ -69,6 +74,10 @@ export default function App() {
       onCommentary: (commentary) => setView((v) => ({ ...v, commentary })),
       onDone: (r, ms) => {
         setView((v) => ({ ...v, analysis: r.analysis, commentary: r.commentary, scanId: r.scan_id, elapsedMs: v.elapsedMs ?? ms, phase: 'done', cached: r.cached }))
+        void onScanCompleted(r).catch(() => {}).then(() => {
+          const item = getListState().items.find((i) => i.found?.scanId === r.scan_id)
+          return saveScan(r, membersRef.current, item?.id ?? null)
+        }).catch(() => {})
         void vault.remember({ scan_id: r.scan_id, name: r.analysis.product.name.value, analysis: r.analysis }).catch(() => {})
       },
     }, ac.signal).catch((e: unknown) => {
@@ -87,10 +96,19 @@ export default function App() {
     setRoute((r) => (r.tab === 'scan' && r.sub ? { tab: 'scan' } : r))
   }, [])
 
+  const openSaved = useCallback((e: LibraryEntry) => {
+    if (!e.analysis) return
+    abort.current?.abort()
+    stopListen()
+    setMember(null)
+    setView({ analysis: e.analysis, commentary: e.commentary ?? null, scanId: e.label_hash, elapsedMs: null, phase: 'done', error: null, saved: e })
+    setRoute(routes.summary)
+  }, [])
+  const updateSaved = useCallback((e: LibraryEntry) => setView((v) => (v.saved?.id === e.id ? { ...v, saved: e } : v)), [])
   const retry = useCallback(() => { if (last.current) runScan(last.current); else setRoute({ tab: 'scan' }) }, [runScan])
   const navigate = useCallback((r: Route) => { stopListen(); setRoute(r) }, [])
-  const app = useMemo<AppCtx>(() => ({ route, navigate, member, setMember, view, vault, runScan, retry, setLang, onDeleted }),
-    [route, navigate, member, view, vault, runScan, retry, setLang, onDeleted])
+  const app = useMemo<AppCtx>(() => ({ route, navigate, member, setMember, view, vault, runScan, retry, setLang, onDeleted, openSaved, updateSaved }),
+    [route, navigate, member, view, vault, runScan, retry, setLang, onDeleted, openSaved, updateSaved])
   const sub = route.sub
 
   return (
@@ -115,11 +133,12 @@ export default function App() {
         <main id="main" tabIndex={-1}>
           {route.tab === 'scan' && (!sub ? <Scan /> : sub === 'summary' ? <Summary /> : sub === 'thin' ? <Thin /> : sub === 'area' ? <Area /> : sub === 'detail' ? <Detail /> : sub === 'compare' ? <Compare /> : <Claims />)}
           {route.tab === 'list' && (sub === 'compare' ? <Compare /> : <List />)}
-          {route.tab === 'library' && <Library />}
+          {route.tab === 'library' && <Library onOpen={openSaved} />}
           {route.tab === 'basket' && <Basket />}
           {route.tab === 'household' && <Household />}
           {route.tab === 'privacy' && <Privacy vault={vault} onDeleted={onDeleted} />}
         </main>
+        <ListPrompts onCompare={() => navigate(routes.compare)} />
         <BottomBar current={route.tab === 'privacy' ? null : route.tab} onGo={(x) => navigate({ tab: x })} />
         <footer className="foot">{t('pwa.https')}</footer>
       </AppContext.Provider>

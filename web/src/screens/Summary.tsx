@@ -1,13 +1,14 @@
 import { routes, useApp } from '../appctx'
 import { useT } from '../ctx'
 import { areaGrades, areaHeadline, areaStatus, AREA_ORDER, GRADES } from '../grade'
+import { isStale, recheck, staleMembers } from '../library'
 import { AreaRow, GradeTile, RingRow, Skeleton, icons } from '../ui'
 import { Listen, useScanData } from './parts'
 import { Thin } from './Thin'
 
 export function Summary() {
-  const { t } = useT()
-  const { navigate, retry, vault } = useApp()
+  const { t, lang } = useT()
+  const { navigate, retry, vault, updateSaved } = useApp()
   const { view, a, c, rings, name, member, toggle } = useScanData()
 
   if (view.phase === 'error' && !a) {
@@ -64,6 +65,15 @@ export function Summary() {
             <ul className="banners" aria-label="Notices">{a.banners.map((b) => <li key={b} className="banner banner-check"><icons.Triangle size={16} /> <span>{bannerText(b)}</span></li>)}</ul>
           )}
         </>
+      )}
+      {view.saved && (
+        <div className="banner banner-info" role="status" data-testid="saved-note">
+          <p>{t('lib.offline', { date: new Date(view.saved.ts).toLocaleDateString(lang, { day: 'numeric', month: 'short', year: 'numeric' }) })}</p>
+          {vault.status === 'unlocked' && isStale(view.saved, vault.members) && (
+            <p data-testid="saved-stale">{t('lib.stale', { names: staleMembers(view.saved, vault.members).map((m) => m.alias).join(', ') })}{' '}
+              <button type="button" className="btn secondary small" onClick={() => { const s = view.saved; if (s) void recheck(s, vault.members).then(updateSaved) }}>{t('lib.recheck')}</button></p>
+          )}
+        </div>
       )}
       {!a && <h1 id="sum-h" className="sr-only">{t('sum.title')}</h1>}
 

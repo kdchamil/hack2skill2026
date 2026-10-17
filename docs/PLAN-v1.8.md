@@ -44,3 +44,4 @@ Ship: when all tests green, commit on main, push origin, `scripts/deploy.sh five
 - Library entries should store the full Analysis + Commentary (product data only, no profile fields) so an entry opens the real Summary/area screens offline; Library `onOpen` sets the scan view. Remove the duplicate saveScan in vault.remember once App calls it.
 - Wire list.ts onScanCompleted + <ListPrompts/> and library saveScan into App's scan onDone.
 - List: useVault must expose the data key → setListKey(key|null) on unlock/lock; `void onScanCompleted(r)` in onDone; mount <ListPrompts onCompare> once at root. window.__fsList exists only under navigator.webdriver (keep it that way).
+- i18n done (translator). Pending at merge: add integration agent's new keys in en/si/ta; consider ta Verified → "உறுதிசெய்யப்பட்டது" (too close to Check "சரிபார்க்கவும்"); sev.good "good" wording vs "safe" guardrail. Native review list is in the final report.
