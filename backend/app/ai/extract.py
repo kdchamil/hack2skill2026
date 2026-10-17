@@ -3,14 +3,24 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 from typing import Any
 
 from app.ai import client
 from app.config import get_settings
 from app.models import Extraction
+from app.store import get_cache
 
 FAST_TIMEOUT_S = 15.0
 DEFAULT_FIXTURE = "kokis_sesame_si_en"
+_store = get_cache("label_extractions")  # label text only, keyed by barcode + image hashes; never the photos
+
+
+def extraction_key(images: list[tuple[str, bytes]], barcode: str | None) -> str:
+    h = hashlib.sha256(f"v1|{barcode or ''}".encode())
+    for _, b in images:
+        h.update(hashlib.sha256(b).digest())
+    return h.hexdigest()
 
 SYSTEM_PROMPT = """You are a label-reading component. You receive 1-4 photos of one product pack.
 Rules:
@@ -66,6 +76,19 @@ async def extract_label(
         if barcode and not ex.barcode:
             ex = ex.model_copy(update={"barcode": barcode})
         return ex, 0
+    ckey = extraction_key(images, barcode)
+    raw = await _store.get(ckey)
+    if raw is not None:
+        try:
+            return parse_extraction(raw.decode(), barcode), 0
+        except Exception:  # noqa: BLE001 - corrupt entry: re-read the label
+            pass
+    ex, calls = await _read_label(images, barcode, s)
+    _store.put_nowait(ckey, ex.model_dump_json().encode())
+    return ex, calls
+
+
+async def _read_label(images: list[tuple[str, bytes]], barcode: str | None, s: Any) -> tuple[Extraction, int]:
     from google.genai import types
 
     parts: list[Any] = [types.Part.from_bytes(data=b, mime_type=ct) for ct, b in images]

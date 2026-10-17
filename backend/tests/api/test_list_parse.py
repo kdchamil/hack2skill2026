@@ -6,7 +6,7 @@ from app.api import routes
 
 @pytest.fixture(autouse=True)
 def _reset():
-    routes._LIST_HITS.clear()
+    pass
 
 
 def post(client, **body):
@@ -46,10 +46,13 @@ def test_validation_400(client):
     assert client.post("/api/list/parse", content=b"nope").status_code == 400
 
 
-def test_rate_limit(client):
-    for _ in range(routes.LIST_LIMIT):
+def test_rate_limit(client, monkeypatch):
+    monkeypatch.setenv("FIVESEC_RATE_LIMIT", "1")
+    monkeypatch.setenv("FIVESEC_RATE_PER_MIN", "30")
+    for _ in range(30):
         assert post(client, text="rice", lang="en").status_code == 200
-    assert post(client, text="rice", lang="en").status_code == 429
+    r = post(client, text="rice", lang="en")
+    assert r.status_code == 429 and "detail" in r.json()
 
 
 def test_ranges_endpoint(client):

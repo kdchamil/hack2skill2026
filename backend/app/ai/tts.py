@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
-from collections import OrderedDict
 
 from app.config import get_settings
+from app.store import get_cache
 
 LANG_CODES = {"en": "en-US", "si": "si-LK", "ta": "ta-IN"}  # si-LK is Preview in Gemini-TTS
-_CACHE: "OrderedDict[str, bytes]" = OrderedDict()
-_MAX = 64
+_store = get_cache("tts_audio")  # audio bytes; skipped above 900 KB (Firestore doc limit)
+_CACHE = _store.mem.data
 
 
 class TTSUnavailable(Exception):
@@ -38,16 +38,14 @@ async def synthesize(text: str, lang: str) -> bytes:
     if lang not in LANG_CODES:
         raise TTSUnavailable("unsupported language")
     key = hashlib.sha256(f"{lang}\n{text}".encode()).hexdigest()
-    if key in _CACHE:
-        _CACHE.move_to_end(key)
-        return _CACHE[key]
+    hit = await _store.get(key)
+    if hit is not None:
+        return hit
     try:
         audio = await asyncio.to_thread(_synth, text, lang)
     except Exception as e:  # noqa: BLE001 - any failure => client falls back to on-screen text
         raise TTSUnavailable(type(e).__name__) from e
     if not audio:
         raise TTSUnavailable("empty audio")
-    _CACHE[key] = audio
-    while len(_CACHE) > _MAX:
-        _CACHE.popitem(last=False)
+    _store.put_nowait(key, audio)
     return audio

@@ -14,7 +14,6 @@ from __future__ import annotations
 import asyncio
 import json
 import re
-from collections import OrderedDict
 from pathlib import Path
 from typing import Any, get_args
 
@@ -24,6 +23,7 @@ from app.ai import client
 from app.ai.resolve import RESOLVE_PROMPT, ResolvedTerm, clean_resolved
 from app.config import get_settings
 from app.models import Analysis, AreaId, Commentary, GradeCardId, Lang
+from app.store import get_cache
 
 GLOSSARY: dict[str, Any] = json.loads((Path(__file__).parent / "glossary.json").read_text(encoding="utf-8"))
 CARD_IDS: list[str] = list(get_args(GradeCardId))
@@ -34,7 +34,12 @@ _BANNED = re.compile(r"\bsafe(ly|r|st)?\b|ආරක්ෂිත|பாதுக�
 _NUM = re.compile(r"\d+(?:[.,]\d+)?")
 
 COMMENTARY_TIMEOUT_S = 12.0
-_CACHE: "OrderedDict[tuple[str, str], Commentary]" = OrderedDict()
+_store = get_cache("commentary")  # keyed "scan_id:lang"; memory LRU in front of Firestore when enabled
+_CACHE = _store.mem.data  # raw memory dict, kept for tests that clear it
+
+
+def _ckey(scan_id: str, lang: str) -> str:
+    return f"{scan_id}:{lang}"
 
 
 class CardOut(BaseModel):
@@ -296,26 +301,36 @@ async def write_commentary(
     analysis: Analysis, lang: str, scan_id: str, *, use_cache: bool = True
 ) -> tuple[Commentary, dict[str, str], int]:
     """Returns (commentary, resolved_mapping, model_calls)."""
-    key = (scan_id, lang)
-    if use_cache and key in _CACHE:
-        return _CACHE[key], {}, 0
+    key = _ckey(scan_id, lang)
+    if use_cache:
+        raw = await _store.get(key)
+        if raw is not None:
+            try:
+                return Commentary.model_validate_json(raw), {}, 0
+            except Exception:  # noqa: BLE001 - corrupt entry: regenerate
+                pass
     s = get_settings()
     if s.mock:
         com, resolved, calls = template_commentary(analysis, lang), {}, 0
     else:
         com, resolved, calls = await _gemini_commentary(analysis, lang)
-    _CACHE[key] = com
-    while len(_CACHE) > 256:
-        _CACHE.popitem(last=False)
+    cache_put(scan_id, lang, com)
     return com, resolved, calls
 
 
 def cache_put(scan_id: str, lang: str, com: Commentary) -> None:
-    _CACHE[(scan_id, lang)] = com
+    _store.put_nowait(_ckey(scan_id, lang), com.model_dump_json().encode())
 
 
 def cache_get(scan_id: str, lang: str) -> Commentary | None:
-    return _CACHE.get((scan_id, lang))
+    """Synchronous, memory tier only (the async Firestore tier is consulted in write_commentary)."""
+    raw = _store.get_local(_ckey(scan_id, lang))
+    if raw is None:
+        return None
+    try:
+        return Commentary.model_validate_json(raw)
+    except Exception:  # noqa: BLE001
+        return None
 
 
 async def _gemini_commentary(analysis: Analysis, lang: str) -> tuple[Commentary, dict[str, str], int]:
