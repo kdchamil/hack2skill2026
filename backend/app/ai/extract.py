@@ -84,7 +84,7 @@ async def extract_label(
         except Exception:  # noqa: BLE001 - corrupt entry: re-read the label
             pass
     ex, calls = await _read_label(images, barcode, s)
-    _store.put_nowait(ckey, ex.model_dump_json().encode())
+    await _store.put(ckey, ex.model_dump_json().encode())
     return ex, calls
 
 

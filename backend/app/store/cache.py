@@ -22,7 +22,8 @@ from app.config import get_settings
 log = logging.getLogger("fivesec")
 
 READ_TIMEOUT_S = 0.5
-WRITE_TIMEOUT_S = 2.0
+WRITE_TIMEOUT_S = 1.5
+COLD_TIMEOUT_S = 8.0  # until the first remote success: client creation + ADC token + gRPC channel take 1-3 s
 BREAKER_S = 60.0
 MAX_VALUE_BYTES = 900 * 1024
 DEFAULT_TTL_DAYS = 30
@@ -49,6 +50,19 @@ class MemoryBackend:
         self.data.clear()
 
 
+_CLIENT: Any | None = None
+
+
+def shared_client() -> Any:
+    """One AsyncClient (one gRPC channel) for all namespaces, created lazily inside the running loop."""
+    global _CLIENT
+    if _CLIENT is None:
+        from google.cloud import firestore
+
+        _CLIENT = firestore.AsyncClient(project=get_settings().project)
+    return _CLIENT
+
+
 class FirestoreBackend:
     """One collection per namespace; doc id = key; fields: v (bytes), created_at, expires_at (TTL field)."""
 
@@ -59,9 +73,7 @@ class FirestoreBackend:
 
     def _doc(self, key: str) -> Any:
         if self._client is None:
-            from google.cloud import firestore
-
-            self._client = firestore.AsyncClient(project=get_settings().project)
+            self._client = shared_client()
         return self._client.collection(self.collection).document(key)
 
     async def get(self, key: str) -> bytes | None:
@@ -95,11 +107,12 @@ class Cache:
         self.ns = ns
         self.mem = MemoryBackend(max_items)
         self._remote = remote  # injected in tests
-        self._down_until = 0.0
+        self._down_until = {"read": 0.0, "write": 0.0}  # independent breakers: a slow read must not stop writes
+        self._warm = remote is not None  # False until the first real Firestore success (cold start)
         self._pending: set[asyncio.Task[None]] = set()
 
-    def _fs(self) -> Any | None:
-        if time.monotonic() < self._down_until:
+    def _fs(self, op: str) -> Any | None:
+        if time.monotonic() < self._down_until[op]:
             return None
         if self._remote is not None:
             return self._remote
@@ -109,8 +122,8 @@ class Cache:
         return self._remote
 
     def _trip(self, op: str, e: BaseException) -> None:
-        self._down_until = time.monotonic() + BREAKER_S
-        log.warning("cache %s %s failed (%s); using memory for %ds", self.ns, op, type(e).__name__, int(BREAKER_S))
+        self._down_until[op] = time.monotonic() + BREAKER_S
+        log.warning("cache %s %s failed (%s: %s); skipping for %ds", self.ns, op, type(e).__name__, e, int(BREAKER_S))
 
     def get_local(self, key: str) -> bytes | None:
         return self.mem.get(key)
@@ -119,11 +132,12 @@ class Cache:
         v = self.mem.get(key)
         if v is not None:
             return v
-        fs = self._fs()
+        fs = self._fs("read")
         if fs is None:
             return None
         try:
-            v = await asyncio.wait_for(fs.get(key), READ_TIMEOUT_S)
+            v = await asyncio.wait_for(fs.get(key), READ_TIMEOUT_S if self._warm else COLD_TIMEOUT_S)
+            self._warm = True
         except Exception as e:  # noqa: BLE001 - never fail a scan on the store
             self._trip("read", e)
             return None
@@ -133,16 +147,21 @@ class Cache:
 
     async def _remote_put(self, fs: Any, key: str, value: bytes) -> None:
         try:
-            await asyncio.wait_for(fs.put(key, value), WRITE_TIMEOUT_S)
+            await asyncio.wait_for(fs.put(key, value), WRITE_TIMEOUT_S if self._warm else COLD_TIMEOUT_S)
+            self._warm = True
         except Exception as e:  # noqa: BLE001
             self._trip("write", e)
 
     def put_nowait(self, key: str, value: bytes) -> None:
-        """Memory write now; the Firestore write runs in the background (needs a running loop, else skipped)."""
+        """Memory write now; the Firestore write runs in the background (needs a running loop, else skipped).
+
+        On Cloud Run, CPU is throttled once the response is sent, so background writes may never run:
+        request paths should `await put()` instead.
+        """
         if len(value) > MAX_VALUE_BYTES:
             return
         self.mem.put(key, value)
-        fs = self._fs()
+        fs = self._fs("write")
         if fs is None:
             return
         try:
@@ -153,16 +172,33 @@ class Cache:
         t.add_done_callback(self._pending.discard)
 
     async def put(self, key: str, value: bytes) -> None:
-        self.put_nowait(key, value)
+        """Memory write, then await the Firestore write (bounded by a timeout; never raises)."""
+        if len(value) > MAX_VALUE_BYTES:
+            return
+        self.mem.put(key, value)
+        fs = self._fs("write")
+        if fs is not None:
+            await self._remote_put(fs, key, value)
 
     async def flush(self) -> None:
         """Wait for background writes (tests, shutdown)."""
         if self._pending:
             await asyncio.gather(*list(self._pending), return_exceptions=True)
 
+    async def warmup(self) -> None:
+        """Pay the cold-start cost (client, token, channel) at startup with a read of a nonexistent doc."""
+        fs = self._fs("read")
+        if fs is None:
+            return
+        try:
+            await asyncio.wait_for(fs.get("_warmup"), COLD_TIMEOUT_S)
+            self._warm = True
+        except Exception as e:  # noqa: BLE001
+            self._trip("read", e)
+
     def clear(self) -> None:
         self.mem.clear()
-        self._down_until = 0.0
+        self._down_until = {"read": 0.0, "write": 0.0}
 
 
 _CACHES: dict[str, Cache] = {}
@@ -174,6 +210,10 @@ def get_cache(ns: str) -> Cache:
     if c is None:
         c = _CACHES[ns] = Cache(ns, _SIZES.get(ns, 256))
     return c
+
+
+async def warmup_caches() -> None:
+    await asyncio.gather(*(get_cache(ns).warmup() for ns in _SIZES))
 
 
 def reset_caches() -> None:

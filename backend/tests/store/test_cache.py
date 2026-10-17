@@ -130,6 +130,57 @@ async def test_slow_read_times_out(monkeypatch):
     assert await c.get("k") is None
 
 
+@pytest.mark.asyncio
+async def test_slow_cold_read_does_not_disable_writes(monkeypatch):
+    """Regression: a cold first read timing out used to trip a shared breaker, silently dropping every write."""
+    class ColdThenFast:
+        def __init__(self):
+            self.docs = {}
+            self.n = 0
+
+        async def get(self, k):
+            self.n += 1
+            if self.n == 1:
+                await asyncio.sleep(5)
+            return self.docs.get(k)
+
+        async def put(self, k, v):
+            self.docs[k] = v
+
+    monkeypatch.setattr(C, "READ_TIMEOUT_S", 0.05)
+    r = ColdThenFast()
+    c = C.Cache("x", remote=r)
+    assert await c.get("a") is None  # read times out and trips the read breaker
+    await c.put("k", b"v")
+    assert r.docs == {"k": b"v"}  # write still lands
+
+
+@pytest.mark.asyncio
+async def test_put_is_durable_before_return_without_background_task():
+    """Regression: Cloud Run throttles CPU after the response, so put() must finish the remote write itself."""
+    fc = FakeClient()
+    c = make(fc)
+    await c.put("k", b"v")  # no flush()
+    assert fc.cols["commentary"]["k"]["v"] == b"v" and not c._pending
+
+
+@pytest.mark.asyncio
+async def test_cold_first_op_gets_longer_timeout(monkeypatch):
+    class Cold:
+        async def get(self, k):
+            await asyncio.sleep(0.15)
+
+        async def put(self, k, v):
+            pass
+
+    monkeypatch.setattr(C, "READ_TIMEOUT_S", 0.05)
+    monkeypatch.setattr(C, "COLD_TIMEOUT_S", 2.0)
+    c = C.Cache("x", remote=Cold())
+    c._warm = False
+    await c.get("k")
+    assert c._down_until["read"] == 0.0 and c._warm
+
+
 def test_selection(monkeypatch):
     for k in ("GOOGLE_CLOUD_PROJECT", "FIVESEC_MOCK", "FIVESEC_CACHE"):
         monkeypatch.delenv(k, raising=False)

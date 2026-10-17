@@ -253,7 +253,7 @@ async def write_commentary(st: ScanState) -> None:
         if new != old:
             st.analysis = new
             com = com_mod.regenerate_for_changed(com, old, new)
-            com_mod.cache_put(st.scan_id, st.lang, com)
+            await com_mod.cache_put(st.scan_id, st.lang, com)
             await st.emit("analysis", new.model_dump(mode="json"))
     st.commentary = com
     st.record("write_commentary", t0, calls)

@@ -47,5 +47,5 @@ async def synthesize(text: str, lang: str) -> bytes:
         raise TTSUnavailable(type(e).__name__) from e
     if not audio:
         raise TTSUnavailable("empty audio")
-    _store.put_nowait(key, audio)
+    await _store.put(key, audio)
     return audio

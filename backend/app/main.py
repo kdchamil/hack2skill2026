@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
+import asyncio
+import logging
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 
 from app.api.routes import router
 from app.config import get_settings
+from app.store import warmup_caches
 
 CSP = (
     "default-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; "
@@ -21,8 +26,17 @@ HEADERS = {
 }
 
 
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Warm the Firestore client in the background so the first scan doesn't pay channel/token setup.
+    task = asyncio.create_task(warmup_caches())
+    yield
+    task.cancel()
+
+
 def create_app() -> FastAPI:
-    app = FastAPI(title="Five Seconds", docs_url=None, redoc_url=None, openapi_url=None)
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+    app = FastAPI(title="Five Seconds", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):

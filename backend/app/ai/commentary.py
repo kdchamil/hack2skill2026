@@ -314,12 +314,12 @@ async def write_commentary(
         com, resolved, calls = template_commentary(analysis, lang), {}, 0
     else:
         com, resolved, calls = await _gemini_commentary(analysis, lang)
-    cache_put(scan_id, lang, com)
+    await cache_put(scan_id, lang, com)
     return com, resolved, calls
 
 
-def cache_put(scan_id: str, lang: str, com: Commentary) -> None:
-    _store.put_nowait(_ckey(scan_id, lang), com.model_dump_json().encode())
+async def cache_put(scan_id: str, lang: str, com: Commentary) -> None:
+    await _store.put(_ckey(scan_id, lang), com.model_dump_json().encode())
 
 
 def cache_get(scan_id: str, lang: str) -> Commentary | None:
