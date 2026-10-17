@@ -24,7 +24,7 @@ def test_trace_has_all_tools(client):
     done = parse_sse(scan(client, **FIX).text)[-1][1]
     tools = {t["tool"] for t in done["trace"]}
     assert tools >= {"extract_label", "lookup_open_food_facts", "resolve_terms", "run_rules",
-                     "check_claims", "write_commentary"}
+                     "assess_capture", "write_commentary"}
 
 
 def test_direct_pipeline(client, monkeypatch):

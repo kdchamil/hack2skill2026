@@ -1,5 +1,6 @@
-"""Google ADK custom agent. BaseAgent subclass whose _run_async_impl runs the tool steps in order and yields
-one Event per tool. The agent itself never calls a model; only the tools do. The per-request ScanState (which
+"""Google ADK custom agent. BaseAgent subclass whose _run_async_impl asks the shared policy (steps.next_tool) which
+tool to run next, given the state so far (capture quality, barcode, unresolved terms, mock mode), and yields one Event
+per tool. The agent itself never calls a model; only the tools do. The per-request ScanState (which
 holds image bytes) lives in an in-process registry keyed by run id; only the run id goes through the ADK session.
 """
 
@@ -14,7 +15,7 @@ from google.adk.events import Event
 from google.adk.runners import InMemoryRunner
 from google.genai import types
 
-from app.agent.steps import STEPS, ScanState, finish
+from app.agent.steps import TOOL_FNS, ScanState, finish, next_tool
 from app.models import ScanResponse
 
 _RUNS: dict[str, ScanState] = {}
@@ -25,13 +26,13 @@ class ScanAgent(BaseAgent):
     async def _run_async_impl(self, ctx: InvocationContext) -> AsyncGenerator[Event, None]:
         run_id = ctx.user_content.parts[0].text  # type: ignore[union-attr]
         st = _RUNS[run_id]
-        for step in STEPS:
-            await step(st)
+        while (tool := next_tool(st)) is not None:  # the policy picks each next tool from the state so far
+            await TOOL_FNS[tool](st)
             last = st.trace[-1]
             yield Event(
                 author=self.name,
                 invocation_id=ctx.invocation_id,
-                custom_metadata={"tool": last["tool"], "ms": last["ms"], "model_calls": last["model_calls"]},
+                custom_metadata={k: v for k, v in last.items() if isinstance(v, (str, int, float, bool, list))},
             )
 
 
