@@ -29,6 +29,7 @@ export function Scan() {
   const shotsRef = useRef<Shot[]>([])
   const [shots, setShots] = useState<Shot[]>([])
   const [cam, setCam] = useState<'starting' | 'on' | 'off'>('starting')
+  const [camWhy, setCamWhy] = useState<'insecure' | 'denied' | 'missing' | 'other'>('other')
   const [q, setQ] = useState<FrameQuality | null>(null)
   const [stable, setStable] = useState(false)
   const [armedUi, setArmedUi] = useState(true)
@@ -66,7 +67,7 @@ export function Scan() {
   useEffect(() => {
     let dead = false
     const md = navigator.mediaDevices
-    if (!md?.getUserMedia) { setCam('off'); return }
+    if (!window.isSecureContext || !md?.getUserMedia) { setCamWhy(window.isSecureContext ? 'missing' : 'insecure'); setCam('off'); return }
     md.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 } }, audio: false })
       .then((s) => {
         if (dead) { s.getTracks().forEach((x) => x.stop()); return }
@@ -76,7 +77,12 @@ export function Scan() {
         const caps = s.getVideoTracks()[0]?.getCapabilities?.() as { torch?: boolean } | undefined
         setTorchOk(!!caps?.torch)
       })
-      .catch(() => { if (!dead) setCam('off') })
+      .catch((e: unknown) => {
+        if (dead) return
+        const n = (e as { name?: string } | null)?.name
+        setCamWhy(n === 'NotAllowedError' || n === 'SecurityError' ? 'denied' : n === 'NotFoundError' || n === 'OverconstrainedError' || n === 'DevicesNotFoundError' ? 'missing' : 'other')
+        setCam('off')
+      })
     const BD = (window as unknown as { BarcodeDetector?: new (o: { formats: string[] }) => Detector }).BarcodeDetector
     try { if (BD) detector.current = new BD({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'qr_code'] }) } catch { /* unsupported */ }
     return () => {
@@ -150,7 +156,7 @@ export function Scan() {
           {torchOk && <button type="button" className="torch btn small" aria-pressed={torch} onClick={flip}>{t('scan.torch')}</button>}
         </div>
       )}
-      {cam === 'off' && <p className="note" role="status">{t('scan.noCamera')} {t('scan.https')}</p>}
+      {cam === 'off' && <p className="note" role="status">{t(`scan.cam.${camWhy}`)}</p>}
       <ol className="steps" aria-label={t('scan.steps')}>
         {STEPS.map((s, i) => <li key={s} aria-current={s === step && shots.length < MAX_IMAGES ? 'step' : undefined} className={i < shots.length ? 'done' : ''}>{i < shots.length && <icons.Tick size={16} />}{t(`scan.step.${s}`)}</li>)}
       </ol>

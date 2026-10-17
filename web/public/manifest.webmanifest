@@ -1,6 +1,6 @@
 {
-  "name": "Five Seconds",
-  "short_name": "Five Seconds",
+  "name": "FiveSeconds",
+  "short_name": "FiveSeconds",
   "description": "Understand any pack in five seconds. Household details stay on your phone.",
   "start_url": "/",
   "scope": "/",

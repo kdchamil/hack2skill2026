@@ -1,15 +1,16 @@
 import { routes, useApp } from '../appctx'
 import { useT } from '../ctx'
-import { areaGrades, areaHeadline, areaStatus, AREA_ORDER, GRADES } from '../grade'
+import { areaGrades, areaHeadline, areaStatus, AREA_ORDER, GRADES, gradeSentence } from '../grade'
 import { isStale, recheck, staleMembers } from '../library'
 import { AreaRow, GradeTile, RingRow, Skeleton, icons } from '../ui'
 import { Listen, useScanData } from './parts'
 import { Thin } from './Thin'
+import { AiTrace } from './AiTrace'
 
 export function Summary() {
   const { t, lang } = useT()
   const { navigate, retry, vault, updateSaved } = useApp()
-  const { view, a, c, rings, name, member, toggle } = useScanData()
+  const { view, a, c, sample, rings, name, member, toggle } = useScanData()
 
   if (view.phase === 'error' && !a) {
     return (
@@ -26,7 +27,7 @@ export function Summary() {
   if (a && a.grade.letter === null) return <Thin />
 
   const g = a?.grade
-  const driverNames = g?.drivers.map((d) => t(`card.${d}`)).join(t('grade.and')) ?? ''
+  const gradeLine = a && g ? gradeSentence(t, a.cards, g.letter) : ''
   const summaryText = c?.summary || (a ? [name, ...a.areas.map((x) => areaHeadline(x, c))].join('. ') : '')
   const bannerText = (b: string) => {
     const [kind, arg = ''] = b.split(':')
@@ -53,7 +54,7 @@ export function Summary() {
             <div>
               <h1 id="sum-h">{name}</h1>
               {a.product.brand.value && <p className="muted">{a.product.brand.value}</p>}
-              <p>{g.drivers.length ? t('grade.line', { g: g.letter ?? '', names: driverNames }) : t('grade.noDrivers', { g: g.letter ?? '' })}</p>
+              <p>{gradeLine || t('grade.noDrivers', { g: g.letter ?? '' })}</p>
               <p className="muted">{t('sum.notAI')}</p>
             </div>
           </div>
@@ -78,8 +79,14 @@ export function Summary() {
       {!a && <h1 id="sum-h" className="sr-only">{t('sum.title')}</h1>}
 
       <h2 className="h2s">{t('sum.suitable')}</h2>
-      {vault.status !== 'unlocked' && <p className="muted">{t('sum.unlock')} <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('nav.household')}</button></p>}
-      {vault.status === 'unlocked' && vault.members.length === 0 && <p className="muted">{t('sum.noMembers')}</p>}
+      {sample && (
+        <p className="note" data-testid="sample-household">
+          <strong>{t('sum.sample')}</strong> {t('sum.sampleNote')}{' '}
+          <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('sum.setUpOwn')}</button>
+        </p>
+      )}
+      {!sample && vault.status !== 'unlocked' && <p className="muted">{t('sum.unlock')} <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('nav.household')}</button></p>}
+      {!sample && vault.status === 'unlocked' && vault.members.length === 0 && <p className="muted">{t('sum.noMembers')}</p>}
       {a && rings.length > 0 && <RingRow members={rings} selectedId={member} onSelect={toggle} />}
       {member && <p className="muted" role="status">{t('filter.showing', { name: rings.find((r) => r.id === member)?.name ?? '' })}</p>}
 
@@ -93,6 +100,7 @@ export function Summary() {
         ))}
       </div>
       {a && <div className="actions"><button type="button" className="btn secondary" onClick={() => navigate(routes.scan)}>{t('sum.newScan')}</button></div>}
+      {a && <AiTrace />}
       {a && <Listen text={summaryText} tag="summary" />}
     </section>
   )

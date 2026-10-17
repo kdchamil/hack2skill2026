@@ -6,7 +6,7 @@ import { ringMembers } from '../grade'
 import type { Analysis, Commentary } from '../types'
 import { GradeTile, ListenBar, TierBadge, type GradeLetter } from '../ui'
 import type { Finding } from '../types'
-import { computeVerdicts, type Member, type Verdict } from '../verdict'
+import { computeVerdicts, demoMembers, type Member, type Verdict } from '../verdict'
 
 /** The scan, household verdicts and member filter every post-scan screen needs. */
 export function useScanData() {
@@ -14,13 +14,16 @@ export function useScanData() {
   const { t } = useT()
   const a: Analysis | null = view.analysis
   const c: Commentary | null = view.commentary
-  const verdicts = useMemo<Verdict[]>(() => (a ? computeVerdicts(vault.members, a.facts) : []), [a, vault.members])
+  // A demo scan with no real household shows an in-memory sample household. It is never saved or sent anywhere.
+  const sample = !!view.demo && vault.members.length === 0
+  const members = useMemo(() => (sample ? demoMembers() : vault.members), [sample, vault.members])
+  const verdicts = useMemo<Verdict[]>(() => (a ? computeVerdicts(members, a.facts) : []), [a, members])
   const rings = useMemo(() => ringMembers(t, verdicts), [t, verdicts])
-  const picked: Member | undefined = vault.members.find((m) => m.id === member)
+  const picked: Member | undefined = members.find((m) => m.id === member)
   const pickedVerdict = verdicts.find((v) => v.memberId === member)
   const name = a?.product.name.value ?? t('sum.unnamed')
   const toggle = (id: string) => setMember(member === id ? null : id)
-  return { view, a, c, verdicts, rings, picked, pickedVerdict, name, member, toggle, scanId: view.scanId }
+  return { view, a, c, sample, verdicts, rings, picked, pickedVerdict, name, member, toggle, scanId: view.scanId }
 }
 
 /** One finding as a labelled row with its evidence tier. */

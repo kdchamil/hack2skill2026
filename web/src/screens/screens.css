@@ -47,3 +47,6 @@
 .claimb-unsupported { color: var(--check-fg); background: var(--check-bg); border-style: dashed; }
 .claimb-contradicted { color: var(--avoid-fg); background: var(--avoid-bg); }
 .claimb-unverifiable { color: var(--info-fg); background: var(--info-bg); border-style: dotted; }
+
+.aitrace { font-size: 0.875rem; }
+.aitrace ul { margin: 0.25rem 0 0; padding-left: 1.25rem; }
