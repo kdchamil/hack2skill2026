@@ -130,8 +130,8 @@ class ScanResponse(BaseModel):
     scan_id: str
     analysis: Analysis
     commentary: Commentary
-    trace: list[dict[str, Any]]      # [{"tool":"extract_label","ms":1234,"model_calls":1}, ...]
-    model_calls: int                 # NFR-15: <=2 first scan, 0 repeat (cache by barcode+image hash)
+    trace: list[dict[str, Any]]      # [{"tool":"extract_label","ms":1234,"model_calls":1}, ...]; decision steps add "decision" and "reason" (e.g. assess_capture, lookup_open_food_facts, resolve_terms), skipped steps add "skipped": true
+    model_calls: int                 # NFR-15: <=3 first scan when Search grounding runs, else <=2; 0 repeat (relaxed 18 Oct 2026 for Search grounding; cache by barcode+image hash)
     cached: bool
 ```
 
@@ -143,7 +143,7 @@ Canonical allergen IDs (Codex 8 + regional): `peanut, tree_nut, milk, egg, fish,
 ## HTTP API
 
 - `POST /api/scan` multipart: `images` (1–4 files, jpeg/png/webp, ≤ 5 MB each), `barcode` (optional), `lang` (`en|si|ta`), `market` (default `SG`), `fixture` (optional; mock/demo only: fixture name). **Never** accepts profile fields; reject unknown form fields with 400.
-  Response: `text/event-stream` with events in order: `analysis` (Analysis JSON, the summary — must be first), `commentary` (Commentary JSON), `done` (ScanResponse JSON), or `error` (`{"code","message"}`).
+  Response: `text/event-stream` with events in order: `needs_reshoot` (optional, `{"fields": [...], "finding_id": "capture.reshoot_ingredients", "tip": "..."}`, sent when ingredients or the allergen statement are unreadable; may come before `analysis`), `analysis` (Analysis JSON, the summary; the first analysis event), `commentary` (Commentary JSON), `done` (ScanResponse JSON), or `error` (`{"code","message"}`).
 - `POST /api/commentary` JSON `{scan_id, lang}` → Commentary (language switch without rescanning; served from cache).
 - `POST /api/tts` JSON `{text, lang}` → `audio/mpeg` (Gemini-TTS via Cloud Text-to-Speech, cached by sha256(lang+text)); 503 on failure so the client shows text.
 - `POST /api/report` JSON `{scan_id, finding_id?, note?}` (note <= 500 chars, control chars stripped; any other field -> 400; finding_id must exist if the scan is cached; 20 per scan_id then 429) → 202 `{status, report_id}`. Kept in an in-memory queue and logged to stdout as one JSON line `{"severity":"NOTICE","type":"correction_report",report_id,scan_id,finding_id,product_name,rule_pack_version,note}` (durable queue in Cloud Logging). No profile data, no images.
