@@ -17,12 +17,12 @@
     "sulphite": {"en": "sulphite", "si": "සල්ෆයිට්", "ta": "சல்பைட்"}
   },
   "cards": {
-    "allergens": {"en": "Allergens", "si": "ආහාර අසාත්මිකතා", "ta": "ஒவ்வாமைகள்"},
     "nutrition": {"en": "Nutrition", "si": "පෝෂණය", "ta": "ஊட்டச்சத்து"},
-    "diet": {"en": "Diet", "si": "ආහාර රටාව", "ta": "உணவுமுறை"},
-    "ingredients": {"en": "Ingredients", "si": "අමුද්‍රව්‍ය", "ta": "பொருட்கள்"},
-    "claims": {"en": "Claims", "si": "ප්‍රකාශ", "ta": "கூற்றுகள்"},
-    "packaging": {"en": "Packaging", "si": "ඇසුරුම්", "ta": "பேக்கேஜிங்"}
+    "packaging": {"en": "Packaging", "si": "ඇසුරුම්", "ta": "பேக்கேஜிங்"},
+    "processing": {"en": "Processing", "si": "සැකසුම", "ta": "பதப்படுத்தல்"},
+    "additives": {"en": "Additives", "si": "ආහාර ආකලන", "ta": "சேர்க்கைப் பொருட்கள்"},
+    "carbon": {"en": "Carbon", "si": "කාබන්", "ta": "கார்பன்"},
+    "water_land": {"en": "Water and land", "si": "ජලය සහ ඉඩම්", "ta": "நீர் மற்றும் நிலம்"}
   },
   "status": {
     "avoid": {"en": "may need care", "si": "සැලකිලිමත් වන්න", "ta": "கவனம் தேவை"},
@@ -31,51 +31,22 @@
     "good": {"en": "nothing found in what we could read", "si": "කියවිය හැකි දේවල කිසිවක් හමු නොවීය", "ta": "படிக்க முடிந்தவற்றில் எதுவும் இல்லை"}
   },
   "templates": {
-    "allergen_contains": {
-      "en": "Contains: {list}.",
-      "si": "අඩංගු වේ: {list}.",
-      "ta": "உள்ளடக்கியது: {list}."
-    },
-    "allergen_may": {
-      "en": "May contain: {list}.",
-      "si": "අඩංගු විය හැක: {list}.",
-      "ta": "இருக்கலாம்: {list}."
-    },
-    "allergen_none": {
-      "en": "No allergens found in what we could read.",
-      "si": "කියවිය හැකි දේවල අසාත්මිකතා කාරක කිසිවක් හමු නොවීය.",
-      "ta": "படிக்க முடிந்தவற்றில் ஒவ்வாமை பொருட்கள் எதுவும் கண்டறியப்படவில்லை."
-    },
-    "allergen_unreadable": {
-      "en": "Ingredients unreadable — check the pack.",
-      "si": "අමුද්‍රව්‍ය කියවිය නොහැක — ඇසුරුම පරීක්ෂා කරන්න.",
-      "ta": "பொருட்களைப் படிக்க முடியவில்லை — பொதியைச் சரிபார்க்கவும்."
-    },
-    "allergen_headline": {
-      "en": "May contain {names}",
-      "si": "{names} අඩංගු විය හැක",
-      "ta": "{names} இருக்கலாம்"
-    },
-    "card_reason": {
-      "en": "Open this card for details.",
-      "si": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න.",
-      "ta": "விவரங்களுக்கு இந்த அட்டையைத் திறக்கவும்."
-    },
-    "summary_avoid": {
-      "en": "This pack may not suit some household members; consider checking the cards marked for care.",
-      "si": "මෙම ඇසුරුම සමහර පවුලේ සාමාජිකයන්ට නොගැළපෙන්නට පුළුවන්; සලකුණු කළ කාඩ්පත් පරීක්ෂා කර බලන්න.",
-      "ta": "இந்த பொதி சில குடும்ப உறுப்பினர்களுக்குப் பொருந்தாமல் போகலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."
-    },
-    "summary_check": {
-      "en": "Some details may need a closer look; consider checking the highlighted cards.",
-      "si": "සමහර විස්තර සමීපව බැලිය යුතු විය හැක; උද්දීපනය කළ කාඩ්පත් පරීක්ෂා කර බලන්න.",
-      "ta": "சில விவரங்களை நெருக்கமாகப் பார்க்க வேண்டியிருக்கலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."
-    },
-    "summary_good": {
-      "en": "We found nothing of concern in what we could read.",
-      "si": "කියවිය හැකි දේවල සැලකිය යුතු කිසිවක් අපට හමු නොවීය.",
-      "ta": "படிக்க முடிந்தவற்றில் கவலைக்குரியது எதுவும் கண்டறியப்படவில்லை."
-    }
+    "allergen_contains": {"en": "Contains: {list}.", "si": "අඩංගු වේ: {list}.", "ta": "உள்ளடக்கியது: {list}."},
+    "allergen_may": {"en": "May contain: {list}.", "si": "අඩංගු විය හැක: {list}.", "ta": "இருக்கலாம்: {list}."},
+    "allergen_none": {"en": "No allergens found in what we could read.", "si": "කියවිය හැකි දේවල අසාත්මිකතා කාරක කිසිවක් හමු නොවීය.", "ta": "படிக்க முடிந்தவற்றில் ஒவ்வாமை பொருட்கள் எதுவும் கண்டறியப்படவில்லை."},
+    "allergen_unreadable": {"en": "Ingredients unreadable — check the pack.", "si": "අමුද්‍රව්‍ය කියවිය නොහැක — ඇසුරුම පරීක්ෂා කරන්න.", "ta": "பொருட்களைப் படிக்க முடியவில்லை — பொதியைச் சரிபார்க்கவும்."},
+    "allergen_headline": {"en": "May contain {names}", "si": "{names} අඩංගු විය හැක", "ta": "{names} இருக்கலாம்"},
+    "card_reason": {"en": "Open this card for details.", "si": "විස්තර සඳහා මෙම කාඩ්පත විවෘත කරන්න.", "ta": "விவரங்களுக்கு இந்த அட்டையைத் திறக்கவும்."},
+    "summary_avoid": {"en": "This pack may not suit some household members; consider checking the cards marked for care.", "si": "මෙම ඇසුරුම සමහර පවුලේ සාමාජිකයන්ට නොගැළපෙන්නට පුළුවන්; සලකුණු කළ කාඩ්පත් පරීක්ෂා කර බලන්න.", "ta": "இந்த பொதி சில குடும்ப உறுப்பினர்களுக்குப் பொருந்தாமல் போகலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."},
+    "summary_check": {"en": "Some details may need a closer look; consider checking the highlighted cards.", "si": "සමහර විස්තර සමීපව බැලිය යුතු විය හැක; උද්දීපනය කළ කාඩ්පත් පරීක්ෂා කර බලන්න.", "ta": "சில விவரங்களை நெருக்கமாகப் பார்க்க வேண்டியிருக்கலாம்; குறிக்கப்பட்ட அட்டைகளைச் சரிபார்க்கவும்."},
+    "summary_good": {"en": "We found nothing of concern in what we could read.", "si": "කියවිය හැකි දේවල සැලකිය යුතු කිසිවක් අපට හමු නොවීය.", "ta": "படிக்க முடிந்தவற்றில் கவலைக்குரியது எதுவும் கண்டறியப்படவில்லை."}
   },
-  "generic_allergen_words": ["allerg", "contain", "අසාත්මික", "අඩංගු", "ඇලර්ජ", "ஒவ்வாமை", "உள்ளடக்க", "அடங்க"]
+  "generic_allergen_words": ["allerg", "contain", "අසාත්මික", "අඩංගු", "ඇලර්ජ", "ஒவ்வாமை", "உள்ளடக்க", "அடங்க"],
+  "areas": {
+    "body": {"en": "Your body", "si": "ඔබේ ශරීරය", "ta": "உங்கள் உடல்"},
+    "planet": {"en": "Your planet", "si": "ඔබේ ග්‍රහලෝකය", "ta": "உங்கள் கிரகம்"},
+    "people": {"en": "The people behind it", "si": "මෙය පිටුපස සිටින අය", "ta": "இதன் பின்னால் உள்ளவர்கள்"},
+    "truth": {"en": "The truth behind the claims", "si": "ප්‍රකාශ පිටුපස සත්‍යය", "ta": "கூற்றுகளின் பின்னால் உள்ள உண்மை"},
+    "choice": {"en": "Your best next choice", "si": "ඔබේ ඊළඟ හොඳම තේරීම", "ta": "உங்கள் அடுத்த சிறந்த தேர்வு"}
+  }
 }

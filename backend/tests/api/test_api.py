@@ -113,13 +113,14 @@ def test_guard_glossary():
 
 
 def _analysis():
-    from tests.api.conftest import _stub_analyze, STUB_FIXTURES
-    return _stub_analyze(STUB_FIXTURES["kokis_sesame_si_en"])
+    from app.rules import analyze, load_fixture
+    return analyze(load_fixture("kokis_sesame_si_en"))
 
 
 def _out(**over):
-    cards = [cm.CardOut(card=c, headline="May contain sesame", reason="Label lists sesame.") for c in cm.CARD_IDS]
-    d = dict(summary="This may contain sesame; consider checking.", cards=cards)
+    cards = [cm.CardOut(card=c, headline="Looks fine here", reason="Label lists values.") for c in cm.CARD_IDS]
+    areas = [cm.CardOut(card=c, headline="Looks fine here", reason="Label lists values.") for c in cm.MODEL_AREAS]
+    d = dict(summary="This may contain sesame; consider checking.", cards=cards, areas=areas)
     d.update(over)
     return cm.CommentaryOut(**d)
 
@@ -128,38 +129,45 @@ def test_apply_guards_ok_and_rejections():
     a = _analysis()
     com = cm.apply_guards(_out(), a, "en")
     assert com.source == "gemini"
-    bad = [cm.CardOut(card="allergens", headline="May contain sesame 99 times", reason="x"),
-           *[cm.CardOut(card=c, headline="Fine", reason="ok") for c in cm.CARD_IDS if c != "allergens"]]
+    assert com.areas["body"] == cm.template_allergens_card(a, "en")  # body area is always code-built
+    assert com.areas["choice"] == cm.template_area(a, "choice", "en")
+    assert com.areas["planet"] == {"headline": "Looks fine here", "reason": "Label lists values."}
+    bad = [cm.CardOut(card="nutrition", headline="Sodium 99999 mg", reason="x"),
+           *[cm.CardOut(card=c, headline="Fine", reason="ok") for c in cm.CARD_IDS if c != "nutrition"]]
     com = cm.apply_guards(_out(cards=bad, summary="It is safe"), a, "en")
-    assert com.cards["allergens"] == cm.template_allergens_card(a, "en")  # always template
+    assert com.cards["nutrition"] == cm.template_card(a, "nutrition", "en")  # number guard -> template
+    assert com.cards["packaging"] == {"headline": "Fine", "reason": "ok"}
     assert "safe" not in com.summary
-    long = [cm.CardOut(card="allergens", headline=" ".join(["sesame"] * 13), reason="r")]
-    assert cm.apply_guards(_out(cards=long), a, "en").cards["allergens"] == cm.template_allergens_card(a, "en")
+    long = [cm.CardOut(card="nutrition", headline=" ".join(["word"] * 13), reason="r")]
+    assert cm.apply_guards(_out(cards=long), a, "en").cards["nutrition"] == cm.template_card(a, "nutrition", "en")
+    badarea = [cm.CardOut(card="truth", headline="All good", reason="This is safe")]
+    assert cm.apply_guards(_out(areas=badarea), a, "en").areas["truth"] == cm.template_area(a, "truth", "en")
 
 
 def test_template_si_ta():
     a = _analysis()
     for lang in ("si", "ta"):
         c = cm.template_commentary(a, lang)
-        assert cm.GLOSSARY["allergens"]["sesame"][lang] in c.cards["allergens"]["headline"]
-        assert set(c.cards) == set(cm.CARD_IDS)
+        assert cm.GLOSSARY["allergens"]["sesame"][lang] in c.areas["body"]["headline"]
+        assert set(c.cards) == set(cm.CARD_IDS) and set(c.areas) == set(cm.AREA_IDS)
+        assert all(cm.GLOSSARY["areas"][i][lang] in c.areas[i]["headline"] for i in ("planet", "people", "truth"))
 
 
 # ----- non-mock parsing with faked Gemini -----
 @pytest.mark.asyncio
 async def test_extract_parsing_fake_gemini(monkeypatch):
     from app.ai import client as ai_client, extract
-    from tests.api.conftest import STUB_FIXTURES
+    from app.rules import load_fixture
     monkeypatch.setenv("FIVESEC_MOCK", "0")
     seen = {}
 
     async def fake(**kw):
         seen.update(kw)
-        return STUB_FIXTURES["kokis_sesame_si_en"].model_dump_json()
+        return load_fixture("kokis_sesame_si_en").model_dump_json()
 
     monkeypatch.setattr(ai_client, "call_model", fake)
     ex, calls = await extract.extract_label([("image/png", PNG)], barcode="123")
-    assert calls == 1 and ex.barcode == "123" and ex.name.value == "Kokis"
+    assert calls == 1 and ex.barcode == "123" and ex.name.value
     assert "DATA" in seen["system"] and len(seen["parts"]) == 2
 
 
@@ -302,7 +310,7 @@ def test_merged_gemini_summary_is_separated(lang):
     assert com.summary.startswith(f"{c} {m}")
     assert com.summary.count(g["peanut"][lang]) == 1  # appears only in the may-contain sentence
     assert "Check the pack." in com.summary if lang == "en" else True
-    assert com.cards["allergens"] == {"headline": c, "reason": m}
+    assert com.areas["body"] == {"headline": c, "reason": m}
 
 
 def test_remainder_with_allergen_term_dropped():

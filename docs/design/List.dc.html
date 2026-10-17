@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>H · List with compare prompt</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F1FAF7; color: #263238; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif">
+
+  <main style="padding: 20px 16px; display: flex; flex-direction: column; gap: 12px">
+    <header style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px">
+      <div style="display: flex; flex-direction: column; gap: 2px"><h1 style="margin: 0; font-family: Lexend, sans-serif; font-size: 26px; font-weight: 700">Saturday shop</h1><span style="font-size: 15px; color: #4F5F5C">3 of 6 found</span></div>
+      <button type="button" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #CFE5DE; background: #FFFFFF; color: #263238; font-weight: 700; font-size: 14px; font-family: inherit">Paste a list</button>
+    </header>
+    <div role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="3" aria-label="Items found" style="height: 8px; border-radius: 4px; background: #CFE5DE; overflow: hidden"><div style="width: 50%; height: 8px; background: #0F6E63"></div></div>
+
+    <ul style="list-style: none; margin: 0; padding: 0; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px">
+      <li style="display: flex; gap: 12px; align-items: center; min-height: 60px; padding: 6px 12px; border-bottom: 1px solid #E3F3EE">
+        <span style="flex: none; width: 26px; height: 26px; border-radius: 8px; background: #0F6E63; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+        <span style="flex: 1; display: flex; flex-direction: column"><b style="font-size: 16px">Milk powder, 400 g</b><span style="font-size: 14px; color: #4F5F5C">Anchor · grade B</span></span>
+      </li>
+      <li style="display: flex; gap: 12px; align-items: center; min-height: 60px; padding: 6px 12px; border-bottom: 1px solid #E3F3EE; background: #FFF9EA">
+        <span style="flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2.5px solid #E9B949; box-sizing: border-box"></span>
+        <span style="flex: 1; display: flex; flex-direction: column"><b style="font-size: 16px">Biscuits</b><span style="font-size: 14px; color: #6B4600">2 scanned · choose one</span></span>
+      </li>
+      <li style="display: flex; gap: 12px; align-items: center; min-height: 60px; padding: 6px 12px; border-bottom: 1px solid #E3F3EE">
+        <span style="flex: none; width: 26px; height: 26px; border-radius: 8px; background: #0F6E63; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+        <span style="flex: 1; display: flex; flex-direction: column"><b style="font-size: 16px">Eggs, 10</b><span style="font-size: 14px; color: #4F5F5C">Farm eggs · grade A</span></span>
+      </li>
+      <li style="display: flex; gap: 12px; align-items: center; min-height: 52px; padding: 6px 12px; border-bottom: 1px solid #E3F3EE">
+        <span style="flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2.5px solid #5F6E6B; box-sizing: border-box"></span>
+        <b style="font-size: 16px">Rice, 5 kg</b>
+      </li>
+      <li style="display: flex; gap: 12px; align-items: center; min-height: 52px; padding: 6px 12px">
+        <span style="flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2.5px solid #5F6E6B; box-sizing: border-box"></span>
+        <b style="font-size: 16px">Coconut oil</b>
+      </li>
+    </ul>
+  </main>
+
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(14,26,24,0.45)"></div>
+
+  <section role="dialog" aria-modal="true" aria-labelledby="h-cmp" style="position: absolute; left: 0; right: 0; bottom: 0; background: #FFFFFF; border-radius: 24px 24px 0 0; padding: 12px 20px 28px; display: flex; flex-direction: column; gap: 14px">
+    <div style="width: 40px; height: 4px; border-radius: 2px; background: #CFE5DE; align-self: center"></div>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h2 id="h-cmp" style="margin: 0; font-family: Lexend, sans-serif; font-size: 22px; font-weight: 700">Compare these two?</h2>
+      <p style="margin: 0; font-size: 15px; color: #4F5F5C">Both match "Biscuits" on your list.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <div style="display: flex; gap: 10px; align-items: center; padding: 10px; border: 1px solid #CFE5DE; border-radius: 14px"><span style="flex: none; width: 36px; height: 36px; border-radius: 10px; background: #E39A55; color: #263238; font-family: Lexend, sans-serif; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center">D</span><b style="font-size: 15px">Choco Biscuits</b></div>
+      <div style="display: flex; gap: 10px; align-items: center; padding: 10px; border: 1px solid #CFE5DE; border-radius: 14px"><span style="flex: none; width: 36px; height: 36px; border-radius: 10px; background: #2F7A6B; color: #FFFFFF; font-family: Lexend, sans-serif; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center">B</span><b style="font-size: 15px">Oat Bites</b></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <button type="button" style="min-height: 56px; border-radius: 16px; border: 2px solid #CFE5DE; background: #FFFFFF; color: #263238; font-weight: 700; font-size: 17px; font-family: inherit">Not now</button>
+      <a href="Compare.dc.html" style="min-height: 56px; border-radius: 16px; background: #0F6E63; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center">Compare</a>
+    </div>
+    <p style="margin: 0; font-size: 13px; color: #4F5F5C; text-align: center">Shown once per pair. "Not now" keeps the first one.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

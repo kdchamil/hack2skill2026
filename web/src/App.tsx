@@ -1,15 +1,25 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchCommentary, scan, type ScanInput } from './api'
 import { stopListen } from './audio'
-import { Household } from './components/Household'
 import { Privacy } from './components/Privacy'
-import { Scan } from './components/Scan'
-import { Summary, type ScanView } from './components/Summary'
+import type { ScanView } from './components/Summary'
+import { AppContext, type AppCtx, type Route } from './appctx'
+import { Area } from './screens/Area'
+import { Basket } from './screens/Basket'
+import { Claims } from './screens/Claims'
+import { Compare } from './screens/Compare'
+import { Detail } from './screens/Detail'
+import { Household } from './screens/Household'
+import { Library } from './screens/Library'
+import { List } from './screens/List'
+import { Scan } from './screens/Scan'
+import { Summary } from './screens/Summary'
+import { Thin } from './screens/Thin'
+import { BottomBar } from './ui'
 import { Ctx, makeCtx } from './ctx'
 import type { Lang } from './types'
 import { useVault } from './useVault'
 
-type Tab = 'scan' | 'summary' | 'household' | 'privacy'
 const EMPTY: ScanView = { analysis: null, commentary: null, scanId: null, elapsedMs: null, phase: 'loading', error: null }
 
 function initialLang(): Lang {
@@ -22,7 +32,8 @@ function initialLang(): Lang {
 
 export default function App() {
   const [lang, setLangState] = useState<Lang>(initialLang)
-  const [tab, setTab] = useState<Tab>('scan')
+  const [route, setRoute] = useState<Route>({ tab: 'scan' })
+  const [member, setMember] = useState<string | null>(null)
   const [view, setView] = useState<ScanView>(EMPTY)
   const vault = useVault()
   const ctx = useMemo(() => makeCtx(lang), [lang])
@@ -49,7 +60,8 @@ export default function App() {
     abort.current = ac
     stopListen()
     setView({ ...EMPTY })
-    setTab('summary')
+    setMember(null)
+    setRoute({ tab: 'scan', sub: 'summary' })
     scan({ ...input, lang }, {
       onAnalysis: (analysis, ms) => setView((v) => ({ ...v, analysis, elapsedMs: ms, phase: 'streaming' })),
       onCommentary: (commentary) => setView((v) => ({ ...v, commentary })),
@@ -69,45 +81,45 @@ export default function App() {
     stopListen()
     setView({ ...EMPTY })
     setLangState('en')
-    setTab((x) => (x === 'summary' ? 'scan' : x))
+    setMember(null)
+    setRoute((r) => (r.tab === 'scan' && r.sub ? { tab: 'scan' } : r))
   }, [])
 
-  const go = (x: Tab) => { stopListen(); setTab(x) }
-  const showSummaryTab = view.analysis !== null || tab === 'summary'
+  const navigate = useCallback((r: Route) => { stopListen(); setRoute(r) }, [])
+  const app = useMemo<AppCtx>(() => ({ route, navigate, member, setMember, view, vault, runScan, setLang, onDeleted }),
+    [route, navigate, member, view, vault, runScan, setLang, onDeleted])
+  const sub = route.sub
 
   return (
     <Ctx.Provider value={ctx}>
-      <a href="#main" className="skip">{t('skip')}</a>
-      <header className="top">
-        <span className="brand" translate="no"><span aria-hidden="true">⏱</span> {t('app.name')}</span>
-        {tab !== 'summary' && (
-          <div className="row" role="group" aria-label={t('lang.label')}>
-            {(['en', 'si', 'ta'] as Lang[]).map((l) => (
-              <button key={l} type="button" className="btn chip-btn" lang={l} aria-pressed={lang === l} onClick={() => setLang(l)}>
-                {{ en: 'EN', si: 'සිං', ta: 'தமிழ்' }[l]}
-              </button>
-            ))}
+      <AppContext.Provider value={app}>
+        <a href="#main" className="skip">{t('skip')}</a>
+        <header className="top">
+          <span className="brand" translate="no"><span aria-hidden="true">⏱</span> {t('app.name')}</span>
+          <div className="row">
+            {sub !== 'summary' && (
+              <div className="row" role="group" aria-label={t('lang.label')}>
+                {(['en', 'si', 'ta'] as Lang[]).map((l) => (
+                  <button key={l} type="button" className="btn chip-btn" lang={l} aria-pressed={lang === l} onClick={() => setLang(l)}>
+                    {{ en: 'EN', si: 'සිං', ta: 'தமிழ்' }[l]}
+                  </button>
+                ))}
+              </div>
+            )}
+            <button type="button" className="btn ghost" aria-current={route.tab === 'privacy' ? 'page' : undefined} onClick={() => navigate({ tab: 'privacy' })}>{t('nav.privacy')}</button>
           </div>
-        )}
-      </header>
-      <main id="main" tabIndex={-1}>
-        {tab === 'scan' && <Scan busy={false} onAnalyze={runScan} />}
-        {tab === 'summary' && (
-          <Summary view={view} members={vault.members} vault={vault.status} lang={lang} setLang={setLang}
-            onNew={() => go('scan')} onGoHousehold={() => go('household')} />
-        )}
-        {tab === 'household' && <Household vault={vault} onDeleted={onDeleted} />}
-        {tab === 'privacy' && <Privacy vault={vault} onDeleted={onDeleted} />}
-      </main>
-      <nav aria-label={t('nav.main')} className="tabbar">
-        <button type="button" aria-current={tab === 'scan' ? 'page' : undefined} onClick={() => go('scan')}><span aria-hidden="true">📷</span>{t('nav.scan')}</button>
-        {showSummaryTab ? (
-          <button type="button" aria-current={tab === 'summary' ? 'page' : undefined} onClick={() => go('summary')}><span aria-hidden="true">📋</span>{t('sum.title')}</button>
-        ) : null}
-        <button type="button" aria-current={tab === 'household' ? 'page' : undefined} onClick={() => go('household')}><span aria-hidden="true">👪</span>{t('nav.household')}</button>
-        <button type="button" aria-current={tab === 'privacy' ? 'page' : undefined} onClick={() => go('privacy')}><span aria-hidden="true">🔒</span>{t('nav.privacy')}</button>
-      </nav>
-      <footer className="foot">{t('pwa.https')}</footer>
+        </header>
+        <main id="main" tabIndex={-1}>
+          {route.tab === 'scan' && (!sub ? <Scan /> : sub === 'summary' ? <Summary /> : sub === 'thin' ? <Thin /> : sub === 'area' ? <Area /> : sub === 'detail' ? <Detail /> : <Claims />)}
+          {route.tab === 'list' && (sub === 'compare' ? <Compare /> : <List />)}
+          {route.tab === 'library' && <Library />}
+          {route.tab === 'basket' && <Basket />}
+          {route.tab === 'household' && <Household />}
+          {route.tab === 'privacy' && <Privacy vault={vault} onDeleted={onDeleted} />}
+        </main>
+        <BottomBar current={route.tab === 'privacy' ? null : route.tab} onGo={(x) => navigate({ tab: x })} />
+        <footer className="foot">{t('pwa.https')}</footer>
+      </AppContext.Provider>
     </Ctx.Provider>
   )
 }

@@ -6,6 +6,7 @@ import asyncio
 import json
 import logging
 import re
+import time
 import uuid
 from typing import Any, Literal
 
@@ -15,8 +16,11 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.agent import pipeline
 from app.ai import commentary as com_mod
+from app.ai import listparse
 from app.ai.tts import TTSUnavailable, synthesize
 from app.config import get_settings
+from app.models import ListParseRequest, ListParseResponse
+from app.rules.ranges import ranges as range_table
 
 log = logging.getLogger("fivesec")
 router = APIRouter(prefix="/api")
@@ -216,3 +220,37 @@ async def report(request: Request) -> dict[str, str]:
     del REPORTS[:-1000]
     print(json.dumps(rec, ensure_ascii=False), flush=True)
     return {"status": "queued", "report_id": report_id}
+
+
+@router.get("/ranges")
+async def get_ranges() -> dict[str, Any]:
+    return {"ranges": range_table()}
+
+
+_LIST_HITS: dict[str, list[float]] = {}
+LIST_LIMIT, LIST_WINDOW_S = 30, 60.0
+
+
+def _list_rate_ok(who: str) -> bool:
+    now = time.monotonic()
+    hits = [t for t in _LIST_HITS.get(who, []) if now - t < LIST_WINDOW_S]
+    if len(hits) >= LIST_LIMIT:
+        _LIST_HITS[who] = hits
+        return False
+    hits.append(now)
+    _LIST_HITS[who] = hits
+    if len(_LIST_HITS) > 5000:
+        _LIST_HITS.pop(next(iter(_LIST_HITS)))
+    return True
+
+
+@router.post("/list/parse")
+async def list_parse(request: Request) -> ListParseResponse:
+    """Pasted text -> items. 400 on bad shape/extra fields/text over 2000 chars; 30 per minute per client; never logged or stored."""
+    try:
+        req = ListParseRequest.model_validate(await request.json())
+    except Exception:  # noqa: BLE001 - invalid JSON or validation failure
+        raise _bad("expected {text (max 2000 chars), lang en|si|ta} and nothing else") from None
+    if not _list_rate_ok(request.client.host if request.client else "?"):
+        raise HTTPException(429, "too many list requests")
+    return ListParseResponse(items=await listparse.parse_list(req.text, req.lang))

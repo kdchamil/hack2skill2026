@@ -1,4 +1,4 @@
-"""Six cards, household facts and banners."""
+"""Six graded cards, five areas' headlines and household facts."""
 
 from __future__ import annotations
 
@@ -46,21 +46,20 @@ def _nutrition_headline(n: NutritionResult) -> str:
     return "No high nutrient levels found"
 
 
-def _diet_headline(d: dict[str, DietResult]) -> str:
-    known = [f"{k.replace('_', ' ')} {v.value}" for k, v in d.items() if v.value != "unknown"]
-    if not known:
-        return "Diet suitability unknown from this label"
-    return "Diet: " + ", ".join(known[:3])
-
-
-def _ingredients_headline(info: IngredientInfo, s: AdditiveSummary) -> str:
+def _processing_headline(info: IngredientInfo, s: AdditiveSummary) -> str:
     if not info.known:
         return "Ingredients not read"
-    return f"{s.ingredient_count} ingredients, {len(s.codes)} additives; {s.level}"
+    return f"{s.ingredient_count} ingredients; {s.level}"
+
+
+def _additives_headline(info: IngredientInfo, s: AdditiveSummary) -> str:
+    if not info.known:
+        return "Ingredients not read"
+    return f"{len(s.codes)} additive{'s' if len(s.codes) != 1 else ''} found" if s.codes else "No additives found"
 
 
 def _claims_headline(findings: list[Finding]) -> str:
-    cl = [f for f in findings if f.card == "claims"]
+    cl = [f for f in findings if f.topic == "claims"]
     if not cl:
         return "No claims read"
     bad = [f for f in cl if f.data.get("verdict") == "contradicted"]
@@ -72,39 +71,69 @@ def _claims_headline(findings: list[Finding]) -> str:
     return f"{len(cl)} claim{'s' if len(cl) > 1 else ''} checked"
 
 
-def _packaging_headline(findings: list[Finding]) -> str:
-    dates = [f for f in findings if f.category == "date"]
-    if any(f.severity == "avoid" for f in dates):
-        return "Date on the pack has passed"
-    if any(f.severity == "check" for f in dates):
-        return "Date on the pack is close"
+def _packaging_code(findings: list[Finding]) -> str | None:
     codes = [f for f in findings if f.id.startswith("packaging.code.") and f.id != "packaging.code.none"]
-    if codes:
-        mat = codes[0].data["material"]
-        mat = mat[mat.index("(") + 1:-1].lower() if "(" in mat else mat
-        return f"{codes[0].data['code']} {mat}; carbon: no data"
-    return "No recycling code read; carbon: no data"
+    if not codes:
+        return None
+    mat = codes[0].data["material"]
+    mat = mat[mat.index("(") + 1:-1].lower() if "(" in mat else mat
+    return f"{codes[0].data['code']} {mat}"
 
 
-def build_cards(findings: list[Finding], headlines: dict[str, str]) -> list[Card]:
-    cards: list[Card] = []
-    for cid in CARD_ORDER:
-        fs = [f for f in findings if f.card == cid]
-        key = [f for f in fs if f.category != "carbon"] or fs  # carbon is always unknown; not a key finding
-        cards.append(Card(
-            id=cid, status=worst([f.severity for f in fs]),  # type: ignore[arg-type]
-            tier=weakest([f.tier for f in key]), headline=_cap(headlines[cid]),
-            finding_ids=[f.id for f in fs]))
-    return cards
+def _body_headline(findings: list[Finding], al: AllergenResult, info: IngredientInfo) -> str:
+    h = _allergen_headline(al, info)
+    dates = [f for f in findings if f.topic == "dates"]
+    if any(f.severity == "avoid" for f in dates):
+        h += "; date passed"
+    elif any(f.severity == "check" for f in dates):
+        h += "; date close"
+    return h
+
+
+def _people_headline(findings: list[Finding]) -> str:
+    fs = {f.topic: f for f in findings if f.area == "people"}
+    read = [t for t, f in fs.items() if f.tier == "label_stated"]
+    if not read:
+        return "No labour, sourcing or welfare data"
+    names = lambda ts: ", ".join(t.replace("_", " ") for t in ts)  # noqa: E731
+    rest = [t for t in fs if t not in read]
+    return f"{names(read).capitalize()} mark read" + (f"; {names(rest)}: no data" if rest else "")
+
+
+def _truth_headline(findings: list[Finding]) -> str:
+    c = next((f for f in findings if f.topic == "label_clarity"), None)
+    tail = f"; label shows {c.data['disclosed']} of {c.data['total']} items" if c else ""
+    return _claims_headline(findings) + tail
 
 
 def headlines_for(findings: list[Finding], al: AllergenResult, info: IngredientInfo, n: NutritionResult,
-                  d: dict[str, DietResult], s: AdditiveSummary) -> dict[str, str]:
-    return {
-        "allergens": _allergen_headline(al, info), "nutrition": _nutrition_headline(n),
-        "diet": _diet_headline(d), "ingredients": _ingredients_headline(info, s),
-        "claims": _claims_headline(findings), "packaging": _packaging_headline(findings),
+                  s: AdditiveSummary) -> tuple[dict[str, str], dict[str, str]]:
+    """(card headlines, area headlines); each at most 12 words."""
+    code = _packaging_code(findings)
+    cards = {
+        "nutrition": _nutrition_headline(n), "processing": _processing_headline(info, s),
+        "additives": _additives_headline(info, s), "carbon": "No reliable data", "water_land": "No reliable data",
+        "packaging": code or "No recycling code read",
     }
+    areas = {
+        "body": _body_headline(findings, al, info),
+        "planet": f"{code or 'No recycling code read'}; carbon, water: no data",
+        "people": _people_headline(findings), "truth": _truth_headline(findings),
+        "choice": "Scan another product to compare",
+    }
+    return {k: _cap(v) for k, v in cards.items()}, {k: _cap(v) for k, v in areas.items()}
+
+
+def build_cards(findings: list[Finding], headlines: dict[str, str], letters: dict[str, str | None]) -> list[Card]:
+    cards: list[Card] = []
+    for cid in CARD_ORDER:
+        fs = [f for f in findings if f.card == cid]
+        key = [f for f in fs if not f.data.get("placeholder")] or fs
+        cards.append(Card(
+            id=cid, grade=letters[cid], status=worst([f.severity for f in fs]),  # type: ignore[arg-type]
+            tier=weakest([f.tier for f in key]), headline=_cap(headlines[cid]),
+            finding_ids=[f.id for f in fs]))
+    return cards
 
 
 def build_facts(al: AllergenResult, info: IngredientInfo, d: dict[str, DietResult],

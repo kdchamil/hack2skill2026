@@ -3,16 +3,17 @@ import re
 
 from app.models import Analysis
 from app.rules import analyze, list_fixtures, load_fixture
+from app.rules.areas import build_areas
 from app.rules.cards import build_cards
-from app.rules.taxonomy import RULE_PACK_VERSION, make_finding, strongest, weakest, worst
-from tests.rules.helpers import TODAY, mk, nut
+from app.rules.taxonomy import AREA_ORDER, CARD_ORDER, RULE_PACK_VERSION, make_finding, strongest, weakest, worst
+from tests.rules.helpers import TODAY, area, mk, nut
 
 
 def all_text(a: Analysis) -> str:
     parts = [a.ri_reference]
     for f in a.findings:
         parts += [f.title, f.reason, f.next_step or ""]
-    parts += [c.headline for c in a.cards]
+    parts += [c.headline for c in a.cards] + [x.headline for x in a.areas]
     return " ".join(parts)
 
 
@@ -45,21 +46,27 @@ def test_card_status_is_worst_severity():
     a = analyze(mk(["Egg", "Zorblax"], nutrition=nut(sodium_mg=2000), dates=[
         {"kind": "expiry", "raw": "01/01/2020", "iso": None}]), today=TODAY)
     by = {c.id: c for c in a.cards}
-    assert by["packaging"].status == "avoid" and by["nutrition"].status == "check" and by["allergens"].status == "check"
+    assert by["nutrition"].status == "check"
+    assert area(a, "body").status == "avoid"  # expired date
     for c in a.cards:
         for fid in c.finding_ids:
             assert next(f for f in a.findings if f.id == fid).card == c.id
+    for x in a.areas:
+        for fid in x.finding_ids:
+            assert next(f for f in a.findings if f.id == fid).area == x.id
 
 
 def test_empty_card_defaults():
-    cards = build_cards([], {k: "x" for k in ["allergens", "nutrition", "diet", "ingredients", "claims", "packaging"]})
-    assert all(c.status == "info" and c.tier == "unknown" for c in cards)
+    cards = build_cards([], {k: "x" for k in CARD_ORDER}, {k: None for k in CARD_ORDER})
+    assert all(c.status == "info" and c.tier == "unknown" and c.grade is None for c in cards)
+    areas = build_areas([], {k: "x" for k in AREA_ORDER})
+    assert [a.id for a in areas] == AREA_ORDER and all(a.tier == "unknown" for a in areas)
 
 
 def test_headline_word_cap():
     a = analyze(mk(["Egg", "Milk", "Soy", "Peanut", "Sesame", "Fish", "Wheat"], may="may contain mustard, celery, lupin, prawn"),
                 today=TODAY)
-    assert len(a.cards[0].headline.split()) <= 12 and "and more" in a.cards[0].headline
+    assert len(area(a, "body").headline.split()) <= 12 and "and more" in area(a, "body").headline
 
 
 def test_sources_always_include_rule_pack_and_label_when_read():
@@ -74,11 +81,6 @@ def test_retake_banners():
     assert "retake:nutrition" in a.banners and "retake:front" in a.banners and "retake:ingredients" not in a.banners
     b = analyze(mk(["Water"], missing=["ingredients"]), today=TODAY)
     assert "retake:ingredients" in b.banners
-
-
-def test_diet_headline_all_unknown():
-    a = analyze(mk(None, ing_conf=0.1), today=TODAY)
-    assert a.cards[2].headline == "Diet suitability unknown from this label"
 
 
 def test_facts_canonical_ids():

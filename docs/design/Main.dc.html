@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Review and redesign brief</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0F6E63}a:hover{color:#0A4F47}
+</style>
+</helmet>
+<div style="width: 1240px; height: 1180px; box-sizing: border-box; padding: 56px 64px; background: #F1FAF7; color: #263238; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; display: flex; flex-direction: column; gap: 28px">
+
+  <header style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: #0F6E63">FOR APPROVAL · 17 OCT 2026 · SRS v1.7</div>
+      <h1 style="margin: 0; font-family: Lexend, sans-serif; font-size: 44px; font-weight: 700; line-height: 1.1">FiveSeconds: redesigned screens for the 4 Dec MVP</h1>
+      <p style="margin: 0; font-size: 18px; color: #4F5F5C; max-width: 860px">One glance, then six reasons, then the evidence. Built for the Curious and Conscious Shopper: each product, each person in the household, and the whole basket.</p>
+    </div>
+    <svg width="72" height="72" viewBox="0 0 100 100" role="img" aria-label="FiveSeconds mark"><circle cx="50" cy="50" r="44.5" fill="none" stroke="#D6EEE7" stroke-width="6.5"></circle><path d="M50 5.5A44.5 44.5 0 0 1 72.25 11.46a4.5 4.5 0 0 1-4.5 7.8A35.5 35.5 0 0 0 50 14.5a4.5 4.5 0 0 1 0-9z" fill="#0F6E63"></path><path d="M50 67.96C37.4 59.56 32.36 52.84 32.36 45.7c0-5.46 4.2-9.24 9.24-9.24 3.78 0 6.72 2.1 8.4 5.46 1.68-3.36 4.62-5.46 8.4-5.46 5.04 0 9.24 3.78 9.24 9.24 0 7.14-5.04 13.86-17.64 22.26z" fill="#2E9F68"></path></svg>
+  </header>
+
+  <section aria-labelledby="h-reviewed" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+    <h2 id="h-reviewed" style="grid-column: 1 / -1; margin: 0; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600">1 · What was reviewed</h2>
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; gap: 8px; align-items: center; font-weight: 700"><span style="background: #0F6E63; color: #FFFFFF; border-radius: 999px; padding: 2px 10px; font-size: 13px">Reviewed</span>SRS wireframes A to F</div>
+      <div style="font-size: 15px; color: #4F5F5C">Scan, Summary, Card detail, Household, Claim check, Compare. Sections 8 and 10 of SRS v1.7.</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; gap: 8px; align-items: center; font-weight: 700"><span style="background: #FFF4D6; color: #6B4600; border: 1px solid #E9B949; border-radius: 999px; padding: 2px 10px; font-size: 13px">Not reached</span>Live app on Cloud Run</div>
+      <div style="font-size: 15px; color: #4F5F5C">fiveseconds-gqvzirnfpa-as.a.run.app is blocked from this session. Run the Claude in Chrome check and paste the report; I will add a side-by-side.</div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; gap: 8px; align-items: center; font-weight: 700"><span style="background: #E8ECEB; color: #3D4A48; border-radius: 999px; padding: 2px 10px; font-size: 13px">Empty</span>Your Design System</div>
+      <div style="font-size: 15px; color: #4F5F5C">It holds no tokens yet. These screens use the pitch-deck palette. The Tokens board can seed the system once approved.</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-gaps" style="display: flex; flex-direction: column; gap: 10px">
+    <h2 id="h-gaps" style="margin: 0; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600">2 · Gaps in the current wireframes, and the fix</h2>
+    <div role="table" aria-label="Gaps and fixes" style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; overflow: hidden; font-size: 15px">
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; background: #E3F3EE; font-weight: 700; color: #0A4F47">
+        <div role="columnheader" style="padding: 10px 16px">Gap in v1.7 wireframes</div><div role="columnheader" style="padding: 10px 16px">Why it matters</div><div role="columnheader" style="padding: 10px 16px">Redesign</div>
+      </div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">No A to E grade on Summary</div><div role="cell" style="padding: 9px 16px">US-46 and FR-47 put one grade above six cards.</div><div role="cell" style="padding: 9px 16px">Grade hero with its scale and the two reasons that move it.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Four ad hoc cards</div><div role="cell" style="padding: 9px 16px">The spec fixes six: three for health, three for the planet.</div><div role="cell" style="padding: 9px 16px">The five areas from the workflow statement. The six graded cards sit in Body and Planet.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Red, amber, green dots</div><div role="cell" style="padding: 9px 16px">Hue alone fails WCAG 1.4.1 and 1 in 12 men.</div><div role="cell" style="padding: 9px 16px">Each verdict is a shape, a word and a colour of different lightness.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Nav: Scan, Household, History</div><div role="cell" style="padding: 9px 16px">No home for List, Library (US-52) or Basket (US-50).</div><div role="cell" style="padding: 9px 16px">Five slots, Scan raised in the centre, in the thumb zone.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Compare is a ranked list of three</div><div role="cell" style="padding: 9px 16px">US-49 and FR-52: two products, opened only by a tap.</div><div role="cell" style="padding: 9px 16px">One-tap prompt on the List, then a side-by-side; no ranking.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">No thin-data, offline or error states</div><div role="cell" style="padding: 9px 16px">"No grade when data is thin" needs a screen.</div><div role="cell" style="padding: 9px 16px">B2 state; Unknown forces Check; offline badge; retake path.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Listen sits mid-screen</div><div role="cell" style="padding: 9px 16px">Nimal reads slowly; audio must be the easiest action.</div><div role="cell" style="padding: 9px 16px">Sticky Listen bar above the nav, language and speed on it.</div></div>
+      <div role="row" style="display: grid; grid-template-columns: 300px 1fr 1fr; border-top: 1px solid #E3F3EE"><div role="cell" style="padding: 9px 16px; font-weight: 700">Tiers shown as plain text</div><div role="cell" style="padding: 9px 16px">Section 10 defines four badge styles.</div><div role="cell" style="padding: 9px 16px">Solid, outline, dashed and grey badges, each with an icon.</div></div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600">3 · Practices applied</h2>
+      <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.5; display: flex; flex-direction: column; gap: 2px">
+        <li><b>Progressive disclosure.</b> Grade, then six cards, then evidence.</li>
+        <li><b>Thumb zone.</b> Scan, Listen and choices sit in the lower third.</li>
+        <li><b>Stream, never block.</b> Grade and chips by 5 s; detail fills in after.</li>
+        <li><b>Legible type.</b> Atkinson Hyperlegible body, 16 px minimum, scales to 200%.</li>
+        <li><b>Plain verdict words.</b> None found, Check, Avoid. Never "safe".</li>
+        <li><b>Privacy in view.</b> Lock state and "on this phone" on every family screen.</li>
+      </ul>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 14px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600">4 · Decisions for you</h2>
+      <ol style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.5; display: flex; flex-direction: column; gap: 2px">
+        <li><b>Touch targets 48 px,</b> above the SRS's 44 px. Gloves and one hand.</li>
+        <li><b>Basket as a nav tab.</b> It carries the north star; it costs one slot.</li>
+        <li><b>Grade colours are our own,</b> not Nutri-Score's. Thanuki to confirm.</li>
+        <li><b>Auto-capture plus a shutter.</b> Switch Access users need a button.</li>
+        <li><b>Library saves by default,</b> with a pause switch in Settings.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer style="display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 15px; align-items: center">
+    <b>Screens:</b>
+    <a href="Scan.dc.html">A Scan</a><a href="Summary.dc.html">B Summary</a><a href="Thin.dc.html">B2 Not enough data</a><a href="Detail.dc.html">C Card detail</a><a href="Household.dc.html">D Household</a><a href="Claims.dc.html">E Claims</a><a href="Compare.dc.html">F Compare</a><a href="Library.dc.html">G Library</a><a href="List.dc.html">H List</a><a href="Basket.dc.html">I Basket</a><a href="Tokens.dc.html">Tokens</a>
+    <span style="color: #4F5F5C">Product names and figures are illustrative.</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

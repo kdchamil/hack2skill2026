@@ -65,5 +65,5 @@ def findings(codes: list[str] | None, read: bool) -> list[Finding]:
         "packaging.carbon", "packaging", "carbon", "info", "no_known_concern", "unknown",
         "Carbon footprint: no reliable data",
         "No reliable carbon data exists for this product in our sources.", None,
-        {"carbon": None}, label_read=False))
+        {"carbon": None, "placeholder": True}, label_read=False))
     return out

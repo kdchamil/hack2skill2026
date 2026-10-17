@@ -1,0 +1,51 @@
+import type { Dict } from './legacy'
+
+const en: Dict = {
+  'nav.list': 'List', 'nav.library': 'Library', 'nav.scan': 'Scan', 'nav.basket': 'Basket', 'nav.household': 'Household',
+  'ring.avoid': 'Avoid', 'ring.check': 'Check', 'ring.none': 'None found',
+  'ring.aria': '{name}: {verdict}. {reason}.', 'ring.ariaBare': '{name}: {verdict}.',
+  'ring.more': '{n} more', 'ring.moreAvoid': '{n} more, including Avoid', 'ring.moreAria': '{n} more members. {avoid} to avoid.', 'ring.filter': 'Show {name} only',
+  'filter.showing': 'Showing {name}', 'filter.clear': 'Show everyone',
+  'grade.aria': 'Grade {g}', 'grade.none': 'No grade', 'grade.noneAria': 'No grade, not enough data',
+  'status.known': 'Known', 'status.unknown': 'No reliable data', 'status.thin': 'Not enough data', 'status.partial': 'Partly known',
+  'area.body': 'Body', 'area.planet': 'Planet', 'area.people': 'People', 'area.truth': 'Truth', 'area.choice': 'Choice', 'area.tabs': 'Areas',
+  'strip.back': 'Back to summary: {name}',
+  'row.open': 'Open {title}',
+  'listen.bar': 'Listen bar', 'listen.lang': 'Listen language', 'listen.next': 'Next', 'listen.speed': 'Speed {r}×', 'listen.play': 'Play', 'listen.pause': 'Pause',
+  'sheet.notNow': 'Not now', 'sheet.close': 'Close',
+  'shell.privacy': 'Privacy', 'shell.back': 'Back',
+  'ph.title': 'Coming soon',
+}
+const si: Dict = {
+  'nav.list': 'ලැයිස්තුව', 'nav.library': 'පුස්තකාලය', 'nav.scan': 'ස්කෑන්', 'nav.basket': 'කූඩය', 'nav.household': 'පවුල',
+  'ring.avoid': 'වළකින්න', 'ring.check': 'පරීක්ෂා කරන්න', 'ring.none': 'කිසිවක් නැත',
+  'ring.aria': '{name}: {verdict}. {reason}.', 'ring.ariaBare': '{name}: {verdict}.',
+  'ring.more': 'තව {n}', 'ring.moreAvoid': 'තව {n}, වළකින්න ඇතුළුව', 'ring.moreAria': 'තවත් සාමාජිකයන් {n}. වළකින්න {avoid}.', 'ring.filter': '{name} පමණක් පෙන්වන්න',
+  'filter.showing': '{name} පෙන්වයි', 'filter.clear': 'සියල්ලන් පෙන්වන්න',
+  'grade.aria': '{g} ශ්‍රේණිය', 'grade.none': 'ශ්‍රේණියක් නැත', 'grade.noneAria': 'ශ්‍රේණියක් නැත, දත්ත ප්‍රමාණවත් නොවේ',
+  'status.known': 'දන්නා', 'status.unknown': 'විශ්වාසදායක දත්ත නැත', 'status.thin': 'දත්ත ප්‍රමාණවත් නොවේ', 'status.partial': 'අර්ධ වශයෙන් දන්නා',
+  'area.body': 'ශරීරය', 'area.planet': 'පෘථිවිය', 'area.people': 'මිනිසුන්', 'area.truth': 'සත්‍යය', 'area.choice': 'තේරීම', 'area.tabs': 'ක්ෂේත්‍ර',
+  'strip.back': 'සාරාංශයට ආපසු: {name}',
+  'row.open': '{title} විවෘත කරන්න',
+  'listen.bar': 'ඇසීමේ තීරුව', 'listen.lang': 'ඇසීමේ භාෂාව', 'listen.next': 'ඊළඟ', 'listen.speed': 'වේගය {r}×', 'listen.play': 'ධාවනය', 'listen.pause': 'විරාමය',
+  'sheet.notNow': 'දැන් නොවේ', 'sheet.close': 'වසන්න',
+  'shell.privacy': 'රහස්‍යතාව', 'shell.back': 'ආපසු',
+  'ph.title': 'ඉක්මනින්',
+}
+const ta: Dict = {
+  'nav.list': 'பட்டியல்', 'nav.library': 'நூலகம்', 'nav.scan': 'ஸ்கேன்', 'nav.basket': 'கூடை', 'nav.household': 'குடும்பம்',
+  'ring.avoid': 'தவிர்க்கவும்', 'ring.check': 'சரிபார்க்கவும்', 'ring.none': 'எதுவும் இல்லை',
+  'ring.aria': '{name}: {verdict}. {reason}.', 'ring.ariaBare': '{name}: {verdict}.',
+  'ring.more': 'மேலும் {n}', 'ring.moreAvoid': 'மேலும் {n}, தவிர்க்கவும் உட்பட', 'ring.moreAria': 'மேலும் {n} உறுப்பினர்கள். தவிர்க்கவும்: {avoid}.', 'ring.filter': '{name} மட்டும் காட்டு',
+  'filter.showing': '{name} காட்டப்படுகிறது', 'filter.clear': 'அனைவரையும் காட்டு',
+  'grade.aria': 'தரம் {g}', 'grade.none': 'தரம் இல்லை', 'grade.noneAria': 'தரம் இல்லை, போதுமான தரவு இல்லை',
+  'status.known': 'தெரிந்தது', 'status.unknown': 'நம்பகமான தரவு இல்லை', 'status.thin': 'போதுமான தரவு இல்லை', 'status.partial': 'பகுதியளவு தெரிந்தது',
+  'area.body': 'உடல்', 'area.planet': 'புவி', 'area.people': 'மக்கள்', 'area.truth': 'உண்மை', 'area.choice': 'தேர்வு', 'area.tabs': 'பகுதிகள்',
+  'strip.back': 'சுருக்கத்திற்குத் திரும்பு: {name}',
+  'row.open': '{title} திற',
+  'listen.bar': 'கேட்கும் பட்டி', 'listen.lang': 'கேட்கும் மொழி', 'listen.next': 'அடுத்து', 'listen.speed': 'வேகம் {r}×', 'listen.play': 'இயக்கு', 'listen.pause': 'இடைநிறுத்து',
+  'sheet.notNow': 'இப்போது வேண்டாம்', 'sheet.close': 'மூடு',
+  'shell.privacy': 'தனியுரிமை', 'shell.back': 'பின்',
+  'ph.title': 'விரைவில்',
+}
+export default { en, si, ta }

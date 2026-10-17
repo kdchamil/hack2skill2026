@@ -4,7 +4,12 @@ export type Tier = 'verified' | 'label_stated' | 'inferred' | 'unknown'
 export type Severity = 'avoid' | 'check' | 'info' | 'good'
 export type RiskCategory = 'prohibited' | 'restricted' | 'allergen' | 'debated' | 'no_known_concern'
 export type Lang = 'en' | 'si' | 'ta'
-export type CardId = 'allergens' | 'nutrition' | 'diet' | 'ingredients' | 'claims' | 'packaging'
+export type GradeCardId = 'nutrition' | 'processing' | 'additives' | 'carbon' | 'water_land' | 'packaging'
+export type AreaId = 'body' | 'planet' | 'people' | 'truth' | 'choice'
+export type Topic =
+  | 'allergens' | 'diet' | 'nutrition' | 'processing' | 'additives' | 'dates' | 'recalls' | 'carbon'
+  | 'water_land' | 'packaging' | 'labour' | 'sourcing' | 'animal_welfare' | 'claims' | 'label_clarity' | 'authenticity'
+export type GradeLetter = 'A' | 'B' | 'C' | 'D' | 'E'
 
 export interface Legible<T> {
   value: T | null
@@ -58,7 +63,9 @@ export interface Source {
 
 export interface Finding {
   id: string
-  card: CardId
+  area: AreaId
+  topic: Topic
+  card: GradeCardId | null // only findings that feed a graded card
   category: string
   severity: Severity
   risk: RiskCategory
@@ -71,11 +78,29 @@ export interface Finding {
 }
 
 export interface Card {
-  id: CardId
+  id: GradeCardId
+  grade: GradeLetter | null // null = not enough data / no reliable data
   status: Severity
   tier: Tier
   headline: string
   finding_ids: string[]
+}
+
+export interface Area {
+  id: AreaId
+  status: Severity
+  tier: Tier
+  headline: string // <= 12 words
+  finding_ids: string[]
+  card_ids: GradeCardId[]
+}
+
+export interface Grade {
+  letter: GradeLetter | null
+  reason: 'thin_data' | null
+  planet_partial: boolean
+  drivers: GradeCardId[] // at most 2
+  rule_version: string
 }
 
 export interface HouseholdFacts {
@@ -90,7 +115,10 @@ export interface HouseholdFacts {
 export interface Analysis {
   product: Extraction
   findings: Finding[]
-  cards: Card[]
+  cards: Card[] // exactly six, GradeCardId order
+  grade: Grade
+  areas: Area[] // exactly five, AreaId order
+  product_range: string | null
   facts: HouseholdFacts
   banners: string[]
   rule_pack_version: string
@@ -101,7 +129,8 @@ export interface Analysis {
 export interface Commentary {
   lang: Lang
   summary: string
-  cards: Partial<Record<CardId, Record<string, string>>>
+  cards: Partial<Record<GradeCardId, Record<string, string>>> // {headline, reason}
+  areas: Partial<Record<AreaId, Record<string, string>>> // {headline, reason}
   source: 'gemini' | 'template'
 }
 
@@ -117,4 +146,33 @@ export interface ScanResponse {
 export interface ApiError {
   code: string
   message: string
+}
+
+export interface Range {
+  id: string
+  name: string
+  keywords: { en: string[]; si: string[]; ta: string[] }
+}
+
+// GET /api/ranges
+export interface RangesResponse {
+  ranges: Range[]
+}
+
+// POST /api/list/parse
+export interface ListParseRequest {
+  text: string // <= 2000 chars
+  lang: Lang
+}
+
+export interface ParsedItem {
+  name: string
+  quantity: number | null
+  unit: string | null
+  brand: string | null
+  range_id: string | null
+}
+
+export interface ListParseResponse {
+  items: ParsedItem[]
 }

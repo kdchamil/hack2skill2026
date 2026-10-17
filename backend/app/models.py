@@ -2,7 +2,7 @@
 
 from typing import Any, Generic, Literal, TypeVar
 
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 T = TypeVar("T")
 
@@ -10,7 +10,13 @@ Tier = Literal["verified", "label_stated", "inferred", "unknown"]
 Severity = Literal["avoid", "check", "info", "good"]  # rules decide; never the model
 RiskCategory = Literal["prohibited", "restricted", "allergen", "debated", "no_known_concern"]
 Lang = Literal["en", "si", "ta"]
-CardId = Literal["allergens", "nutrition", "diet", "ingredients", "claims", "packaging"]
+GradeCardId = Literal["nutrition", "processing", "additives", "carbon", "water_land", "packaging"]
+AreaId = Literal["body", "planet", "people", "truth", "choice"]
+Topic = Literal[
+    "allergens", "diet", "nutrition", "processing", "additives", "dates", "recalls", "carbon", "water_land",
+    "packaging", "labour", "sourcing", "animal_welfare", "claims", "label_clarity", "authenticity",
+]
+GradeLetter = Literal["A", "B", "C", "D", "E"]
 
 
 class Legible(BaseModel, Generic[T]):  # legibility wrapper (FR-05); name avoids pydantic.Field
@@ -70,7 +76,9 @@ class Source(BaseModel):
 
 class Finding(BaseModel):  # FR-17. A finding without a tier is a server error.
     id: str  # stable, e.g. "allergen.contains.sesame"
-    card: CardId
+    area: AreaId
+    topic: Topic
+    card: GradeCardId | None  # only findings that feed a graded card
     category: str  # e.g. "allergen_contains","allergen_may_contain","nutrient_level","diet","additive","date","packaging","carbon","claim"
     severity: Severity
     risk: RiskCategory
@@ -89,12 +97,30 @@ class Finding(BaseModel):  # FR-17. A finding without a tier is a server error.
         return v
 
 
-class Card(BaseModel):  # FR-24 max 6
-    id: CardId
+class Card(BaseModel):  # the six graded cards (FR-47), in GradeCardId order
+    id: GradeCardId
+    grade: GradeLetter | None  # None = not enough data / no reliable data
     status: Severity  # worst severity among its findings
     tier: Tier  # weakest tier among its key findings
     headline: str  # <= 12 words; template from rules, replaced by commentary
     finding_ids: list[str]
+
+
+class Area(BaseModel):  # FR-57: five areas in fixed order
+    id: AreaId
+    status: Severity
+    tier: Tier
+    headline: str  # <= 12 words; template from rules, replaced by commentary
+    finding_ids: list[str]
+    card_ids: list[GradeCardId]
+
+
+class Grade(BaseModel):  # FR-47; computed by rules/grade.py, never by the model
+    letter: GradeLetter | None
+    reason: Literal["thin_data"] | None
+    planet_partial: bool  # True when any planet card is Unknown and was left out
+    drivers: list[GradeCardId]  # the (at most 2) cards that moved the grade most
+    rule_version: str
 
 
 class HouseholdFacts(BaseModel):  # what the PHONE needs to compute member verdicts (FR-22)
@@ -109,7 +135,10 @@ class HouseholdFacts(BaseModel):  # what the PHONE needs to compute member verdi
 class Analysis(BaseModel):  # rules.analyze() output
     product: Extraction
     findings: list[Finding]
-    cards: list[Card]  # exactly the six CardIds, ordered as above
+    cards: list[Card]  # exactly the six GradeCardIds, ordered as above
+    grade: Grade
+    areas: list[Area]  # exactly the five AreaIds, ordered as above
+    product_range: str | None  # canonical range id (rules/data/ranges.json) or None
     facts: HouseholdFacts
     banners: list[str]  # e.g. "expired:2026-09-01", "near_expiry:2026-10-20", "retake:ingredients"
     rule_pack_version: str
@@ -120,7 +149,8 @@ class Analysis(BaseModel):  # rules.analyze() output
 class Commentary(BaseModel):
     lang: Lang
     summary: str  # 1-2 sentences for Listen
-    cards: dict[CardId, dict[str, str]]  # {"allergens": {"headline": "...", "reason": "..."}}
+    cards: dict[GradeCardId, dict[str, str]]  # {"nutrition": {"headline": "...", "reason": "..."}}
+    areas: dict[AreaId, dict[str, str]]  # {"body": {"headline": "...", "reason": "..."}}
     source: Literal["gemini", "template"]
 
 
@@ -131,3 +161,21 @@ class ScanResponse(BaseModel):
     trace: list[dict[str, Any]]  # [{"tool":"extract_label","ms":1234,"model_calls":1}, ...]
     model_calls: int  # NFR-15: <=2 first scan, 0 repeat (cache by barcode+image hash)
     cached: bool
+
+
+class ParsedItem(BaseModel):  # POST /api/list/parse
+    name: str
+    quantity: float | None
+    unit: str | None
+    brand: str | None
+    range_id: str | None
+
+
+class ListParseRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    text: str = Field(max_length=2000)
+    lang: Lang
+
+
+class ListParseResponse(BaseModel):
+    items: list[ParsedItem]

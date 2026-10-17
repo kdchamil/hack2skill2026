@@ -2,12 +2,12 @@ import pytest
 
 from app.rules import analyze
 from app.rules.claims import classify_kind
-from tests.rules.helpers import TODAY, mk, nut
+from tests.rules.helpers import TODAY, area, mk, nut
 
 
 def claim(ext):
     a = analyze(ext, today=TODAY)
-    fs = [f for f in a.findings if f.card == "claims"]
+    fs = [f for f in a.findings if f.topic == "claims" and f.area == "truth" and f.card is None]
     return fs[0], a
 
 
@@ -15,7 +15,7 @@ def test_sugar_free_contradicted_by_dextrose():
     f, a = claim(mk(["Wheat flour", "Maltitol (E965)", "Dextrose"], claims=["Sugar free"]))
     assert f.data["verdict"] == "contradicted" and f.severity == "check" and "dextrose" in f.reason
     assert "laxative" in f.reason and "not sugars" in f.reason
-    assert a.cards[4].status == "check" and "contradicted" in a.cards[4].headline
+    assert area(a, "truth").status == "check" and "contradicted" in area(a, "truth").headline
 
 
 def test_sugar_free_contradicted_by_nutrition():
@@ -91,11 +91,12 @@ def test_unknown_claim_unverifiable_inferred():
 
 def test_no_claims_headline():
     a = analyze(mk(["Water"]), today=TODAY)
-    assert a.cards[4].headline == "No claims read" and a.cards[4].finding_ids == []
+    assert area(a, "truth").headline.startswith("No claims read")
+    assert not [f for f in a.findings if f.topic == "claims"]
 
 
 def test_unsupported_and_checked_headlines():
     a = analyze(mk(["Water", "Tartrazine"], claims=["Natural"]), today=TODAY)
-    assert a.cards[4].headline == "1 claim not fully supported"
+    assert area(a, "truth").headline.startswith("1 claim not fully supported")
     b = analyze(mk(["Rice"], claims=["Vegan"]), today=TODAY)
-    assert b.cards[4].headline == "1 claim checked"
+    assert area(b, "truth").headline.startswith("1 claim checked")

@@ -87,16 +87,16 @@ def apply_off(st: ScanState, analysis: Analysis) -> Analysis:
     if not a or not b or a & b:
         return analysis
     f = Finding(
-        id="barcode.name_differs", card="ingredients", category="barcode", severity="info",
+        id="barcode.name_differs", area="truth", topic="authenticity", card=None, category="barcode", severity="info",
         risk="no_known_concern", tier="verified", title="Barcode record differs from label",
         reason="The product name in the barcode database does not match the name read from the pack.",
         next_step="Check you scanned the right product.",
         sources=[Source(label="Open Food Facts", url="https://world.openfoodfacts.org")],
         data={"off_name": st.off.get("name"), "off_brand": st.off.get("brand"), "label_name": label_name},
     )
-    cards = [c.model_copy(update={"finding_ids": [*c.finding_ids, f.id]}) if c.id == "ingredients" else c
-             for c in analysis.cards]
-    return analysis.model_copy(update={"findings": [*analysis.findings, f], "cards": cards})
+    areas = [a.model_copy(update={"finding_ids": [*a.finding_ids, f.id]}) if a.id == "truth" else a
+             for a in analysis.areas]
+    return analysis.model_copy(update={"findings": [*analysis.findings, f], "areas": areas})
 
 
 async def run_rules(st: ScanState, resolved: dict[str, str] | None = None) -> None:

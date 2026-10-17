@@ -4,7 +4,7 @@ import pytest
 
 from app.rules import analyze
 from app.rules.dates import parse_date
-from tests.rules.helpers import TODAY, mk
+from tests.rules.helpers import area, TODAY, mk
 
 
 def d(raw, kind="best_before"):
@@ -43,7 +43,8 @@ def test_expired_banner_and_severity():
     f = next(x for x in a.findings if x.id == "date.expiry")
     assert f.severity == "avoid" and f.tier == "inferred"
     assert "expired:2026-09-01" in a.banners
-    assert a.cards[5].status == "avoid" and a.cards[5].headline == "Date on the pack has passed"
+    assert area(a, "body").status == "avoid" and area(a, "body").headline.endswith("; date passed")
+    assert f.area == "body" and f.topic == "dates" and f.card is None
 
 
 def test_near_expiry_window_inclusive():

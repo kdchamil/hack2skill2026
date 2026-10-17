@@ -1,0 +1,913 @@
+{
+ "version": "2026.10.17-1",
+ "ranges": [
+  {
+   "id": "milk_powder",
+   "name": "Milk powder",
+   "keywords": {
+    "en": [
+     "milk powder",
+     "powdered milk",
+     "full cream milk powder",
+     "instant milk"
+    ],
+    "si": [
+     "කිරි පිටි",
+     "කිරිපිටි"
+    ],
+    "ta": [
+     "பால் மா",
+     "பால்மா"
+    ]
+   }
+  },
+  {
+   "id": "fresh_milk",
+   "name": "Milk",
+   "keywords": {
+    "en": [
+     "fresh milk",
+     "uht milk",
+     "liquid milk",
+     "milk"
+    ],
+    "si": [
+     "කිරි"
+    ],
+    "ta": [
+     "பால்"
+    ]
+   }
+  },
+  {
+   "id": "biscuits",
+   "name": "Biscuits",
+   "keywords": {
+    "en": [
+     "biscuit",
+     "cracker",
+     "cookie",
+     "wafer",
+     "cream cracker"
+    ],
+    "si": [
+     "බිස්කට්",
+     "බිස්කෝතු"
+    ],
+    "ta": [
+     "பிஸ்கட்",
+     "பிஸ்கோத்து"
+    ]
+   }
+  },
+  {
+   "id": "instant_noodles",
+   "name": "Instant noodles",
+   "keywords": {
+    "en": [
+     "instant noodle",
+     "cup noodle",
+     "ramen",
+     "noodles"
+    ],
+    "si": [
+     "නූඩ්ල්ස්",
+     "නූඩ්ල්"
+    ],
+    "ta": [
+     "நூடுல்ஸ்"
+    ]
+   }
+  },
+  {
+   "id": "pasta",
+   "name": "Pasta",
+   "keywords": {
+    "en": [
+     "pasta",
+     "spaghetti",
+     "macaroni"
+    ],
+    "si": [
+     "පාස්තා",
+     "ස්පැගටි"
+    ],
+    "ta": [
+     "பாஸ்தா",
+     "ஸ்பாகெட்டி"
+    ]
+   }
+  },
+  {
+   "id": "tea",
+   "name": "Tea",
+   "keywords": {
+    "en": [
+     "tea",
+     "tea bag",
+     "black tea",
+     "green tea",
+     "ceylon tea"
+    ],
+    "si": [
+     "තේ",
+     "තේ කොළ"
+    ],
+    "ta": [
+     "தேநீர்",
+     "தேயிலை",
+     "டீ"
+    ]
+   }
+  },
+  {
+   "id": "coffee",
+   "name": "Coffee",
+   "keywords": {
+    "en": [
+     "coffee",
+     "instant coffee",
+     "3in1 coffee"
+    ],
+    "si": [
+     "කෝපි"
+    ],
+    "ta": [
+     "காபி",
+     "கோப்பி"
+    ]
+   }
+  },
+  {
+   "id": "rice",
+   "name": "Rice",
+   "keywords": {
+    "en": [
+     "rice",
+     "basmati",
+     "samba",
+     "nadu",
+     "keeri samba",
+     "red rice",
+     "white rice"
+    ],
+    "si": [
+     "සහල්",
+     "බත්",
+     "සම්බා",
+     "නාඩු"
+    ],
+    "ta": [
+     "அரிசி",
+     "சம்பா",
+     "பாசுமதி"
+    ]
+   }
+  },
+  {
+   "id": "flour",
+   "name": "Flour",
+   "keywords": {
+    "en": [
+     "wheat flour",
+     "all purpose flour",
+     "atta",
+     "flour",
+     "rice flour"
+    ],
+    "si": [
+     "පිටි",
+     "තිරිඟු පිටි",
+     "සහල් පිටි"
+    ],
+    "ta": [
+     "மாவு",
+     "கோதுமை மாவு",
+     "அரிசி மாவு"
+    ]
+   }
+  },
+  {
+   "id": "bread",
+   "name": "Bread",
+   "keywords": {
+    "en": [
+     "bread",
+     "bun",
+     "loaf",
+     "sandwich bread"
+    ],
+    "si": [
+     "පාන්",
+     "බනිස්"
+    ],
+    "ta": [
+     "பாண்",
+     "ரொட்டி"
+    ]
+   }
+  },
+  {
+   "id": "cooking_oil",
+   "name": "Cooking oil",
+   "keywords": {
+    "en": [
+     "cooking oil",
+     "vegetable oil",
+     "sunflower oil",
+     "palm oil",
+     "coconut oil",
+     "canola oil",
+     "oil"
+    ],
+    "si": [
+     "පොල්තෙල්",
+     "ඉස්ම තෙල්",
+     "පිසින තෙල්",
+     "තෙල්"
+    ],
+    "ta": [
+     "எண்ணெய்",
+     "தேங்காய் எண்ணெய்",
+     "சமையல் எண்ணெய்"
+    ]
+   }
+  },
+  {
+   "id": "snacks",
+   "name": "Snacks",
+   "keywords": {
+    "en": [
+     "snack",
+     "chips",
+     "crisps",
+     "murukku",
+     "kokis",
+     "mixture",
+     "popcorn",
+     "puffs",
+     "namkeen"
+    ],
+    "si": [
+     "කෙටි කෑම",
+     "චිප්ස්",
+     "කොකිස්"
+    ],
+    "ta": [
+     "சிற்றுண்டி",
+     "சிப்ஸ்",
+     "முறுக்கு"
+    ]
+   }
+  },
+  {
+   "id": "soup",
+   "name": "Soup",
+   "keywords": {
+    "en": [
+     "soup",
+     "instant soup",
+     "soup mix",
+     "bouillon"
+    ],
+    "si": [
+     "සුප්",
+     "සූප්"
+    ],
+    "ta": [
+     "சூப்"
+    ]
+   }
+  },
+  {
+   "id": "peanut_butter",
+   "name": "Peanut butter",
+   "keywords": {
+    "en": [
+     "peanut butter",
+     "nut butter"
+    ],
+    "si": [
+     "රටකජු බටර්"
+    ],
+    "ta": [
+     "வேர்க்கடலை வெண்ணெய்",
+     "நிலக்கடலை பட்டர்"
+    ]
+   }
+  },
+  {
+   "id": "plant_milk",
+   "name": "Plant milk",
+   "keywords": {
+    "en": [
+     "plant milk",
+     "oat drink",
+     "oat milk",
+     "soy milk",
+     "almond milk",
+     "rice milk",
+     "soya milk",
+     "coconut milk drink"
+    ],
+    "si": [
+     "සෝයා කිරි",
+     "ඕට් කිරි"
+    ],
+    "ta": [
+     "சோயா பால்",
+     "ஓட் பால்",
+     "பாதாம் பால்"
+    ]
+   }
+  },
+  {
+   "id": "coconut_milk",
+   "name": "Coconut milk",
+   "keywords": {
+    "en": [
+     "coconut milk",
+     "coconut cream",
+     "coconut powder"
+    ],
+    "si": [
+     "පොල් කිරි"
+    ],
+    "ta": [
+     "தேங்காய் பால்"
+    ]
+   }
+  },
+  {
+   "id": "butter_ghee",
+   "name": "Butter and ghee",
+   "keywords": {
+    "en": [
+     "butter",
+     "ghee",
+     "margarine"
+    ],
+    "si": [
+     "බටර්",
+     "ගී",
+     "මාගරින්"
+    ],
+    "ta": [
+     "வெண்ணெய்",
+     "நெய்"
+    ]
+   }
+  },
+  {
+   "id": "cheese",
+   "name": "Cheese",
+   "keywords": {
+    "en": [
+     "cheese",
+     "cheddar",
+     "processed cheese"
+    ],
+    "si": [
+     "චීස්"
+    ],
+    "ta": [
+     "பாலாடைக்கட்டி",
+     "சீஸ்"
+    ]
+   }
+  },
+  {
+   "id": "yoghurt",
+   "name": "Yoghurt",
+   "keywords": {
+    "en": [
+     "yoghurt",
+     "yogurt",
+     "curd",
+     "dahi"
+    ],
+    "si": [
+     "යෝගට්",
+     "කිරි දහී",
+     "දියර දහී"
+    ],
+    "ta": [
+     "தயிர்",
+     "யோகர்ட்"
+    ]
+   }
+  },
+  {
+   "id": "eggs",
+   "name": "Eggs",
+   "keywords": {
+    "en": [
+     "egg",
+     "eggs"
+    ],
+    "si": [
+     "බිත්තර"
+    ],
+    "ta": [
+     "முட்டை"
+    ]
+   }
+  },
+  {
+   "id": "sugar_sweeteners",
+   "name": "Sugar and sweeteners",
+   "keywords": {
+    "en": [
+     "sugar",
+     "brown sugar",
+     "jaggery",
+     "sweetener",
+     "icing sugar"
+    ],
+    "si": [
+     "සීනි",
+     "හකුරු",
+     "පැණි"
+    ],
+    "ta": [
+     "சீனி",
+     "சர்க்கரை",
+     "கருப்பட்டி"
+    ]
+   }
+  },
+  {
+   "id": "salt_spices",
+   "name": "Salt and spices",
+   "keywords": {
+    "en": [
+     "salt",
+     "chilli powder",
+     "curry powder",
+     "turmeric",
+     "pepper",
+     "spice",
+     "masala",
+     "cinnamon"
+    ],
+    "si": [
+     "ලුණු",
+     "මිරිස් කුඩු",
+     "කරි කුඩු",
+     "කහ"
+    ],
+    "ta": [
+     "உப்பு",
+     "மிளகாய்த்தூள்",
+     "கறித்தூள்",
+     "மஞ்சள்"
+    ]
+   }
+  },
+  {
+   "id": "sauces",
+   "name": "Sauces and condiments",
+   "keywords": {
+    "en": [
+     "sauce",
+     "ketchup",
+     "chilli sauce",
+     "soy sauce",
+     "mayonnaise",
+     "vinegar",
+     "pickle",
+     "chutney"
+    ],
+    "si": [
+     "සෝස්",
+     "කෙචප්",
+     "මේයනේස්",
+     "අච්චාරු"
+    ],
+    "ta": [
+     "சாஸ்",
+     "கெட்சப்",
+     "ஊறுகாய்",
+     "மயோனைஸ்"
+    ]
+   }
+  },
+  {
+   "id": "jam_spreads",
+   "name": "Jam and spreads",
+   "keywords": {
+    "en": [
+     "jam",
+     "marmalade",
+     "chocolate spread",
+     "honey",
+     "fruit spread"
+    ],
+    "si": [
+     "ජෑම්",
+     "පැණි මී"
+    ],
+    "ta": [
+     "ஜாம்",
+     "தேன்"
+    ]
+   }
+  },
+  {
+   "id": "breakfast_cereal",
+   "name": "Breakfast cereal",
+   "keywords": {
+    "en": [
+     "cereal",
+     "cornflakes",
+     "corn flakes",
+     "muesli",
+     "granola",
+     "oats",
+     "oatmeal"
+    ],
+    "si": [
+     "ධාන්‍ය",
+     "ඕට්ස්",
+     "කෝන් ෆ්ලේක්ස්"
+    ],
+    "ta": [
+     "ஓட்ஸ்",
+     "கார்ன் ஃபிளேக்ஸ்"
+    ]
+   }
+  },
+  {
+   "id": "chocolate_sweets",
+   "name": "Chocolate and sweets",
+   "keywords": {
+    "en": [
+     "chocolate",
+     "candy",
+     "toffee",
+     "sweets",
+     "confectionery",
+     "gummies",
+     "dessert"
+    ],
+    "si": [
+     "චොකලට්",
+     "රසකැවිලි",
+     "ටොෆි"
+    ],
+    "ta": [
+     "சாக்லேட்",
+     "மிட்டாய்",
+     "இனிப்பு"
+    ]
+   }
+  },
+  {
+   "id": "soft_drinks",
+   "name": "Soft drinks",
+   "keywords": {
+    "en": [
+     "soft drink",
+     "soda",
+     "cola",
+     "lemonade",
+     "fizzy drink",
+     "energy drink",
+     "cordial"
+    ],
+    "si": [
+     "බීම",
+     "කෝලා",
+     "සෝඩා"
+    ],
+    "ta": [
+     "குளிர்பானம்",
+     "கோலா",
+     "சோடா"
+    ]
+   }
+  },
+  {
+   "id": "juice",
+   "name": "Juice",
+   "keywords": {
+    "en": [
+     "juice",
+     "fruit drink",
+     "nectar",
+     "smoothie"
+    ],
+    "si": [
+     "යුෂ",
+     "ජූස්"
+    ],
+    "ta": [
+     "பழச்சாறு",
+     "ஜூஸ்"
+    ]
+   }
+  },
+  {
+   "id": "water",
+   "name": "Water",
+   "keywords": {
+    "en": [
+     "bottled water",
+     "mineral water",
+     "drinking water",
+     "sparkling water"
+    ],
+    "si": [
+     "වතුර",
+     "ජලය"
+    ],
+    "ta": [
+     "தண்ணீர்",
+     "குடிநீர்"
+    ]
+   }
+  },
+  {
+   "id": "malt_drinks",
+   "name": "Malt and milk drinks",
+   "keywords": {
+    "en": [
+     "milo",
+     "horlicks",
+     "malted drink",
+     "chocolate drink powder",
+     "milk tea powder",
+     "drinking chocolate",
+     "bournvita"
+    ],
+    "si": [
+     "මයිලෝ",
+     "හෝලික්ස්"
+    ],
+    "ta": [
+     "மைலோ",
+     "ஹார்லிக்ஸ்"
+    ]
+   }
+  },
+  {
+   "id": "lentils_pulses",
+   "name": "Lentils and pulses",
+   "keywords": {
+    "en": [
+     "lentil",
+     "dhal",
+     "dal",
+     "chickpea",
+     "green gram",
+     "mung",
+     "cowpea",
+     "kadala",
+     "pulses",
+     "beans"
+    ],
+    "si": [
+     "පරිප්පු",
+     "කඩල",
+     "මුං",
+     "කව්පි"
+    ],
+    "ta": [
+     "பருப்பு",
+     "கடலை",
+     "பயறு"
+    ]
+   }
+  },
+  {
+   "id": "canned_fish",
+   "name": "Canned fish",
+   "keywords": {
+    "en": [
+     "canned fish",
+     "tinned fish",
+     "sardine",
+     "tuna",
+     "mackerel",
+     "canned tuna"
+    ],
+    "si": [
+     "ටින් මාළු",
+     "කෑන්ඩ් ෆිෂ්",
+     "ටූනා"
+    ],
+    "ta": [
+     "டின் மீன்",
+     "சூடை",
+     "டுனா"
+    ]
+   }
+  },
+  {
+   "id": "dried_fish",
+   "name": "Dried fish",
+   "keywords": {
+    "en": [
+     "dried fish",
+     "karawala",
+     "maldive fish",
+     "dry fish",
+     "salted fish"
+    ],
+    "si": [
+     "කරවල",
+     "උම්බලකඩ"
+    ],
+    "ta": [
+     "கருவாடு",
+     "உப்புக்கண்டம்"
+    ]
+   }
+  },
+  {
+   "id": "meat_sausage",
+   "name": "Meat and sausages",
+   "keywords": {
+    "en": [
+     "sausage",
+     "ham",
+     "bacon",
+     "meatball",
+     "nuggets",
+     "corned beef",
+     "fresh chicken",
+     "chicken breast",
+     "minced meat"
+    ],
+    "si": [
+     "සොසේජස්",
+     "කුකුල් මස්",
+     "හරක් මස්"
+    ],
+    "ta": [
+     "சாசேஜ்",
+     "கோழி",
+     "மாட்டிறைச்சி",
+     "ஆட்டிறைச்சி"
+    ]
+   }
+  },
+  {
+   "id": "frozen_food",
+   "name": "Frozen food",
+   "keywords": {
+    "en": [
+     "frozen",
+     "frozen vegetables",
+     "french fries",
+     "ice cream",
+     "frozen paratha",
+     "frozen pizza"
+    ],
+    "si": [
+     "අයිස්ක්‍රීම්",
+     "ශීත කළ"
+    ],
+    "ta": [
+     "ஐஸ்கிரீம்",
+     "உறைந்த"
+    ]
+   }
+  },
+  {
+   "id": "canned_vegetables_fruit",
+   "name": "Canned fruit and vegetables",
+   "keywords": {
+    "en": [
+     "canned fruit",
+     "canned vegetables",
+     "canned corn",
+     "canned beans",
+     "tinned fruit",
+     "fruit cocktail",
+     "baked beans"
+    ],
+    "si": [
+     "ටින් එළවළු",
+     "ටින් පළතුරු"
+    ],
+    "ta": [
+     "டின் பழம்",
+     "டின் காய்கறி"
+    ]
+   }
+  },
+  {
+   "id": "nuts_seeds",
+   "name": "Nuts and seeds",
+   "keywords": {
+    "en": [
+     "cashew",
+     "peanut",
+     "almond",
+     "walnut",
+     "nuts",
+     "raisins",
+     "dried fruit",
+     "sesame",
+     "seeds"
+    ],
+    "si": [
+     "කජු",
+     "රටකජු",
+     "තල",
+     "වියළි පලතුරු"
+    ],
+    "ta": [
+     "முந்திரி",
+     "வேர்க்கடலை",
+     "பாதாம்",
+     "எள்",
+     "உலர் பழம்"
+    ]
+   }
+  },
+  {
+   "id": "baby_food",
+   "name": "Baby food",
+   "keywords": {
+    "en": [
+     "baby food",
+     "infant formula",
+     "baby cereal",
+     "follow on milk",
+     "toddler milk",
+     "growing up milk"
+    ],
+    "si": [
+     "ළදරු ආහාර",
+     "ළමා කිරි"
+    ],
+    "ta": [
+     "குழந்தை உணவு",
+     "குழந்தை பால்"
+    ]
+   }
+  },
+  {
+   "id": "ready_meals",
+   "name": "Ready meals and mixes",
+   "keywords": {
+    "en": [
+     "ready meal",
+     "instant rice",
+     "pancake mix",
+     "cake mix",
+     "idli mix",
+     "dosa mix",
+     "string hopper",
+     "hopper mix",
+     "kottu",
+     "instant mix"
+    ],
+    "si": [
+     "ඉඳිආප්ප",
+     "ආප්ප",
+     "සූදානම් කෑම",
+     "රොටි"
+    ],
+    "ta": [
+     "இடியாப்பம்",
+     "இட்லி மாவு",
+     "தோசை மாவு",
+     "ஆப்பம்"
+    ]
+   }
+  },
+  {
+   "id": "traditional_sweets",
+   "name": "Traditional sweets",
+   "keywords": {
+    "en": [
+     "kavum",
+     "kokis",
+     "aluwa",
+     "halape",
+     "laddu",
+     "jalebi",
+     "wattalappam",
+     "murukku sweet",
+     "kiribath",
+     "bonda"
+    ],
+    "si": [
+     "කැවුම්",
+     "අලුවා",
+     "හලප",
+     "වටලප්පන්"
+    ],
+    "ta": [
+     "லட்டு",
+     "ஜிலேபி",
+     "வட்டலப்பம்",
+     "அல்வா"
+    ]
+   }
+  }
+ ]
+}

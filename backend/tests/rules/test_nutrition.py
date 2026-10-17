@@ -2,7 +2,7 @@ import pytest
 
 from app.rules import analyze
 from app.rules.nutrition import compute, level, salt_g_from_sodium_mg, sodium_mg_from_salt_g, NRV
-from tests.rules.helpers import TODAY, mk, nut
+from tests.rules.helpers import TODAY, area, card, mk, nut
 
 
 @pytest.mark.parametrize("nutrient,value,expected", [
@@ -52,16 +52,16 @@ def test_nrv_reference_recorded():
 def test_missing_nutrition():
     a = analyze(mk(["a"]), today=TODAY)
     assert a.facts.nutrient_levels == {"sodium": "unknown", "sugars": "unknown", "fat_saturated": "unknown"}
-    assert a.cards[1].headline == "Nutrition not read"
-    assert a.cards[1].tier == "unknown"
+    assert card(a, "nutrition").headline == "Nutrition not read"
+    assert card(a, "nutrition").tier == "unknown" and card(a, "nutrition").grade is None
 
 
 def test_summary_sentence_and_headline():
     a = analyze(mk(["a"], nutrition=nut(energy_kcal=500, sodium_mg=900, sugars_total=1, fat_saturated=1)), today=TODAY)
     s = next(f for f in a.findings if f.id == "nutrition.summary")
     assert s.reason.startswith("Per 100 g: 500 kcal") and "sodium 900 mg (high)" in s.reason
-    assert a.cards[1].headline == "High in sodium" and a.cards[1].status == "check"
+    assert card(a, "nutrition").headline == "High in sodium" and card(a, "nutrition").status == "check"
     b = analyze(mk(["a"], nutrition=nut(sodium_mg=10, sugars_total=1, fat_saturated=1)), today=TODAY)
-    assert b.cards[1].headline == "No high nutrient levels found"
+    assert card(b, "nutrition").headline == "No high nutrient levels found"
     c = analyze(mk(["a"], nutrition=nut(protein=5)), today=TODAY)
-    assert c.cards[1].headline == "Nutrition read, levels unknown"
+    assert card(c, "nutrition").headline == "Nutrition read, levels unknown"

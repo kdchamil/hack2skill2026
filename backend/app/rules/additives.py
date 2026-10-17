@@ -66,6 +66,10 @@ def findings(info: IngredientInfo) -> list[Finding]:
             {"code": code, "name": a["name"], "function": a["function"], "status": a["status"], "risk": risk},
             extra_sources=[Source(label="Codex GSFA", url="https://www.fao.org/gsfaonline/")],
         ))
+    if not s.codes:
+        out.append(make_finding(
+            "additives.none", "ingredients", "additives_none", "good", "no_known_concern", "inferred",
+            "No additives found", "No E-number or additive name was found in the ingredient list we could read."))
     out.append(make_finding(
         "ingredients.processing", "ingredients", "processing", "info", "no_known_concern", "inferred",
         f"Processing level: {s.level}",

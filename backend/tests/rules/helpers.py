@@ -31,3 +31,11 @@ def nut(**kw):
     """nut(sodium_mg=800, sugars_total=3) -> list of NutrientRow dicts (per 100 g)."""
     units = {"energy_kcal": "kcal", "sodium_mg": "mg"}
     return [{"nutrient": k, "per_100g": v, "per_serving": None, "unit": units.get(k, "g")} for k, v in kw.items()]
+
+
+def card(a, cid):
+    return next(c for c in a.cards if c.id == cid)
+
+
+def area(a, aid):
+    return next(x for x in a.areas if x.id == aid)

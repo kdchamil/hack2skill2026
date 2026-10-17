@@ -2,7 +2,7 @@ import pytest
 
 from app.rules import analyze
 from app.rules.packaging import parse_code
-from tests.rules.helpers import TODAY, mk
+from tests.rules.helpers import TODAY, area, card, mk
 
 
 @pytest.mark.parametrize("raw,code,mat", [
@@ -29,14 +29,17 @@ def test_findings_label_stated_and_carbon_unknown():
     assert f.tier == "label_stated" and f.data["number"] == 5
     c = next(x for x in a.findings if x.category == "carbon")
     assert c.tier == "unknown" and "no reliable data" in c.title.lower()
-    assert a.cards[5].tier == "label_stated"  # carbon is not a key finding for the tier
+    assert card(a, "packaging").tier == "label_stated" and card(a, "packaging").grade == "C"
+    assert card(a, "carbon").tier == "unknown" and card(a, "carbon").grade is None
+    assert (c.area, c.topic, c.card) == ("planet", "carbon", "carbon")
 
 
 def test_no_codes_still_has_carbon():
     a = analyze(mk(["a"]), today=TODAY)
     assert any(f.id == "packaging.code.none" for f in a.findings)
     assert any(f.category == "carbon" for f in a.findings)
-    assert a.cards[5].headline == "No recycling code read; carbon: no data"
+    assert card(a, "packaging").headline == "No recycling code read" and card(a, "packaging").grade is None
+    assert area(a, "planet").headline == "No recycling code read; carbon, water: no data"
 
 
 def test_duplicate_codes_deduped():

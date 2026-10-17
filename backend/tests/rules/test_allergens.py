@@ -3,7 +3,7 @@ import pytest
 from app.rules import analyze
 from app.rules.allergens import detect
 from app.rules.ingredients import build_info, scan_allergens
-from tests.rules.helpers import TODAY, mk
+from tests.rules.helpers import TODAY, mk, area
 
 
 def contains(ext, **kw):
@@ -79,14 +79,14 @@ def test_verbatim_fallback_splits_statements():
 def test_none_found_finding():
     a = analyze(mk(["Water", "Salt"]), today=TODAY)
     assert any(f.id == "allergen.none_found" for f in a.findings)
-    assert "None found" in a.cards[0].headline
+    assert "None found" in area(a, "body").headline
 
 
 def test_unknown_ingredients():
     a = analyze(mk(None, ing_conf=0.3), today=TODAY)
     assert not a.facts.ingredients_known
-    assert a.cards[0].headline == "Ingredients unreadable — check the pack"
-    assert a.cards[0].status == "check"
+    assert area(a, "body").headline == "Ingredients unreadable — check the pack"
+    assert area(a, "body").status == "check"
     assert "retake:ingredients" in a.banners
 
 

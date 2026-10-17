@@ -28,7 +28,38 @@ DIETS: list[str] = ["vegan", "vegetarian", "gluten_free", "lactose_free", "halal
 
 TIER_ORDER: dict[str, int] = {"unknown": 0, "inferred": 1, "label_stated": 2, "verified": 3}
 SEVERITY_ORDER: dict[str, int] = {"good": 0, "info": 1, "check": 2, "avoid": 3}
-CARD_ORDER: list[str] = ["allergens", "nutrition", "diet", "ingredients", "claims", "packaging"]
+CARD_ORDER: list[str] = ["nutrition", "processing", "additives", "carbon", "water_land", "packaging"]
+HEALTH_CARDS: list[str] = ["nutrition", "processing", "additives"]
+PLANET_CARDS: list[str] = ["carbon", "water_land", "packaging"]
+AREA_ORDER: list[str] = ["body", "planet", "people", "truth", "choice"]
+AREA_CARDS: dict[str, list[str]] = {"body": HEALTH_CARDS, "planet": PLANET_CARDS, "people": [], "truth": [], "choice": []}
+
+# (legacy group, category) -> (area, topic, graded card). The rule modules still name the legacy group
+# ("allergens", "diet", "nutrition", "ingredients", "claims", "packaging") and category; FR-57 homing lives here only.
+_ROUTES: dict[tuple[str, str], tuple[str, str, str | None]] = {
+    ("allergens", "allergen_contains"): ("body", "allergens", None),
+    ("allergens", "allergen_may_contain"): ("body", "allergens", None),
+    ("diet", "diet"): ("body", "diet", None),
+    ("nutrition", "nutrient_level"): ("body", "nutrition", "nutrition"),
+    ("nutrition", "nutrition_summary"): ("body", "nutrition", "nutrition"),
+    ("ingredients", "additive"): ("body", "additives", "additives"),
+    ("ingredients", "ingredients_unknown"): ("body", "additives", "additives"),
+    ("ingredients", "processing"): ("body", "processing", "processing"),
+    ("ingredients", "ingredient_count"): ("body", "processing", "processing"),
+    ("ingredients", "unresolved"): ("body", "processing", "processing"),
+    ("ingredients", "additives_none"): ("body", "additives", "additives"),
+    ("claims", "claim"): ("truth", "claims", None),
+    ("packaging", "date"): ("body", "dates", None),
+    ("packaging", "packaging"): ("planet", "packaging", "packaging"),
+    ("packaging", "carbon"): ("planet", "carbon", "carbon"),
+    ("extra", "recalls"): ("body", "recalls", None),
+    ("extra", "water_land"): ("planet", "water_land", "water_land"),
+    ("extra", "labour"): ("people", "labour", None),
+    ("extra", "sourcing"): ("people", "sourcing", None),
+    ("extra", "animal_welfare"): ("people", "animal_welfare", None),
+    ("extra", "label_clarity"): ("truth", "label_clarity", None),
+    ("extra", "authenticity"): ("truth", "authenticity", None),
+}
 
 
 def weakest(tiers: list[str]) -> Tier:
@@ -123,16 +154,17 @@ def src_label() -> Source:
 
 
 def make_finding(
-    fid: str, card: str, category: str, severity: str, risk: str, tier: str,
+    fid: str, group: str, category: str, severity: str, risk: str, tier: str,
     title: str, reason: str, next_step: str | None = None, data: dict[str, Any] | None = None,
     label_read: bool = True, extra_sources: list[Source] | None = None,
 ) -> Finding:
+    area, topic, card = _ROUTES[(group, category)]
     sources = [src_rules()]
     if label_read:
         sources.append(src_label())
     sources.extend(extra_sources or [])
     return Finding(
-        id=fid, card=card, category=category, severity=severity, risk=risk, tier=tier,  # type: ignore[arg-type]
+        id=fid, area=area, topic=topic, card=card, category=category, severity=severity, risk=risk, tier=tier,  # type: ignore[arg-type]
         title=title, reason=reason, next_step=next_step, sources=sources, data=data or {},
     )
 

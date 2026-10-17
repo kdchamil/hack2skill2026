@@ -52,7 +52,7 @@ def test_processing_levels():
 def test_additive_findings_label_stated_with_sources():
     a = analyze(mk(["Flavour enhancer (E621)"]), today=TODAY)
     f = next(x for x in a.findings if x.id == "additive.e621")
-    assert f.tier == "label_stated" and f.risk == "debated" and f.card == "ingredients"
+    assert f.tier == "label_stated" and f.risk == "debated" and f.area == "body" and f.topic == "additives" and f.card == "additives"
     labels = [s.label for s in f.sources]
     assert "Rule pack 2026.10.17-1" in labels and "Pack label" in labels and "Codex GSFA" in labels
 

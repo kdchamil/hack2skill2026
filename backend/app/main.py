@@ -10,7 +10,7 @@ from app.config import get_settings
 
 CSP = (
     "default-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; "
-    "style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; "
     "worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'"
 )
 HEADERS = {

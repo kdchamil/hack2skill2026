@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tokens and components</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1240px; height: 1180px; box-sizing: border-box; padding: 48px 56px; background: #F1FAF7; color: #263238; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; align-content: start">
+
+  <header style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px">
+    <div style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: #0F6E63">FOR DEVELOPERS</div>
+    <h1 style="margin: 0; font-family: Lexend, sans-serif; font-size: 36px; font-weight: 700">Tokens, states and components</h1>
+    <p style="margin: 0; font-size: 16px; color: #4F5F5C">Every text pair below meets WCAG 2.2 AA (4.5:1). Status always pairs colour with an icon and a word.</p>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 10px">
+    <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Colour</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; font-size: 14px">
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #F1FAF7; border: 1px solid #CFE5DE"></span><div><b>bg</b> #F1FAF7<br><span style="color: #4F5F5C">Page ground</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #FFFFFF; border: 1px solid #CFE5DE"></span><div><b>surface</b> #FFFFFF<br><span style="color: #4F5F5C">Cards, sheets</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #263238"></span><div><b>ink</b> #263238<br><span style="color: #4F5F5C">Text, 12.4:1</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #4F5F5C"></span><div><b>ink-muted</b> #4F5F5C<br><span style="color: #4F5F5C">Secondary, 6.3:1</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #0F6E63"></span><div><b>primary</b> #0F6E63<br><span style="color: #4F5F5C">Actions, focus</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #E3F3EE"></span><div><b>primary-soft</b> #E3F3EE<br><span style="color: #4F5F5C">Selected, None found</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #B42318"></span><div><b>avoid</b> #B42318<br><span style="color: #4F5F5C">White text, 6.5:1</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #FFF4D6; border: 2px solid #E9B949"></span><div><b>check</b> #FFF4D6 / #6B4600<br><span style="color: #4F5F5C">Ink on light, 7.7:1</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #CFE5DE"></span><div><b>line</b> #CFE5DE<br><span style="color: #4F5F5C">Dividers only</span></div></div>
+      <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 8px"><span style="width: 36px; height: 36px; border-radius: 8px; background: #5F6E6B"></span><div><b>unknown</b> #5F6E6B<br><span style="color: #4F5F5C">Grey tier, 5.0:1</span></div></div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Household verdicts (FR-22)</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap">
+      <span style="display: inline-flex; gap: 6px; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #B42318; color: #FFFFFF; font-weight: 700; font-size: 16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"></path><path d="M9 9l6 6M15 9l-6 6"></path></svg>Avoid</span>
+      <span style="display: inline-flex; gap: 6px; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #FFF4D6; border: 2px solid #E9B949; color: #6B4600; font-weight: 700; font-size: 16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"></path><path d="M12 10v4M12 17.5v.5"></path></svg>Check</span>
+      <span style="display: inline-flex; gap: 6px; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: #E3F3EE; border: 2px solid #0F6E63; color: #0A4F47; font-weight: 700; font-size: 16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>None found</span>
+    </div>
+    <p style="margin: 0; font-size: 14px; color: #4F5F5C">Shape differs per verdict: octagon, triangle, circle. Screen reader reads "Amaya: Avoid. Sesame."</p>
+
+    <h2 style="margin: 4px 0 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Evidence tiers (Section 10)</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; font-size: 14px; font-weight: 700">
+      <span style="display: inline-flex; gap: 5px; align-items: center; padding: 4px 10px; border-radius: 6px; background: #0F6E63; color: #FFFFFF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>Verified</span>
+      <span style="display: inline-flex; gap: 5px; align-items: center; padding: 3px 9px; border-radius: 6px; border: 1.5px solid #0F6E63; color: #0A4F47"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h4"></path></svg>Label-stated</span>
+      <span style="display: inline-flex; gap: 5px; align-items: center; padding: 3px 9px; border-radius: 6px; border: 1.5px dashed #0F6E63; color: #0A4F47"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6M12 17h.01"></path></svg>Inferred</span>
+      <span style="display: inline-flex; gap: 5px; align-items: center; padding: 4px 10px; border-radius: 6px; background: #E8ECEB; color: #3D4A48"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path></svg>Unknown</span>
+    </div>
+
+    <h2 style="margin: 4px 0 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Grade scale (FR-47)</h2>
+    <div style="display: flex; gap: 8px; align-items: center">
+      <span style="width: 48px; height: 48px; border-radius: 12px; background: #0F6E63; color: #FFFFFF; font-family: Lexend, sans-serif; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center">A</span>
+      <span style="width: 48px; height: 48px; border-radius: 12px; background: #2F7A6B; color: #FFFFFF; font-family: Lexend, sans-serif; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center">B</span>
+      <span style="width: 48px; height: 48px; border-radius: 12px; background: #E9C25A; color: #263238; font-family: Lexend, sans-serif; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center">C</span>
+      <span style="width: 48px; height: 48px; border-radius: 12px; background: #E39A55; color: #263238; font-family: Lexend, sans-serif; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center">D</span>
+      <span style="width: 48px; height: 48px; border-radius: 12px; background: #9E3B2E; color: #FFFFFF; font-family: Lexend, sans-serif; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center">E</span>
+      <span style="width: 48px; height: 48px; border-radius: 12px; border: 2px dashed #5F6E6B; color: #3D4A48; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.1">No<br>grade</span>
+    </div>
+    <p style="margin: 0; font-size: 14px; color: #4F5F5C">The letter carries the meaning; colour supports it. Not Nutri-Score colours.</p>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 10px">
+    <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Type, space, shape</h2>
+    <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 6px">
+      <div style="font-family: Lexend, sans-serif; font-size: 28px; font-weight: 700">Display 28 / Lexend 700</div>
+      <div style="font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600">Title 20 / Lexend 600</div>
+      <div style="font-size: 17px; font-weight: 700">Body bold 17 / Atkinson 700</div>
+      <div style="font-size: 16px">Body 16 / Atkinson 400, line 1.45</div>
+      <div style="font-size: 14px; color: #4F5F5C">Caption 14, never smaller. Sinhala and Tamil: Noto Sans, +2 px.</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; font-size: 14px">
+      <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 10px 12px"><b>Spacing</b><br>4, 8, 12, 16, 24, 32</div>
+      <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 10px 12px"><b>Radius</b><br>8 chip, 14 card, 24 sheet</div>
+      <div style="background: #FFFFFF; border: 1px solid #CFE5DE; border-radius: 10px; padding: 10px 12px"><b>Targets</b><br>48 px min; 8 px apart</div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 10px">
+    <h2 style="margin: 0; font-family: Lexend, sans-serif; font-size: 18px; font-weight: 600">Build notes</h2>
+    <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.5; display: flex; flex-direction: column; gap: 3px">
+      <li><b>Streaming.</b> Render grade and chips first; cards fill in with skeletons. Announce with <code>aria-live="polite"</code>, once.</li>
+      <li><b>Card row.</b> One <code>&lt;a&gt;</code> per card: icon, title, ≤ 12-word headline, mini grade, tier badge.</li>
+      <li><b>Listen bar.</b> Sticky above the nav. Play, language, speed 0.75 to 1.5×. Never autoplays.</li>
+      <li><b>Prompt sheet.</b> Bottom sheet, focus moves in, Esc and swipe close it, "Not now" equal weight.</li>
+      <li><b>Motion.</b> 150 to 250 ms ease-out; none under <code>prefers-reduced-motion</code>.</li>
+      <li><b>Dark mode.</b> Ground #0E1A18, surface #162522. Ships in v2 after a contrast check.</li>
+      <li><b>Copy.</b> "May" and "consider". No "safe". No brand ranking. Price only with a budget.</li>
+      <li><b>Strings.</b> All text from the i18n file; allow 40% growth for Tamil.</li>
+    </ul>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

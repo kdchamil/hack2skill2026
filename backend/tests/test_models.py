@@ -3,11 +3,13 @@ from pydantic import ValidationError
 
 from app.models import (
     Analysis,
+    Area,
     Card,
     Commentary,
     DateField,
     Extraction,
     Finding,
+    Grade,
     HouseholdFacts,
     Legible,
     ScanResponse,
@@ -51,7 +53,9 @@ def test_legible_low_confidence_nulls_value():
 def test_finding_without_tier_raises():
     data = {
         "id": "allergen.contains.sesame",
-        "card": "allergens",
+        "area": "body",
+        "topic": "allergens",
+        "card": None,
         "category": "allergen_contains",
         "severity": "avoid",
         "risk": "allergen",
@@ -79,7 +83,9 @@ def test_scan_response_builds():
     ext = _extraction()
     finding = Finding(
         id="allergen.contains.sesame",
-        card="allergens",
+        area="body",
+        topic="allergens",
+        card=None,
         category="allergen_contains",
         severity="avoid",
         risk="allergen",
@@ -90,8 +96,12 @@ def test_scan_response_builds():
         sources=[],
     )
     cards = [
-        Card(id=cid, status="info", tier="unknown", headline="ok", finding_ids=[])
-        for cid in ["allergens", "nutrition", "diet", "ingredients", "claims", "packaging"]
+        Card(id=cid, grade=None, status="info", tier="unknown", headline="ok", finding_ids=[])
+        for cid in ["nutrition", "processing", "additives", "carbon", "water_land", "packaging"]
+    ]
+    areas = [
+        Area(id=aid, status="info", tier="unknown", headline="ok", finding_ids=[], card_ids=[])
+        for aid in ["body", "planet", "people", "truth", "choice"]
     ]
     facts = HouseholdFacts(
         allergens_contains=["sesame"],
@@ -105,6 +115,9 @@ def test_scan_response_builds():
         product=ext,
         findings=[finding],
         cards=cards,
+        grade=Grade(letter=None, reason="thin_data", planet_partial=True, drivers=[], rule_version="grade-1.0"),
+        areas=areas,
+        product_range=None,
         facts=facts,
         banners=[],
         rule_pack_version="v1",
@@ -114,10 +127,10 @@ def test_scan_response_builds():
     resp = ScanResponse(
         scan_id="abc",
         analysis=analysis,
-        commentary=Commentary(lang="en", summary="Contains sesame.", cards={}, source="template"),
+        commentary=Commentary(lang="en", summary="Contains sesame.", cards={}, areas={}, source="template"),
         trace=[{"tool": "extract_label", "ms": 1, "model_calls": 0}],
         model_calls=0,
         cached=False,
     )
     assert resp.analysis.findings[0].tier == "label_stated"
-    assert len(resp.analysis.cards) == 6
+    assert len(resp.analysis.cards) == 6 and len(resp.analysis.areas) == 5

@@ -5,7 +5,7 @@ from hypothesis import HealthCheck, given, settings, strategies as st
 from app.models import Extraction
 from app.rules import analyze
 from app.rules.taxonomy import ALLERGEN_IDS, TIER_ORDER
-from tests.rules.helpers import TODAY, mk, nut
+from tests.rules.helpers import TODAY, area, card, mk, nut
 
 settings.register_profile("rules", max_examples=60, deadline=None, suppress_health_check=[HealthCheck.too_slow])
 settings.load_profile("rules")
@@ -38,8 +38,13 @@ def extractions(draw):
 @given(extractions())
 def test_analyze_never_raises_and_shape(e):
     a = analyze(e, today=TODAY)
-    assert [c.id for c in a.cards] == ["allergens", "nutrition", "diet", "ingredients", "claims", "packaging"]
-    assert all(len(c.headline.split()) <= 12 for c in a.cards)
+    assert [c.id for c in a.cards] == ["nutrition", "processing", "additives", "carbon", "water_land", "packaging"]
+    assert [x.id for x in a.areas] == ["body", "planet", "people", "truth", "choice"]
+    assert all(len(c.headline.split()) <= 12 for c in [*a.cards, *a.areas])
+    assert all(f.area and f.topic for f in a.findings)
+    assert (a.grade.letter is None) == (a.grade.reason == "thin_data")
+    if a.grade.letter:
+        assert all(c.grade for c in a.cards if c.id in ("nutrition", "processing", "additives"))
     assert set(a.facts.allergens_contains) <= set(ALLERGEN_IDS)
     assert set(a.facts.diets) == {"vegan", "vegetarian", "gluten_free", "lactose_free", "halal", "kosher"}
     ids = [f.id for f in a.findings]
@@ -61,7 +66,8 @@ def test_unknown_ingredients_force_not_known(e):
     a = analyze(unknown, today=TODAY)
     assert a.facts.ingredients_known is False
     assert "retake:ingredients" in a.banners
-    assert a.cards[0].headline == "Ingredients unreadable — check the pack" and a.cards[0].status in ("check", "avoid")
+    assert area(a, "body").headline.startswith("Ingredients unreadable — check the pack") and area(a, "body").status in ("check", "avoid")
+    assert a.grade.letter is None and a.grade.reason == "thin_data"
     assert all(v in ("unknown", "yes", "no") for v in a.facts.diets.values())
 
 
@@ -88,7 +94,7 @@ def test_tiers_never_upgraded(e):
         if f.category == "claim":
             assert f.tier == "inferred"
     for c in a.cards:
-        fs = [f for f in a.findings if f.card == c.id and f.category != "carbon"] or [f for f in a.findings if f.card == c.id]
+        fs = [f for f in a.findings if f.card == c.id and not f.data.get("placeholder")] or [f for f in a.findings if f.card == c.id]
         if fs:
             assert TIER_ORDER[c.tier] == min(TIER_ORDER[f.tier] for f in fs)
 

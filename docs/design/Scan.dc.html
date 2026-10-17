@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A · Scan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #0E1A18; color: #FFFFFF; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif">
+
+  <div style="position: absolute; inset: 0 0 88px 0; background: #1E2B29"></div>
+
+  <header style="position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px">
+    <a href="Household.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 14px; border-radius: 999px; background: rgba(14,26,24,0.72); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><path d="M15 14.5c3 0 6 1.8 6 5"></path></svg>
+      Checking for 3
+    </a>
+    <div style="display: flex; gap: 8px">
+      <button type="button" aria-label="Torch" style="width: 48px; height: 48px; border-radius: 24px; border: 0; background: rgba(14,26,24,0.72); color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 8-12h-6z"></path></svg></button>
+      <button type="button" aria-label="Language: English. Change" style="min-width: 48px; height: 48px; padding: 0 14px; border-radius: 24px; border: 0; background: rgba(14,26,24,0.72); color: #FFFFFF; font-weight: 700; font-size: 15px">EN</button>
+    </div>
+  </header>
+
+  <div aria-hidden="true" style="position: absolute; top: 120px; left: 48px; width: 294px; height: 360px">
+    <div style="position: absolute; top: 0; left: 0; width: 44px; height: 44px; border-top: 4px solid #7FE0C6; border-left: 4px solid #7FE0C6; border-radius: 14px 0 0 0"></div>
+    <div style="position: absolute; top: 0; right: 0; width: 44px; height: 44px; border-top: 4px solid #7FE0C6; border-right: 4px solid #7FE0C6; border-radius: 0 14px 0 0"></div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 44px; height: 44px; border-bottom: 4px solid #7FE0C6; border-left: 4px solid #7FE0C6; border-radius: 0 0 0 14px"></div>
+    <div style="position: absolute; bottom: 0; right: 0; width: 44px; height: 44px; border-bottom: 4px solid #7FE0C6; border-right: 4px solid #7FE0C6; border-radius: 0 0 14px 0"></div>
+    <div style="position: absolute; top: 60px; left: 40px; right: 40px; bottom: 60px; border-radius: 10px; background: #F4EFE3; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+      <div style="height: 10px; width: 60%; background: #B7B09F; border-radius: 4px"></div>
+      <div style="height: 8px; width: 100%; background: #CFC8B6; border-radius: 4px"></div>
+      <div style="height: 8px; width: 92%; background: #CFC8B6; border-radius: 4px"></div>
+      <div style="height: 8px; width: 96%; background: #CFC8B6; border-radius: 4px"></div>
+      <div style="height: 8px; width: 70%; background: #CFC8B6; border-radius: 4px"></div>
+    </div>
+  </div>
+
+  <div role="status" style="position: absolute; top: 496px; left: 16px; right: 16px; text-align: center; font-size: 18px; font-weight: 700">Hold steady. It captures when sharp.</div>
+
+  <section aria-label="Capture progress" style="position: absolute; left: 0; right: 0; bottom: 88px; background: #FFFFFF; color: #263238; border-radius: 24px 24px 0 0; padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+    <div style="width: 40px; height: 4px; border-radius: 2px; background: #CFE5DE; align-self: center"></div>
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; font-size: 14px; font-weight: 700">
+      <li style="display: flex; gap: 6px; align-items: center; padding: 8px 10px; border-radius: 10px; background: #E3F3EE; color: #0A4F47"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Front</li>
+      <li aria-current="step" style="display: flex; gap: 6px; align-items: center; padding: 6px 8px; border-radius: 10px; border: 2px solid #0F6E63; color: #0A4F47">Ingredients</li>
+      <li style="display: flex; gap: 6px; align-items: center; padding: 8px 10px; border-radius: 10px; background: #F1FAF7; color: #4F5F5C">Nutrition</li>
+    </ol>
+    <div style="display: flex; align-items: center; gap: 14px">
+      <button type="button" aria-label="Take photo now" style="flex: none; width: 72px; height: 72px; border-radius: 36px; border: 4px solid #0F6E63; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><span style="width: 52px; height: 52px; border-radius: 26px; background: #0F6E63"></span></button>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <div style="font-size: 17px; font-weight: 700">Turn to the ingredient side</div>
+        <div style="font-size: 14px; color: #4F5F5C">Or tap the button. Photos are used once and never stored.</div>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Main" style="position: absolute; left: 0; right: 0; bottom: 0; height: 88px; box-sizing: border-box; padding: 6px 4px 16px; background: #FFFFFF; border-top: 1px solid #CFE5DE; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end">
+    <a href="List.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 52px; justify-content: flex-end; text-decoration: none; color: #4F5F5C; font-size: 12px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h10M10 12h10M10 18h10"></path><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"></path></svg>List</a>
+    <a href="Library.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 52px; justify-content: flex-end; text-decoration: none; color: #4F5F5C; font-size: 12px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h4v16H4zM10 4h4v16h-4z"></path><path d="M16.5 5l3.5 1-3 14-3.5-1z"></path></svg>Library</a>
+    <a href="Scan.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: #0F6E63; font-size: 12px; font-weight: 700"><span style="width: 60px; height: 60px; border-radius: 30px; background: #0F6E63; color: #FFFFFF; display: flex; align-items: center; justify-content: center; margin-top: -30px; border: 4px solid #FFFFFF; box-shadow: 0 6px 16px rgba(15,110,99,0.35)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"></path></svg></span>Scan</a>
+    <a href="Basket.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 52px; justify-content: flex-end; text-decoration: none; color: #4F5F5C; font-size: 12px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18l-2 11H5z"></path><path d="M8 9l4-5 4 5M9 13v3M15 13v3"></path></svg>Basket</a>
+    <a href="Household.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 52px; justify-content: flex-end; text-decoration: none; color: #4F5F5C; font-size: 12px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><path d="M15 14.5c3 0 6 1.8 6 5"></path></svg>Household</a>
+  </nav>
+  <a href="Summary.dc.html" style="position: absolute; top: 540px; left: 50%; transform: translateX(-50%); color: #7FE0C6; font-size: 14px; font-weight: 700; padding: 12px">Prototype: see result</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
