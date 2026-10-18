@@ -139,8 +139,8 @@ export function Scan() {
   const n = vault.members.length
 
   return (
-    <section aria-labelledby="scan-h" className="stack">
-      <div className="row between wrap">
+    <section aria-labelledby="scan-h" className="stack scan">
+      <div className="row between scan-head">
         <h1 id="scan-h">{t('scan.title')}</h1>
         <div className="row">
           {n > 0 && <span className="pill" data-testid="checking-for">{t('scan.checking', { n })}</span>}
@@ -153,6 +153,12 @@ export function Scan() {
         <div className="viewfinder">
           <video ref={video} playsInline muted aria-label={t('scan.title')} />
           <div className="guide" role="img" aria-label={t('scan.guide')} />
+          {cam === 'on' && <p className="vf-hint">{hint}</p>}
+          {cam === 'on' && !full && (
+            <button type="button" className="shutter" aria-label={t('scan.shutter')} onClick={() => { armed.current = true; setArmedUi(true); capture() }}>
+              <icons.Camera size={28} />
+            </button>
+          )}
           {torchOk && <button type="button" className="torch btn small" aria-pressed={torch} onClick={flip}>{t('scan.torch')}</button>}
         </div>
       )}
@@ -161,40 +167,39 @@ export function Scan() {
         {STEPS.map((s, i) => <li key={s} aria-current={s === step && shots.length < MAX_IMAGES ? 'step' : undefined} className={i < shots.length ? 'done' : ''}>{i < shots.length && <icons.Tick size={16} />}{t(`scan.step.${s}`)}</li>)}
       </ol>
       <p className="turn" role="status" aria-live="polite">{cam === 'on' && shots.length > 0 && !armedUi ? t('scan.captured') : t(`scan.turn.${step}`)}</p>
-      {cam === 'on' && <p className="muted">{hint}</p>}
       {barcode && <p className="muted">{t('scan.barcode', { code: barcode })}</p>}
 
       {shots.length > 0 && (
-        <div>
-          <p className="muted">{t('scan.photos', { n: shots.length })}</p>
-          <ul className="thumbs">
+        <div className="shots">
+          <ul className="thumbs" aria-label={t('scan.photos', { n: shots.length })}>
             {shots.map((s, i) => (
               <li key={s.url}>
                 <img src={s.url} alt="" />
-                <button type="button" className="btn ghost small" onClick={() => setShotList((l) => l.filter((x) => x !== s))}>
-                  {t('scan.remove', { n: i + 1 })}
-                </button>
+                <button type="button" className="thumb-x" aria-label={t('scan.remove', { n: i + 1 })} onClick={() => setShotList((l) => l.filter((x) => x !== s))}>×</button>
               </li>
             ))}
           </ul>
+          <span className="muted">{full ? t('scan.maxPhotos') : t('scan.photos', { n: shots.length })}</span>
         </div>
       )}
 
-      <div className="actions">
-        {cam === 'on' && !full && <button type="button" className="btn primary shutter" onClick={() => { armed.current = true; setArmedUi(true); capture() }}>{t('scan.shutter')}</button>}
-        {shots.length > 0 && <button type="button" className="btn primary" onClick={() => onAnalyze({ images: shots.map((s) => s.blob), barcode })}>{t('scan.analyze')}</button>}
-        {shots.length > 0 && !full && cam === 'on' && (
-          <button type="button" className="btn secondary" onClick={() => { armed.current = true; setArmedUi(true); okSince.current = null }}>{t('scan.addBack')}</button>
-        )}
-        {full && <p className="muted">{t('scan.maxPhotos')}</p>}
-        <label className="btn secondary file-btn">
+      {shots.length > 0 && (
+        <div className="scan-row">
+          <button type="button" className="btn primary" onClick={() => onAnalyze({ images: shots.map((s) => s.blob), barcode })}>{t('scan.analyze')}</button>
+          {!full && cam === 'on' && (
+            <button type="button" className="btn secondary" onClick={() => { armed.current = true; setArmedUi(true); okSince.current = null }}>{t('scan.addBack')}</button>
+          )}
+        </div>
+      )}
+      <div className="scan-row">
+        <label className="btn secondary small file-btn">
           {t('scan.upload')}
           <input type="file" accept="image/*" capture="environment" multiple className="visually-hidden"
             onChange={(e) => { Array.from(e.target.files ?? []).forEach((f) => { void downscale(f).then(addBlob) }); e.target.value = '' }} />
         </label>
-        <button type="button" className="btn secondary" onClick={openDemo}>{t('scan.demo')}</button>
+        <button type="button" className="btn secondary small" onClick={openDemo}>{t('scan.demo')}</button>
       </div>
-      <p className="muted">{t('scan.note')}</p>
+      {shots.length === 0 && <p className="muted scan-note">{t('scan.note')}</p>}
 
       {demoOpen && (
         <Sheet title={t('scan.demoTitle')} labelId="demo-h" onClose={() => setDemoOpen(false)}>

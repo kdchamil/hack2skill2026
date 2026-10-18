@@ -19,6 +19,7 @@ import { Summary } from './screens/Summary'
 import { Thin } from './screens/Thin'
 import { BottomBar } from './ui'
 import { Ctx, makeCtx } from './ctx'
+import { LANG_LABELS } from './i18n'
 import type { Lang } from './types'
 import { useVault } from './useVault'
 
@@ -119,13 +120,9 @@ export default function App() {
           <span className="brand" translate="no"><span aria-hidden="true">⏱</span> {t('app.name')}</span>
           <div className="row">
             {route.tab !== 'scan' && (
-              <div className="row" role="group" aria-label={t('lang.label')}>
-                {(['en', 'si', 'ta'] as Lang[]).map((l) => (
-                  <button key={l} type="button" className="btn chip-btn" lang={l} aria-pressed={lang === l} onClick={() => setLang(l)}>
-                    {{ en: 'EN', si: 'සිං', ta: 'தமிழ்' }[l]}
-                  </button>
-                ))}
-              </div>
+              <select className="lb-lang" aria-label={t('lang.label')} value={lang} onChange={(e) => setLang(e.target.value as Lang)}>
+                {(Object.keys(LANG_LABELS) as Lang[]).map((l) => <option key={l} value={l} lang={l}>{LANG_LABELS[l].short}</option>)}
+              </select>
             )}
             <button type="button" className="btn ghost" aria-current={route.tab === 'privacy' ? 'page' : undefined} onClick={() => navigate({ tab: 'privacy' })}>{t('nav.privacy')}</button>
           </div>

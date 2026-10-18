@@ -45,7 +45,7 @@ export function SummaryStrip({ grade, name, members, onBack, selectedId, onSelec
         <GradeTile grade={grade} size="sm" />
         <span className="strip-name">{name}</span>
       </button>
-      {members.length > 0 && <RingRow members={members} compact selectedId={selectedId} onSelect={onSelectMember} />}
+      {members.length > 0 && <RingRow members={members} max={3} compact selectedId={selectedId} onSelect={onSelectMember} />}
     </div>
   )
 }
