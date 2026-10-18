@@ -180,5 +180,5 @@ test('+N ring opens a sheet to filter a hidden member', async ({ page }) => {
   await page.getByTestId('ring-more').click()
   const sheet = page.getByRole('dialog')
   await sheet.locator('.ring-item').first().click()
-  await expect(page.getByRole('status').filter({ hasText: /Showing/ })).toBeVisible()
+  await expect(page.getByTestId('watch')).toContainText(/: what to watch/)
 })

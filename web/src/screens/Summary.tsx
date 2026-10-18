@@ -1,16 +1,17 @@
 import { routes, useApp } from '../appctx'
-import { useT } from '../ctx'
-import { areaGrades, areaHeadline, areaStatus, AREA_ORDER, GRADES, gradeSentence } from '../grade'
+import { useT, useVerdictText } from '../ctx'
+import { areaGrades, areaHeadline, areaStatus, AREA_ORDER, GRADES, gradeSentence, relevantTo } from '../grade'
 import { isStale, recheck, staleMembers } from '../library'
 import { AreaRow, GradeTile, RingRow, Skeleton, icons } from '../ui'
-import { Listen, useScanData } from './parts'
+import { FindingRow, Listen, useScanData } from './parts'
 import { Thin } from './Thin'
 import { AiTrace } from './AiTrace'
 
 export function Summary() {
   const { t, lang } = useT()
   const { navigate, retry, vault, updateSaved } = useApp()
-  const { view, a, c, sample, rings, name, member, toggle } = useScanData()
+  const vtext = useVerdictText()
+  const { view, a, c, sample, rings, name, member, toggle, picked, pickedVerdict } = useScanData()
 
   if (view.phase === 'error' && !a) {
     return (
@@ -27,6 +28,8 @@ export function Summary() {
   if (a && a.grade.letter === null) return <Thin />
 
   const g = a?.grade
+  // What in this product matches the selected member's profile, across every area.
+  const watch = a && picked ? a.findings.filter((f) => relevantTo(f, picked)) : []
   const gradeLine = a && g ? gradeSentence(t, a.cards, g.letter) : ''
   const summaryText = c?.summary || (a ? [name, ...a.areas.map((x) => areaHeadline(x, c))].join('. ') : '')
   const bannerText = (b: string) => {
@@ -91,7 +94,13 @@ export function Summary() {
       {!sample && vault.status !== 'unlocked' && <p className="muted">{t('sum.unlock')} <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('nav.household')}</button></p>}
       {!sample && vault.status === 'unlocked' && vault.members.length === 0 && <p className="muted">{t('sum.noMembers')}</p>}
       {a && rings.length > 0 && <RingRow members={rings} selectedId={member} onSelect={toggle} />}
-      {member && <p className="muted" role="status">{t('filter.showing', { name: rings.find((r) => r.id === member)?.name ?? '' })}</p>}
+      {a && picked && pickedVerdict && (
+        <section className={`watch watch-${pickedVerdict.level}`} aria-labelledby="sum-watch-h" data-testid="watch">
+          <h2 id="sum-watch-h">{t('area.watch', { name: picked.alias })}</h2>
+          <p role="status">{vtext(pickedVerdict)}</p>
+          {watch.map((f) => <FindingRow key={f.id} f={f} onOpen={() => navigate(routes.area(f.area))} />)}
+        </section>
+      )}
 
       <h2 className="sr-only">{t('sum.areas')}</h2>
       <div className="bento">

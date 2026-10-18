@@ -98,6 +98,9 @@ html:lang(ta) .steps li { font-size: 12.5px; }
 .watch { border: 1px solid var(--check-bd); background: var(--check-bg); color: var(--check-fg); padding: var(--sp-3); border-radius: 24px; display: flex; flex-direction: column; gap: var(--sp-2); }
 .watch h2 { margin: 0; font-size: 1.02rem; }
 .watch .frow { color: var(--fg); }
+.watch-avoid { border-color: var(--avoid-bd); background: var(--avoid-bg); color: var(--avoid-fg); }
+.watch-none { border-color: var(--good-bd); background: var(--good-bg); color: var(--good-fg); }
+.watch p { margin: 0; font-weight: 600; }
 .checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
 .checklist li { padding: 6px 12px; border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-bd); font-size: var(--fs-caption); }
 .switch { display: flex; gap: var(--sp-3); align-items: center; min-height: var(--tap); }
