@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useT } from '../ctx'
 import type { Tier } from '../types'
 import { GradeTile, StatusBadge, TierBadge } from './Badges'
@@ -54,8 +54,15 @@ export interface AreaTabsProps { areas: { id: string; label: string }[]; current
 
 export function AreaTabs({ areas, current, onSelect }: AreaTabsProps) {
   const { t } = useT()
+  const nav = useRef<HTMLElement>(null)
+  // keep the current tab in view on narrow screens
+  useEffect(() => {
+    const el = nav.current?.querySelector<HTMLElement>('[aria-current="page"]')
+    const n = nav.current
+    if (el && n) n.scrollTo({ left: el.offsetLeft - (n.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' })
+  }, [current])
   return (
-    <nav className="area-tabs" aria-label={t('area.tabs')}>
+    <nav ref={nav} className="area-tabs" aria-label={t('area.tabs')}>
       {areas.map((a) => (
         <button key={a.id} type="button" aria-current={a.id === current ? 'page' : undefined} onClick={() => onSelect(a.id)}>{a.label}</button>
       ))}

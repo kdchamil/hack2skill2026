@@ -162,7 +162,19 @@ export function Scan() {
           {torchOk && <button type="button" className="torch btn small" aria-pressed={torch} onClick={flip}>{t('scan.torch')}</button>}
         </div>
       )}
-      {cam === 'off' && <p className="note" role="status">{t(`scan.cam.${camWhy}`)}</p>}
+      {cam === 'off' && (
+        <div className="vf-off">
+          <span className="vf-off-icon" aria-hidden="true"><icons.Camera size={40} /></span>
+          <p className="note" role="status">{t(`scan.cam.${camWhy}`)}</p>
+          {shots.length === 0 && (
+            <label className="btn primary file-btn">
+              {t('scan.upload')}
+              <input type="file" accept="image/*" capture="environment" multiple className="visually-hidden"
+                onChange={(e) => { Array.from(e.target.files ?? []).forEach((f) => { void downscale(f).then(addBlob) }); e.target.value = '' }} />
+            </label>
+          )}
+        </div>
+      )}
       <ol className="steps" aria-label={t('scan.steps')}>
         {STEPS.map((s, i) => <li key={s} aria-current={s === step && shots.length < MAX_IMAGES ? 'step' : undefined} className={i < shots.length ? 'done' : ''}>{i < shots.length && <icons.Tick size={16} />}{t(`scan.step.${s}`)}</li>)}
       </ol>
@@ -192,11 +204,11 @@ export function Scan() {
         </div>
       )}
       <div className="scan-row">
-        <label className="btn secondary small file-btn">
+        {(cam !== 'off' || shots.length > 0) && <label className="btn secondary small file-btn">
           {t('scan.upload')}
           <input type="file" accept="image/*" capture="environment" multiple className="visually-hidden"
             onChange={(e) => { Array.from(e.target.files ?? []).forEach((f) => { void downscale(f).then(addBlob) }); e.target.value = '' }} />
-        </label>
+        </label>}
         <button type="button" className="btn secondary small" onClick={openDemo}>{t('scan.demo')}</button>
       </div>
       {shots.length === 0 && <p className="muted scan-note">{t('scan.note')}</p>}

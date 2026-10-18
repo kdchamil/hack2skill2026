@@ -16,21 +16,21 @@ export function Basket() {
   const total = b.products.length
   return (
     <div className="stack">
-      <header><h1>{t('bsk.title')}</h1>
+      <header className="page-head"><h1>{t('bsk.title')}</h1>
         <span className="muted">{t('bsk.count', { n: total })}{s.basket?.setAside.length ? ` · ${t('bsk.asideCount', { n: s.basket.setAside.length })}` : ''}</span></header>
       {total === 0 ? <p>{t('bsk.empty')}</p> : (
-        <>
-          <section className="stack" aria-labelledby="h-spread">
+        <div className="bsk-grid">
+          <section className="stack glass span-2" aria-labelledby="h-spread">
             <h2 id="h-spread">{t('bsk.spread')}</h2>
             <p><strong>{t('bsk.spreadLine', { n: b.goodCount, total })}</strong></p>
-            <div role="img" aria-label={t('bsk.spreadAria', { ...b.spread })} style={{ display: 'flex', height: 36, borderRadius: 10, overflow: 'hidden' }}>
+            <div className="spread" role="img" aria-label={t('bsk.spreadAria', { ...b.spread })}>
               {LETTERS.filter((l) => b.spread[l]).map((l) => (
-                <span key={l} aria-hidden="true" style={{ flex: b.spread[l], background: COLOR[l], display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: 'var(--fg)', borderLeft: '2px solid var(--surface)' }}>{l} {b.spread[l]}</span>
+                <span key={l} aria-hidden="true" style={{ flex: b.spread[l], background: COLOR[l] }}>{l} {b.spread[l]}</span>
               ))}
-              {b.spread.none > 0 && <span aria-hidden="true" style={{ flex: b.spread.none, background: 'var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>– {b.spread.none}</span>}
+              {b.spread.none > 0 && <span aria-hidden="true" style={{ flex: b.spread.none, background: 'var(--border)' }}>– {b.spread.none}</span>}
             </div>
           </section>
-          <section className="stack" aria-labelledby="h-alerts">
+          <section className="stack glass span-2" aria-labelledby="h-alerts">
             <h2 id="h-alerts">{t('bsk.alerts')}{b.alerts.length ? ` · ${b.alerts.length}` : ''}</h2>
             {vault.members.length === 0 ? <p className="muted">{t('bsk.membersNote')}</p> : b.alerts.length === 0 ? <p>{t('bsk.noAlerts')}</p> : (
               <ul className="cards" data-testid="alerts">
@@ -42,17 +42,17 @@ export function Basket() {
               </ul>
             )}
           </section>
-          <section className="stack" aria-labelledby="h-pack">
+          <section className="stack glass" aria-labelledby="h-pack">
             <h2 id="h-pack">{t('bsk.packaging')}</h2>
             <ul className="chips" data-testid="packaging">
               {Object.entries(b.packaging).map(([k, n]) => <li key={k}>{k || t('bsk.packNone')}: {n}</li>)}
             </ul>
           </section>
-          <section className="stack" aria-labelledby="h-prod">
+          <section className="stack glass" aria-labelledby="h-prod">
             <h2 id="h-prod">{t('bsk.products')}</h2>
-            <ul className="cards">{b.products.map((p) => <li key={p.scanId} className="card row" style={{ padding: 12 }}><GradeTile grade={p.grade} size="sm" /><span>{p.name}</span></li>)}</ul>
+            <ul className="cards">{b.products.map((p) => <li key={p.scanId} className="card row"><GradeTile grade={p.grade} size="sm" /><span>{p.name}</span></li>)}</ul>
           </section>
-        </>
+        </div>
       )}
       <section className="stack" aria-labelledby="h-open">
         <h2 id="h-open">{t('bsk.open')}</h2>
@@ -60,8 +60,8 @@ export function Basket() {
       </section>
       {(total > 0 || s.items.some((i) => i.found)) && (
         <>
-          <button type="button" className="btn danger" onClick={endTrip}>{t('bsk.end')}</button>
           <p className="muted">{t('bsk.endNote')}</p>
+          <button type="button" className="btn danger" onClick={endTrip}>{t('bsk.end')}</button>
         </>
       )}
     </div>

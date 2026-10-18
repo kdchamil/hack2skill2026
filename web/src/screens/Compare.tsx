@@ -9,12 +9,12 @@ type ReasonT = (k: string, v?: Record<string, string | number>) => string
 function Column({ p, members, t, onChoose }: { p: ScanLite; members: RingMember[]; t: ReasonT; onChoose: () => void }) {
   const a = p.analysis
   return (
-    <section className="stack cmp-col" aria-labelledby={`cmp-${p.scan_id}`}>
+    <section className="stack glass cmp-col" aria-labelledby={`cmp-${p.scan_id}`}>
       <h2 id={`cmp-${p.scan_id}`} style={{ fontSize: '1rem' }}>{p.name}</h2>
       <GradeTile grade={a.grade.letter} size="lg" />
       <ul className="cards" aria-label={t('cmp.cards', { name: p.name })}>
         {a.cards.map((c) => (
-          <li key={c.id} className="card" style={{ padding: 8 }}>
+          <li key={c.id} className="card">
             <div className="row between"><span>{t(`cmp.card.${c.id}`)}</span><GradeTile grade={c.grade} size="sm" /></div>
             <TierBadge tier={c.tier} />
           </li>
@@ -48,7 +48,7 @@ export function Compare({ a, b }: { a?: ScanLite; b?: ScanLite } = {}) {
       <h1>{t('cmp.title')}</h1>
       <p className="muted">{t('cmp.sub')}</p>
       {vault.members.length === 0 && <p className="muted">{t('cmp.noMembers')}</p>}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+      <div className="cmp-grid">
         <Column p={A} members={ringsFor(A, vault.members, t)} t={t} onChoose={() => done(A, B)} />
         <Column p={B} members={ringsFor(B, vault.members, t)} t={t} onChoose={() => done(B, A)} />
       </div>

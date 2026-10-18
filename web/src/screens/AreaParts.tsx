@@ -34,9 +34,11 @@ export function Body({ a, c, member }: PartProps) {
       <div className="frow" data-testid="may-contain">
         <span className="frow-text"><span className="frow-title">{t('body.may')}</span><span className="frow-reason">{list(a.facts.allergens_may_contain)}</span><TierBadge tier={tierOf('allergen.may')} /></span>
       </div>
-      {sortFor(byTopic(fs, 'diet'), member).map((f) => (
-        <FindingRow key={f.id} f={{ ...f, title: `${t(`diet.${String(f.data.diet)}`)}: ${t(`diet.val.${String(f.data.value ?? 'unknown')}`)}` }}>{' '}</FindingRow>
-      ))}
+      <div className="duo">
+        {sortFor(byTopic(fs, 'diet'), member).map((f) => (
+          <FindingRow key={f.id} f={{ ...f, title: `${t(`diet.${String(f.data.diet)}`)}: ${t(`diet.val.${String(f.data.value ?? 'unknown')}`)}` }}>{' '}</FindingRow>
+        ))}
+      </div>
       <h2 className="h2s">{t('body.cards')}</h2>
       {a.cards.filter((x) => ['nutrition', 'processing', 'additives'].includes(x.id)).map((card) => (
         <CardRow key={card.id} card={card} headline={cardHeadline(a, card.id, c)} onOpen={() => navigate(routes.detail(card.id))} />

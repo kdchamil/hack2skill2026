@@ -33,12 +33,14 @@ function Setup({ vault }: { vault: Vault }) {
     <form onSubmit={submit} className="stack" aria-labelledby="setup-h">
       <h2 id="setup-h">{t('v.setupTitle')}</h2>
       <p>{t('v.setupIntro')}</p>
-      <label className="field">{t('v.pin')}
-        <input type="password" inputMode="numeric" autoComplete="new-password" pattern="[0-9]*" minLength={MIN_PIN_LENGTH} value={pin} onChange={(e) => setPin(e.target.value)} />
-      </label>
-      <label className="field">{t('v.pinConfirm')}
-        <input type="password" inputMode="numeric" autoComplete="new-password" pattern="[0-9]*" value={pin2} onChange={(e) => setPin2(e.target.value)} />
-      </label>
+      <div className="field-pair">
+        <label className="field">{t('v.pin')}
+          <input type="password" inputMode="numeric" autoComplete="new-password" pattern="[0-9]*" minLength={MIN_PIN_LENGTH} value={pin} onChange={(e) => setPin(e.target.value)} />
+        </label>
+        <label className="field">{t('v.pinConfirm')}
+          <input type="password" inputMode="numeric" autoComplete="new-password" pattern="[0-9]*" value={pin2} onChange={(e) => setPin2(e.target.value)} />
+        </label>
+      </div>
       <p className="note">{t('v.pinWeak')}</p>
       {vault.passkeySupported && (
         <label className="check"><input type="checkbox" checked={pk} onChange={(e) => setPk(e.target.checked)} /> {t('v.passkeyEnable')}</label>
@@ -177,7 +179,7 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
   }
 
   return (
-    <section aria-labelledby="hh-title" className="stack">
+    <section aria-labelledby="hh-title" className="stack hh">
       <h1 id="hh-title">{t('hh.title')}</h1>
       <p className="banner banner-info" data-testid="privacy-banner"><span aria-hidden="true">🔒</span> {t('hh.banner')}</p>
 
@@ -224,7 +226,9 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
             </button>
           </div>
           {members.length >= MAX_MEMBERS && <p className="muted">{t('hh.max')}</p>}
-          <h2>{t('hh2.settings')}</h2>
+          <details className="more">
+            <summary>{t('hh2.settings')}</summary>
+            <div className="hh-settings">
           <div className="member">
             <div><strong>{t('lib.save')}</strong><div className="muted">{t('lib.saveHint')}</div></div>
             <label className="check"><input type="checkbox" role="switch" checked={saving} aria-label={t('lib.save')} onChange={(e) => { setLibrarySaving(e.target.checked); setSaving(e.target.checked) }} /></label>
@@ -236,6 +240,8 @@ export function Household({ vault, onDeleted }: { vault: Vault; onDeleted: () =>
           <div className="actions">
             <button type="button" className="btn secondary" onClick={exportIt}>{t('hh.export')}</button>
           </div>
+            </div>
+          </details>
         </>
       )}
 

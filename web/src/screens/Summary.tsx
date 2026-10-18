@@ -48,24 +48,25 @@ export function Summary() {
         </div>
       )}
       {a && g && (
-        <>
+        <div className="hero glass">
           <div className="gradehead">
             <GradeTile grade={g.letter} size="lg" />
             <div>
               <h1 id="sum-h">{name}</h1>
-              {a.product.brand.value && <p className="muted">{a.product.brand.value}</p>}
-              <p>{gradeLine || t('grade.noDrivers', { g: g.letter ?? '' })}</p>
-              <p className="muted">{t('sum.notAI')}</p>
+              <p className="muted">{[a.product.brand.value, t('sum.notAI')].filter(Boolean).join(' · ')}</p>
             </div>
           </div>
+          <p className="hero-line">{gradeLine || t('grade.noDrivers', { g: g.letter ?? '' })}</p>
           <ol className="gscale" aria-label={t('sum.scale')}>
             {GRADES.map((l) => <li key={l} className={l === g.letter ? 'on' : ''} aria-current={l === g.letter ? 'true' : undefined}>{l}</li>)}
           </ol>
-          {g.planet_partial && <p className="note" data-testid="planet-partial">{t('grade.partial')}</p>}
-          {a.banners.length > 0 && (
-            <ul className="banners" aria-label="Notices">{a.banners.map((b) => <li key={b} className="banner banner-check"><icons.Triangle size={16} /> <span>{bannerText(b)}</span></li>)}</ul>
+          {(g.planet_partial || a.banners.length > 0) && (
+            <ul className="banners" aria-label="Notices">
+              {a.banners.map((b) => <li key={b} className="banner banner-check"><icons.Triangle size={16} /> <span>{bannerText(b)}</span></li>)}
+              {g.planet_partial && <li className="banner banner-info" data-testid="planet-partial"><icons.Planet size={16} /> <span>{t('grade.partial')}</span></li>}
+            </ul>
           )}
-        </>
+        </div>
       )}
       {view.saved && (
         <div className="banner banner-info" role="status" data-testid="saved-note">
@@ -78,20 +79,22 @@ export function Summary() {
       )}
       {!a && <h1 id="sum-h" className="sr-only">{t('sum.title')}</h1>}
 
-      <h2 className="h2s">{t('sum.suitable')}</h2>
-      {sample && (
-        <p className="note" data-testid="sample-household">
-          <strong>{t('sum.sample')}</strong> {t('sum.sampleNote')}{' '}
-          <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('sum.setUpOwn')}</button>
-        </p>
-      )}
+      <div className="suit">
+        <h2 className="h2s">{t('sum.suitable')}</h2>
+        {sample && (
+          <p className="sample-chip" data-testid="sample-household">
+            <strong>{t('sum.sample')}</strong> <span>{t('sum.sampleNote')}</span>{' '}
+            <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('sum.setUpOwn')}</button>
+          </p>
+        )}
+      </div>
       {!sample && vault.status !== 'unlocked' && <p className="muted">{t('sum.unlock')} <button type="button" className="link" onClick={() => navigate(routes.household)}>{t('nav.household')}</button></p>}
       {!sample && vault.status === 'unlocked' && vault.members.length === 0 && <p className="muted">{t('sum.noMembers')}</p>}
       {a && rings.length > 0 && <RingRow members={rings} selectedId={member} onSelect={toggle} />}
       {member && <p className="muted" role="status">{t('filter.showing', { name: rings.find((r) => r.id === member)?.name ?? '' })}</p>}
 
       <h2 className="sr-only">{t('sum.areas')}</h2>
-      <div className="stack tight">
+      <div className="bento">
         {!a && AREA_ORDER.map((id) => <div key={id} className="area-row" aria-hidden="true"><Skeleton lines={2} height={18} /></div>)}
         {a && a.areas.map((ar) => (
           <AreaRow key={ar.id} area={ar.id} title={t(`area.title.${ar.id}`)} headline={areaHeadline(ar, c) || t('sum.loading')}
@@ -99,8 +102,12 @@ export function Summary() {
             onOpen={() => navigate(routes.area(ar.id))} />
         ))}
       </div>
-      {a && <div className="actions"><button type="button" className="btn secondary" onClick={() => navigate(routes.scan)}>{t('sum.newScan')}</button></div>}
-      {a && <AiTrace />}
+      {a && (
+        <div className="sum-foot">
+          <AiTrace />
+          <button type="button" className="btn secondary small" onClick={() => navigate(routes.scan)}>{t('sum.newScan')}</button>
+        </div>
+      )}
       {a && <Listen text={summaryText} tag="summary" />}
     </section>
   )

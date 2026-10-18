@@ -73,7 +73,7 @@ export function Library({ onOpen }: { onOpen?: (e: LibraryEntry) => void }) {
   const filters: [Filter, string][] = [['all', 'lib.fAll'], ['week', 'lib.fWeek'], ['avoid', 'lib.fAvoid'], ['ab', 'lib.fAB']]
   return (
     <section className="stack lib" aria-labelledby="lib-h">
-      <div>
+      <div className="page-head">
         <h1 id="lib-h">{t('lib.title')}</h1>
         <p className="muted" data-testid="lib-sub">{t('lib.sub', { n: all.length })}</p>
       </div>
@@ -81,14 +81,14 @@ export function Library({ onOpen }: { onOpen?: (e: LibraryEntry) => void }) {
       <label className="field"><span className="sr-only">{t('lib.search')}</span>
         <input type="search" placeholder={t('lib.search')} aria-label={t('lib.search')} value={text} onChange={(e) => setText(e.target.value)} />
       </label>
-      <div className="row wrap" role="group" aria-label={t('lib.filters')}>
+      <div className="chip-scroll" role="group" aria-label={t('lib.filters')}>
         {filters.map(([f, k]) => <button key={f} type="button" className="btn chip-btn" aria-pressed={filter === f} onClick={() => setFilter(f)}>{t(k)}</button>)}
       </div>
       {note && <p className="banner banner-info" role="status">{note}</p>}
       {all.length === 0 && <p data-testid="lib-empty">{t('lib.empty')}</p>}
       {all.length > 0 && shown.length === 0 && <p>{t('lib.noMatch')}</p>}
       {groups.map((g) => (
-        <section key={g.key} className="stack" aria-label={dayLabel(g.ts)}>
+        <section key={g.key} className="stack tight" aria-label={dayLabel(g.ts)}>
           <h2 className="caption">{dayLabel(g.ts)}</h2>
           <ul className="list">
             {g.items.map((e) => {

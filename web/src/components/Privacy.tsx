@@ -7,10 +7,10 @@ export function Privacy({ vault, onDeleted }: { vault: Vault; onDeleted: () => v
   return (
     <section aria-labelledby="priv-title" className="stack">
       <h1 id="priv-title">{t('priv.title')}</h1>
-      <ul className="list">
-        <li>{t('priv.photos')}</li>
-        <li>{t('priv.local')}</li>
-        <li>{t('priv.report')}</li>
+      <ul className="priv-list">
+        <li><span aria-hidden="true">📸</span><span>{t('priv.photos')}</span></li>
+        <li><span aria-hidden="true">🔒</span><span>{t('priv.local')}</span></li>
+        <li><span aria-hidden="true">🚩</span><span>{t('priv.report')}</span></li>
       </ul>
       <h2>{t('priv.deleteH')}</h2>
       <p>{t('priv.deleteBody')}</p>

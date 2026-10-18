@@ -19,26 +19,22 @@ function Review({ draft, setDraft, ranges, onSave, onDiscard }: { draft: Draft; 
       <p className="muted">{t('list.reviewHint')}</p>
       <ul className="cards" data-testid="review">
         {draft.map((i) => (
-          <li key={i.id} className="card" style={{ padding: 12 }}>
-            <div className="stack">
-              <label className="field">{t('list.name')}<input value={i.name} onChange={(e) => upd(i.id, { name: e.target.value })} /></label>
-              <div className="row wrap">
-                <label className="field" style={{ flex: 1 }}>{t('list.qty')}
-                  <input inputMode="decimal" value={i.quantity ?? ''} onChange={(e) => upd(i.id, { quantity: e.target.value === '' || isNaN(Number(e.target.value)) ? null : Number(e.target.value) })} /></label>
-                <label className="field" style={{ flex: 1 }}>{t('list.unit')}<input value={i.unit ?? ''} onChange={(e) => upd(i.id, { unit: e.target.value || null })} /></label>
-              </div>
-              <label className="field">{t('list.brand')}<input value={i.brand ?? ''} onChange={(e) => upd(i.id, { brand: e.target.value || null })} /></label>
-              <label className="field">{t('list.range')}
-                <select value={i.range_id ?? ''} onChange={(e) => upd(i.id, { range_id: e.target.value || null })}>
-                  <option value="">{t('list.rangeAny')}</option>
-                  {ranges.map((r) => <option key={r.id} value={r.id}>{r.keywords[lang][0] ?? r.name}</option>)}
-                </select></label>
-              <button type="button" className="btn danger small" aria-label={t('list.remove', { name: i.name })} onClick={() => setDraft(draft.filter((x) => x.id !== i.id))}>{t('list.remove', { name: i.name })}</button>
-            </div>
+          <li key={i.id} className="card review-item">
+            <label className="field ri-name">{t('list.name')}<input value={i.name} onChange={(e) => upd(i.id, { name: e.target.value })} /></label>
+            <label className="field">{t('list.qty')}
+              <input inputMode="decimal" value={i.quantity ?? ''} onChange={(e) => upd(i.id, { quantity: e.target.value === '' || isNaN(Number(e.target.value)) ? null : Number(e.target.value) })} /></label>
+            <label className="field">{t('list.unit')}<input value={i.unit ?? ''} onChange={(e) => upd(i.id, { unit: e.target.value || null })} /></label>
+            <label className="field">{t('list.brand')}<input value={i.brand ?? ''} onChange={(e) => upd(i.id, { brand: e.target.value || null })} /></label>
+            <label className="field">{t('list.range')}
+              <select value={i.range_id ?? ''} onChange={(e) => upd(i.id, { range_id: e.target.value || null })}>
+                <option value="">{t('list.rangeAny')}</option>
+                {ranges.map((r) => <option key={r.id} value={r.id}>{r.keywords[lang][0] ?? r.name}</option>)}
+              </select></label>
+            <button type="button" className="btn danger small ri-remove" aria-label={t('list.remove', { name: i.name })} onClick={() => setDraft(draft.filter((x) => x.id !== i.id))}>{t('list.remove', { name: i.name })}</button>
           </li>
         ))}
       </ul>
-      <div className="row"><button type="button" className="btn primary" disabled={!draft.length} onClick={onSave}>{t('list.save')}</button>
+      <div className="actions review-actions"><button type="button" className="btn primary" disabled={!draft.length} onClick={onSave}>{t('list.save')}</button>
         <button type="button" className="btn secondary" onClick={onDiscard}>{t('list.discard')}</button></div>
     </section>
   )
@@ -62,7 +58,7 @@ export function List() {
   }
   const pr = progress(s.items)
   return (
-    <div className="stack">
+    <div className="stack list">
       <h1>{t('list.title')}</h1>
       {vault.status !== 'unlocked' && <p className="muted" role="note">{t('list.memoryOnly')}</p>}
       {draft ? (
@@ -72,28 +68,30 @@ export function List() {
           <section className="stack" aria-labelledby="h-paste">
             <h2 id="h-paste">{t('list.paste')}</h2>
             <label className="field"><span className="muted">{t('list.pasteHint')}</span>
-              <textarea rows={5} maxLength={MAX} value={text} onChange={(e) => setText(e.target.value)} aria-label={t('list.paste')} /></label>
-            <div className="muted" aria-live="polite">{text.length}/{MAX}</div>
-            {err && <p role="alert">{err}</p>}
-            <button type="button" className="btn primary" disabled={busy || !text.trim()} onClick={() => void parse()}>{busy ? t('list.parsing') : t('list.parse')}</button>
+              <textarea rows={s.items.length ? 2 : 4} maxLength={MAX} value={text} onChange={(e) => setText(e.target.value)} aria-label={t('list.paste')} /></label>
+            {err && <p role="alert" className="error">{err}</p>}
+            <div className="row between">
+              <span className="muted" aria-live="polite">{text.length}/{MAX}</span>
+              <button type="button" className="btn primary" disabled={busy || !text.trim()} onClick={() => void parse()}>{busy ? t('list.parsing') : t('list.parse')}</button>
+            </div>
           </section>
           <section className="stack" aria-labelledby="h-items">
             <h2 id="h-items">{t('list.items')}</h2>
             {s.items.length === 0 ? <p className="muted">{t('list.empty')}</p> : (
               <>
                 <p data-testid="progress" aria-label={t('list.progressAria', { found: pr.found, total: s.items.length, open: pr.open })}>{t('list.progress', { found: pr.found, open: pr.open })}</p>
-                <ul className="cards">
+                <ul className="cards list-items">
                   {s.items.map((i) => {
                     const sc = i.found ? s.scans[i.found.scanId] : null
                     return (
-                      <li key={i.id} className="card" style={{ padding: 12 }} data-item={i.name}>
-                        <div className="row between">
-                          <div><strong>{i.name}</strong>
-                            <div className="muted">{[i.quantity, i.unit, i.brand].filter((x) => x !== null && x !== '').join(' ')}</div></div>
-                          <span className="muted">{i.found ? `✓ ${t('list.found')}` : t('list.open')}</span>
+                      <li key={i.id} className={`card li-item${i.found ? ' is-found' : ''}`} data-item={i.name}>
+                        <div className="li-main">
+                          <strong>{i.name}</strong>
+                          {[i.quantity, i.unit, i.brand].some((x) => x !== null && x !== '') && <span className="muted">{[i.quantity, i.unit, i.brand].filter((x) => x !== null && x !== '').join(' ')}</span>}
+                          {sc && <span className="row"><GradeTile grade={sc.grade} size="sm" /><span>{t('list.foundAs', { name: sc.name })}</span></span>}
                         </div>
-                        {sc && <div className="row" style={{ marginTop: 8 }}><GradeTile grade={sc.grade} size="sm" /><span>{t('list.foundAs', { name: sc.name })}</span></div>}
-                        <button type="button" className="btn ghost small" aria-label={t('list.remove', { name: i.name })} onClick={() => removeItem(i.id)}>{t('list.remove', { name: i.name })}</button>
+                        <span className="li-status">{i.found ? `✓ ${t('list.found')}` : t('list.open')}</span>
+                        <button type="button" className="li-x" aria-label={t('list.remove', { name: i.name })} onClick={() => removeItem(i.id)}>×</button>
                       </li>
                     )
                   })}
